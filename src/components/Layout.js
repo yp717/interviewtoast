@@ -1,15 +1,17 @@
 import * as React from "react";
 
+import SEO from "./SEO";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Layout = ({ children }) => {
+const Layout = ({ title, description, children }) => {
   return (
-    <main>
+    <div className="min-h-screen overflow-hidden">
+      <SEO title={title} description={description} />
       <Header />
-      {children}
+      <div className="mt-24">{children}</div>
       <Footer />
-    </main>
+    </div>
   );
 };
 
