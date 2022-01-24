@@ -1,8 +1,8 @@
-import * as React from "react";
+import * as React from "react"
 
-import SEO from "./SEO";
-import Header from "./Header";
-import Footer from "./Footer";
+import SEO from "./SEO"
+import Header from "./Header"
+import Footer from "./Footer"
 
 const Layout = ({ title, description, children }) => {
   return (
@@ -12,7 +12,7 @@ const Layout = ({ title, description, children }) => {
       <div className="mt-24">{children}</div>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout
