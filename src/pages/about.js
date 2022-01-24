@@ -1,8 +1,7 @@
 import * as React from "react";
 
-import Layout from "../components/Layout";
 const About = () => {
-  return <Layout>This page is a placeholder</Layout>;
+  return <div>This page is a placeholder</div>;
 };
 
 export default About;
