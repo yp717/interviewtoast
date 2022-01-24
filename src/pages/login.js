@@ -1,6 +1,6 @@
 import * as React from "react";
 import { navigate } from "gatsby";
-import Layout from "../components/Layout";
+import Layout from "../components/root/Layout";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import useFirebase from "../hooks/useFirebase";
 

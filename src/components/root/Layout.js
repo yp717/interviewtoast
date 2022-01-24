@@ -10,7 +10,7 @@ const Layout = ({ title, description, children }) => {
     <div className="min-h-screen overflow-hidden">
       <Seo title={title} description={description} />
       <Header />
-      <div className="mt-24">{children}</div>
+      <main className="py-6 px-2 max-w-6xl mx-auto">{children}</main>
       <Footer />
     </div>
   );
