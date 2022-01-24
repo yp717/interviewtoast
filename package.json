@@ -15,10 +15,14 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "firebase": "^9.6.4",
+    "framer-motion": "^6.2.1",
     "gatsby": "^4.5.4",
     "gatsby-plugin-react-helmet-async": "^1.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-firebase-hooks": "^5.0.0",
+    "react-firebaseui": "^6.0.0",
     "react-helmet-async": "^1.2.2"
   },
   "devDependencies": {
