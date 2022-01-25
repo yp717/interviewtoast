@@ -1,17 +1,24 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react"
 
 const VideoPreview = ({ stream }) => {
-  const videoRef = useRef();
+  const videoRef = useRef()
 
   useEffect(() => {
     if (videoRef.current && stream) {
-      videoRef.current.srcObject = stream;
+      videoRef.current.srcObject = stream
     }
-  }, [stream]);
+  }, [stream])
   if (!stream) {
-    return null;
+    return null
   }
-  return <video ref={videoRef} className="w-full max-w-4xl h-auto mx-auto" autoPlay controls />;
-};
+  return (
+    <video
+      ref={videoRef}
+      className="w-full max-w-4xl h-auto mx-auto"
+      autoPlay
+      controls
+    />
+  )
+}
 
-export default VideoPreview;
+export default VideoPreview

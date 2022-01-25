@@ -1,7 +1,7 @@
-import { Link } from "gatsby";
-import React from "react";
-import DashboardTable from "../components/dashboard/DashboardTable";
-import Layout from "../components/root/Layout";
+import { Link } from "gatsby"
+import React from "react"
+import DashboardTable from "../components/dashboard/DashboardTable"
+import Layout from "../components/root/Layout"
 
 const Dashboard = () => {
   return (
@@ -13,7 +13,7 @@ const Dashboard = () => {
       </div>
       <DashboardTable />
     </Layout>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

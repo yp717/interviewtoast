@@ -1,11 +1,11 @@
-import { Link } from "gatsby";
-import React from "react";
-import { useReactMediaRecorder } from "react-media-recorder";
-import VideoStreamPreview from "../components/prepare/VideoStreamPreview";
-import Layout from "../components/root/Layout";
+import { Link } from "gatsby"
+import React from "react"
+import { useReactMediaRecorder } from "react-media-recorder"
+import VideoStreamPreview from "../components/prepare/VideoStreamPreview"
+import Layout from "../components/root/Layout"
 
 const Prepare = () => {
-  const [streamComplete, setStreamComplete] = React.useState(false);
+  const [streamComplete, setStreamComplete] = React.useState(false)
   const {
     status,
     startRecording,
@@ -17,14 +17,14 @@ const Prepare = () => {
     video: true,
     askPermissionOnMount: true,
     onStop: (blobUrl, blob) => {
-        console.log(blobUrl)
-      setStreamComplete(true);
+      console.log(blobUrl)
+      setStreamComplete(true)
     },
-  });
+  })
   const payload = async () => {
-      console.log(mediaBlobUrl)
+    console.log(mediaBlobUrl)
     // var file = new File([blob], "file_name", { lastModified: 1534584790000 });
-  };
+  }
 
   if (!streamComplete) {
     return (
@@ -36,7 +36,7 @@ const Prepare = () => {
           <button onClick={stopRecording}>Stop Recording</button>
         </div>
       </Layout>
-    );
+    )
   }
   return (
     <Layout>
@@ -46,7 +46,7 @@ const Prepare = () => {
         <button onClick={payload}>Log Payload</button>
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Prepare;
+export default Prepare

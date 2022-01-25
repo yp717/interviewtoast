@@ -1,7 +1,7 @@
-import React from "react";
-import { m } from "framer-motion";
-import { Link } from "gatsby";
-import Logo from "../../assets/Logo";
+import React from "react"
+import { m } from "framer-motion"
+import { Link } from "gatsby"
+import Logo from "../../assets/Logo"
 
 const Hero = () => (
   <div className="flex flex-col items-center justify-center py-8 md:py-16 rounded md:rounded-lg bg-gray-800 text-white relative">
@@ -18,6 +18,6 @@ const Hero = () => (
       Get started
     </Link>
   </div>
-);
+)
 
-export default Hero;
+export default Hero

@@ -1,9 +1,8 @@
 import * as React from "react"
 
-import Seo from "./SEO";
-import Header from "./Header";
-import Footer from "./Footer";
-
+import Seo from "./SEO"
+import Header from "./Header"
+import Footer from "./Footer"
 
 const Layout = ({ title, description, children }) => {
   return (

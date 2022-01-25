@@ -1,41 +1,38 @@
-import React, { useContext } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  getAuth,
-  signOut,
-} from "firebase/auth";
-import { navigate } from "gatsby";
-import useFirebase from "../hooks/useFirebase";
+import React, { useContext } from "react"
+import { useAuthState } from "react-firebase-hooks/auth"
+import { getAuth, signOut } from "firebase/auth"
+import { navigate } from "gatsby"
+import useFirebase from "../hooks/useFirebase"
 
-const AuthContext = React.createContext();
+const AuthContext = React.createContext()
 
 export const AuthProvider = ({ loginRequired, ...props }) => {
-  useFirebase();
-  const auth = getAuth();
-  const [user, loading, error] = useAuthState(auth);
+  useFirebase()
+  const auth = getAuth()
+  const [user, loading, error] = useAuthState(auth)
 
   if (!loginRequired) {
-    return <AuthContext.Provider value={{ user: null }} {...props} />;
+    return <AuthContext.Provider value={{ user: null }} {...props} />
   }
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
   if (error) {
-    return <div>Error.</div>;
+    return <div>Error.</div>
   }
   if (!user && loginRequired) {
-    navigate("/login");
+    navigate("/login")
   }
 
   const logout = () => {
     signOut(auth).then(() => {
-      navigate("/login");
-    });
-  };
+      navigate("/login")
+    })
+  }
 
-  return <AuthContext.Provider value={{ user, logout }} {...props} />;
-};
+  return <AuthContext.Provider value={{ user, logout }} {...props} />
+}
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext)
 
-export default AuthContext;
+export default AuthContext

@@ -1,5 +1,5 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
+import firebase from "firebase/compat/app"
+import "firebase/compat/auth"
 
 export default function useFirebase() {
   const config = {
@@ -9,7 +9,7 @@ export default function useFirebase() {
     storageBucket: "interviewtoast.appspot.com",
     messagingSenderId: "375173186576",
     appId: "1:375173186576:web:f905830e11683f3747b695",
-  };
-  firebase.initializeApp(config);
-  return firebase;
+  }
+  firebase.initializeApp(config)
+  return firebase
 }

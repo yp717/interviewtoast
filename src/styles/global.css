@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 body {
-    @apply bg-gray-100 text-gray-900;
+  @apply bg-gray-100 text-gray-900;
 }
 
 main {
-    min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 100px);
 }
 
 .btn-primary {
-    @apply bg-gray-800 text-white px-2 py-1 rounded;
+  @apply bg-gray-800 text-white px-2 py-1 rounded;
 }

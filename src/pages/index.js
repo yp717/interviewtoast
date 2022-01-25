@@ -1,13 +1,13 @@
-import * as React from "react";
-import Hero from "../components/landing/Hero";
-import Layout from "../components/root/Layout";
+import * as React from "react"
+import Hero from "../components/landing/Hero"
+import Layout from "../components/root/Layout"
 
 const IndexPage = () => {
   return (
     <Layout>
-      <Hero/>
+      <Hero />
     </Layout>
-  );
-};
+  )
+}
 
-export default IndexPage;
+export default IndexPage

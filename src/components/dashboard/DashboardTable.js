@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const DashboardTable = () => (
   <div class="overflow-hidden border-b border-gray-200 rounded-md shadow-md">
@@ -52,6 +52,6 @@ const DashboardTable = () => (
       </tbody>
     </table>
   </div>
-);
+)
 
-export default DashboardTable;
+export default DashboardTable
