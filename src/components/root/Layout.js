@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from "react"
 
 import Seo from "./SEO";
 import Header from "./Header";
@@ -13,7 +13,7 @@ const Layout = ({ title, description, children }) => {
       <main className="py-6 px-2 max-w-6xl mx-auto">{children}</main>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

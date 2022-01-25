@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from "react"
 
-import { useStaticQuery, graphql } from "gatsby";
-import { Helmet } from "react-helmet-async";
+import { useStaticQuery, graphql } from "gatsby"
+import { Helmet } from "react-helmet-async"
 
 const SEO = ({ title, description, lang = "en" }) => {
   const { site } = useStaticQuery(graphql`
@@ -14,10 +14,10 @@ const SEO = ({ title, description, lang = "en" }) => {
         }
       }
     }
-  `);
+  `)
 
-  const metaDescription = description || site.siteMetadata.description;
-  const metaTitle = title || site.siteMetadata.title;
+  const metaDescription = description || site.siteMetadata.description
+  const metaTitle = title || site.siteMetadata.title
 
   return (
     <>
@@ -45,7 +45,7 @@ const SEO = ({ title, description, lang = "en" }) => {
         ]}
       />
     </>
-  );
-};
+  )
+}
 
-export default SEO;
+export default SEO
