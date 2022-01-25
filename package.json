@@ -22,13 +22,15 @@
     "framer-motion": "^6.2.1",
     "gatsby": "^4.5.4",
     "gatsby-plugin-react-helmet-async": "^1.2.1",
+    "md5": "^2.3.0",
     "prettier": "^2.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-firebase-hooks": "^5.0.0",
     "react-firebaseui": "^6.0.0",
     "react-helmet-async": "^1.2.2",
-    "react-media-recorder": "^1.6.3"
+    "react-media-recorder": "^1.6.3",
+    "unique-names-generator": "^4.6.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",
