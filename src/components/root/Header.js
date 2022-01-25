@@ -5,7 +5,6 @@ import { useAuth } from "../../context/auth-context"
 
 const Header = () => {
   const { user, logout } = useAuth()
-  console.log(user)
   return (
     <div className="flex justify-between items-center max-w-6xl mx-auto px-2 py-2 md:pt-6">
       <Link
