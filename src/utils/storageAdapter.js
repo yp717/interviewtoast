@@ -7,7 +7,7 @@ export const uploadFile = async (blob, storagePath, cb) => {
   return upload
 }
 
-export const retrieveFileURL = async (uid,videoID) => {
+export const retrieveFileURL = async (uid, videoID) => {
   const storage = getStorage()
   const gsReference = ref(
     storage,
