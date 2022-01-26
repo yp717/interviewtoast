@@ -46,7 +46,10 @@ export const useUserSessions = uid => {
           const dbRef = collection(db, "sessions")
           const q = query(dbRef, where("owner", "==", uid))
           const querySnapshot = await getDocs(q)
-          const sessionList = querySnapshot.docs.map(doc => ({...doc.data(), date:doc.data().date.toDate()}))
+          const sessionList = querySnapshot.docs.map(doc => ({
+            ...doc.data(),
+            date: doc.data().date.toDate(),
+          }))
           setSessions(sessionList)
           setLoading(false)
         } catch (e) {
