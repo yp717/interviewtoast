@@ -3,8 +3,9 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 export const uploadFile = async (blob, storagePath, cb) => {
   const storage = getStorage()
   const storageRef = ref(storage, storagePath)
-  const upload = await uploadBytes(storageRef, blob)
-  return upload
+  await uploadBytes(storageRef, blob)
+  const url = await getDownloadURL(storageRef)
+  return url
 }
 
 export const retrieveFileURL = async (uid, videoID) => {
@@ -13,5 +14,6 @@ export const retrieveFileURL = async (uid, videoID) => {
     storage,
     `gs://interviewtoast.appspot.com/${uid}/${videoID}.mp4`
   )
-  return getDownloadURL(gsReference)
+  const url = await getDownloadURL(gsReference)
+  return url
 }

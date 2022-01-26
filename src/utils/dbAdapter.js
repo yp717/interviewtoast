@@ -22,7 +22,7 @@ function createSessionName() {
   return randomName
 }
 
-export const addNewSessionDoc = async (uid, sessionID, length) => {
+export const addNewSessionDoc = async (uid, sessionID, length, url) => {
   const db = getFirestore()
   await setDoc(doc(db, "sessions", sessionID), {
     owner: uid,
@@ -30,6 +30,7 @@ export const addNewSessionDoc = async (uid, sessionID, length) => {
     name: createSessionName(),
     date: new Date(),
     length,
+    url,
   })
 }
 
@@ -37,10 +38,9 @@ export const useUserSessions = uid => {
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState(false)
   const [sessions, setSessions] = React.useState([])
-
+  const db = getFirestore()
   useEffect(() => {
     if (uid) {
-      const db = getFirestore()
       const gatherSessions = async () => {
         try {
           const dbRef = collection(db, "sessions")
@@ -60,6 +60,23 @@ export const useUserSessions = uid => {
       gatherSessions()
     }
   }, [uid])
-  console.log(loading, error, sessions, uid)
-  return [loading, error, sessions]
+
+  const refresh = async () => {
+    try {
+      setLoading(true)
+      const dbRef = collection(db, "sessions")
+      const q = query(dbRef, where("owner", "==", uid))
+      const querySnapshot = await getDocs(q)
+      const sessionList = querySnapshot.docs.map(doc => ({
+        ...doc.data(),
+        date: doc.data().date.toDate(),
+      }))
+      setSessions(sessionList)
+      setLoading(false)
+    } catch (e) {
+      setError(e)
+      setLoading(false)
+    }
+  }
+  return [loading, error, sessions, refresh]
 }

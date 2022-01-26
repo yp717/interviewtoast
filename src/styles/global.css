@@ -3,13 +3,26 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-100 text-gray-900;
+  @apply bg-gray-900 text-white;
 }
 
 main {
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 130px);
 }
 
 .btn-primary {
   @apply bg-gray-800 text-white px-2 py-1 rounded;
+}
+
+.react-flow__node {
+  @apply text-4xl px-6 py-6 bg-gray-700 text-white border-none rounded-lg shadow-xl !important;
+  width: unset !important;
+}
+
+.react-flow__edge-textbg {
+  @apply fill-current text-gray-800 !important;
+}
+
+.react-flow__edge-text {
+  @apply fill-current text-white uppercase text-lg !important;
 }
