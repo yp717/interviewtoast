@@ -16,6 +16,7 @@ export const AuthProvider = ({ loginRequired, ...props }) => {
   if (!loginRequired) {
     return <AuthContext.Provider value={{ user }} {...props} />
   }
+
   if (loading) {
     return (
       <AuthContext.Provider value={{ user: null }} {...props}>
@@ -25,9 +26,11 @@ export const AuthProvider = ({ loginRequired, ...props }) => {
       </AuthContext.Provider>
     )
   }
+
   if (error) {
     return <div>Error.</div>
   }
+  
   if (!user && loginRequired) {
     navigate("/login")
   }
