@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env`,
+})
+
 module.exports = {
   siteMetadata: {
     title: `interviewToast`,
@@ -5,8 +9,5 @@ module.exports = {
     author: `Yannis Panagis & Sam Larsen Disney`,
     description: `Your new favourite interview preparation, assessment and feedback tool`,
   },
-  plugins: [
-    'gatsby-plugin-postcss',
-    `gatsby-plugin-react-helmet-async`,
-  ],
-};
+  plugins: ["gatsby-plugin-postcss", `gatsby-plugin-react-helmet-async`],
+}
