@@ -13,7 +13,7 @@ const Header = () => {
     <div className="flex justify-between items-center max-w-6xl mx-auto px-2 py-2 md:pt-6">
       <Link
         to={user ? "/dashboard" : "/"}
-        className="flex items-center font-bold group hover:text-gray-900"
+        className="flex items-center font-bold group hover:text-orange-400"
       >
         <h1 className="text-xl">Interview</h1>
         <Logo className="h-8 w-8 group-hover:animate-bounce" alt="Toast" />
