@@ -15,6 +15,7 @@ const Prepare = () => {
   const [uploading, setUploading] = React.useState(false)
   const [isFocused] = useFocus()
   const [focusLost, setFocusLost] = React.useState(false)
+  const [dates, setDates] = React.useState([])
   const {
     status,
     startRecording,
@@ -39,12 +40,13 @@ const Prepare = () => {
 
   const upload = async () => {
     setUploading("Inspecting your video...")
+    const length = dates[1] - dates[0]
     const blob = await fetch(mediaBlobUrl).then(res => res.blob())
     const videoID = md5(`${user.uid}/${Date.now()}`)
     setUploading("Uploading your video...")
     await uploadFile(blob, `${user.uid}/${videoID}.mp4`)
     setUploading("Binding it to you...")
-    await addNewSessionDoc(user.uid, videoID)
+    await addNewSessionDoc(user.uid, videoID, length)
     navigate("/review")
     //  const url = await retrieveFileURL(user.uid, videoID)
     // Send Url to Sybml.io
@@ -81,11 +83,19 @@ const Prepare = () => {
         <div>
           <VideoStreamPreview stream={previewStream} />
           <p>{status}</p>
-          <button onClick={startRecording}>Start Recording</button>
+          <button
+            onClick={() => {
+              setDates([Date.now()])
+              startRecording()
+            }}
+          >
+            Start Recording
+          </button>
           <button
             onClick={() => {
               stopRecording()
               setStreamComplete(true)
+              setDates([dates[0], Date.now()])
             }}
           >
             Stop Recording

@@ -3,6 +3,8 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { getAuth, signOut } from "firebase/auth"
 import { navigate } from "gatsby"
 import useFirebase from "../hooks/useFirebase"
+import LoadingSpinner from "../components/root/LoadingSpinner"
+import Layout from "../components/root/Layout"
 
 const AuthContext = React.createContext()
 
@@ -15,7 +17,13 @@ export const AuthProvider = ({ loginRequired, ...props }) => {
     return <AuthContext.Provider value={{ user: null }} {...props} />
   }
   if (loading) {
-    return <div>Loading...</div>
+    return (
+      <AuthContext.Provider value={{ user: null }} {...props}>
+        <Layout>
+          <LoadingSpinner />
+        </Layout>
+      </AuthContext.Provider>
+    )
   }
   if (error) {
     return <div>Error.</div>
