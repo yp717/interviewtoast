@@ -14,9 +14,9 @@ const VideoPreview = ({ stream }) => {
   return (
     <video
       ref={videoRef}
-      className="w-full max-w-4xl h-auto mx-auto"
+      id="video-stream"
+      className="w-full max-w-4xl h-auto mx-auto rounded-lg"
       autoPlay
-      controls
     />
   )
 }

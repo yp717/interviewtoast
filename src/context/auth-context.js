@@ -14,13 +14,13 @@ export const AuthProvider = ({ loginRequired, ...props }) => {
   const [user, loading, error] = useAuthState(auth)
 
   if (!loginRequired) {
-    return <AuthContext.Provider value={{ user: null }} {...props} />
+    return <AuthContext.Provider value={{ user }} {...props} />
   }
   if (loading) {
     return (
       <AuthContext.Provider value={{ user: null }} {...props}>
         <Layout>
-          <LoadingSpinner />
+          <LoadingSpinner text="Slicing The Bread..." />
         </Layout>
       </AuthContext.Provider>
     )
@@ -33,9 +33,8 @@ export const AuthProvider = ({ loginRequired, ...props }) => {
   }
 
   const logout = () => {
-    signOut(auth).then(() => {
-      navigate("/login")
-    })
+    navigate("/login")
+    signOut(auth)
   }
 
   return <AuthContext.Provider value={{ user, logout }} {...props} />
