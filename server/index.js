@@ -1,11 +1,13 @@
 require("dotenv").config()
 
 const express = require("express")
-
 const app = express()
+const routes = require("./routes/routes")
+const { checkConnection } = require("./utils/checkConnection")
+
 const port = process.env.PORT || 3000
 
-// enable CORS
+// Enable CORS
 app.use(function (_, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
   res.header("Access-Control-Allow-Credentials", true)
@@ -17,14 +19,16 @@ app.use(function (_, res, next) {
   next()
 })
 
-app.get("/", (req, res) => {
-  res.send("Hello World!")
-})
-
-app.post("/api", (req, res) => {
-  res.send("Hello World!")
-})
+app.use("/api/v1", routes)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
+  checkConnection()
+})
+
+// Define base route and return HTML file
+app.get("/", function (req, res) {
+  res.sendFile("index.html", {
+    root: __dirname,
+  })
 })
