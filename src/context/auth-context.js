@@ -30,7 +30,7 @@ export const AuthProvider = ({ loginRequired, ...props }) => {
   if (error) {
     return <div>Error.</div>
   }
-  
+
   if (!user && loginRequired) {
     navigate("/login")
   }

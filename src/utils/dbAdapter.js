@@ -22,7 +22,13 @@ function createSessionName() {
   return randomName
 }
 
-export const addNewSessionDoc = async (uid, sessionID, length, url, symblData) => {
+export const addNewSessionDoc = async (
+  uid,
+  sessionID,
+  length,
+  url,
+  symblData
+) => {
   const db = getFirestore()
   await setDoc(doc(db, "sessions", sessionID), {
     owner: uid,
@@ -31,8 +37,8 @@ export const addNewSessionDoc = async (uid, sessionID, length, url, symblData) =
     date: new Date(),
     length,
     url,
-    proccessed:false,
-    ...symblData
+    proccessed: false,
+    ...symblData,
   })
 }
 
