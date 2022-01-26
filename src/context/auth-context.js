@@ -13,8 +13,13 @@ export const AuthProvider = ({ loginRequired, ...props }) => {
   const auth = getAuth()
   const [user, loading, error] = useAuthState(auth)
 
+  const logout = () => {
+    navigate("/login")
+    signOut(auth)
+  }
+
   if (!loginRequired) {
-    return <AuthContext.Provider value={{ user }} {...props} />
+    return <AuthContext.Provider value={{ user, logout }} {...props} />
   }
   if (loading) {
     return (
@@ -30,11 +35,6 @@ export const AuthProvider = ({ loginRequired, ...props }) => {
   }
   if (!user && loginRequired) {
     navigate("/login")
-  }
-
-  const logout = () => {
-    navigate("/login")
-    signOut(auth)
   }
 
   return <AuthContext.Provider value={{ user, logout }} {...props} />
