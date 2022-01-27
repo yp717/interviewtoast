@@ -1,6 +1,5 @@
 import fetch from "node-fetch"
 
-// https://docs.symbl.ai/docs/developer-tools/authentication/
 export async function sendURLToSymbl(accessToken, url) {
   const urlVideo = `https://api.symbl.ai/v1/process/video/url`
 
