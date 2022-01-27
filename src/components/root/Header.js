@@ -15,8 +15,8 @@ const Header = () => {
         to={user ? "/dashboard" : "/"}
         className="flex items-center font-bold group hover:text-orange-400"
       >
-        <h1 className="text-xl">Interview</h1>
         <Logo className="h-8 w-8 group-hover:animate-bounce" alt="Toast" />
+        <h1 className="text-xl">InterviewToast</h1>
       </Link>
       {user && (
         <div className="relative">

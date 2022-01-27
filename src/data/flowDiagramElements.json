@@ -1,0 +1,89 @@
+[
+  {
+    "id": "1",
+    "data": { "label": "Practice" },
+    "position": { "x": 0, "y": 0 },
+    "sourcePosition": "right",
+    "targetPosition": "bottom"
+  },
+  {
+    "id": "4",
+    "data": { "label": "Arrange" },
+    "position": { "x": 0, "y": 300 },
+    "sourcePosition": "bottom",
+    "targetPosition": "right"
+  },
+  {
+    "id": "5",
+    "data": { "label": "Interview" },
+    "position": { "x": -8, "y": 500 },
+    "sourcePosition": "right"
+  },
+  {
+    "id": "6",
+    "type": "output",
+    "data": { "label": "Feedback" },
+    "position": { "x": 400, "y": 498 },
+    "targetPosition": "left"
+  },
+  {
+    "id": "2",
+    "data": { "label": "Upload" },
+    "position": { "x": 435, "y": 0 },
+    "targetPosition": "left",
+    "sourcePosition": "bottom"
+  },
+  {
+    "id": "3",
+    "data": { "label": "Review" },
+    "position": { "x": 435, "y": 200 },
+    "targetPosition": "top",
+    "sourcePosition": "left"
+  },
+  {
+    "id": "e1",
+    "source": "1",
+    "target": "2",
+    "animated": true,
+    "type": "smoothstep"
+  },
+  {
+    "id": "e2",
+    "source": "2",
+    "target": "3",
+    "animated": true,
+    "type": "smoothstep",
+    "label": "AI Magic"
+  },
+  {
+    "id": "e3",
+    "source": "3",
+    "target": "1",
+    "animated": true,
+    "type": "smoothstep",
+    "label": "Not Ready"
+  },
+  {
+    "id": "e4",
+    "source": "3",
+    "target": "4",
+    "animated": true,
+    "type": "smoothstep",
+    "label": "Ready"
+  },
+  {
+    "id": "e5",
+    "source": "4",
+    "target": "5",
+    "animated": true,
+    "type": "smoothstep"
+  },
+  {
+    "id": "e6",
+    "source": "5",
+    "target": "6",
+    "animated": true,
+    "type": "smoothstep",
+    "label": "Automatic"
+  }
+]
