@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.5",
+    "agora-rtc-sdk-ng": "^4.8.2",
     "firebase": "^9.6.4",
     "framer-motion": "^6.2.1",
     "gatsby": "^4.5.4",
