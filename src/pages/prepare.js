@@ -49,8 +49,11 @@ const Prepare = () => {
     const videoID = md5(`${user.uid}/${Date.now()}`)
     setUploading("Uploading your video...")
     const url = await uploadFile(blob, `${user.uid}/${videoID}.mp4`)
+    setUploading("Starting Analysis...")
+    const symblResponse = await fetch(`/api/analyse/${url}`)
+    const symblData = await symblResponse.json()
     setUploading("Binding it to you...")
-    await addNewSessionDoc(user.uid, videoID, length, url)
+    await addNewSessionDoc(user.uid, videoID, length, url, symblData)
     await refreshSessions()
     navigate(`/review/${videoID}`)
   }

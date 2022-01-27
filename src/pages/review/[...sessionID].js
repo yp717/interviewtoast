@@ -13,7 +13,18 @@ const Review = ({ params }) => {
   const { user } = useAuth()
   const sessionID = params[`sessionID`]
   const { getSession } = useSessions()
-  const { url, name, date, length } = getSession(sessionID)
+  const { url, name, date, length, jobId, proccessed } = getSession(sessionID)
+
+  React.useEffect(() => {
+    // poll the thing
+    // `https://api.symbl.ai/v1/job/${jobId}`
+    // const processingResponse = await fetch()
+    // const processingData = await processingResponse.json()
+    // if(processingData) {
+    // updateProcessedState(symblData)
+    // }
+    // refreshSessions
+  }, [proccessed])
 
   return (
     <Layout>
