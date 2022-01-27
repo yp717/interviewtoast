@@ -1,7 +1,14 @@
 import fetch from "node-fetch"
 
 export async function getConversationData(accessToken, conversationID) {
-  const routes = ["messages", "analytics", "topics", "questions", "abstract-topics", "follow-ups"]
+  const routes = [
+    "messages",
+    "analytics",
+    "topics",
+    "questions",
+    "abstract-topics",
+    "follow-ups",
+  ]
   let allData = {}
   const requestOptions = {
     method: "GET",
@@ -12,9 +19,12 @@ export async function getConversationData(accessToken, conversationID) {
   }
 
   for await (const route of routes) {
-    const response = await fetch(`https://api.symbl.ai/v1/conversations/${conversationID}/${route}`, requestOptions)
+    const response = await fetch(
+      `https://api.symbl.ai/v1/conversations/${conversationID}/${route}`,
+      requestOptions
+    )
     const data = await response.json()
-    allData = {...allData, ...data}
+    allData = { ...allData, ...data }
   }
   return allData
 }

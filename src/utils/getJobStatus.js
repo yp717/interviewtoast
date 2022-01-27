@@ -11,10 +11,7 @@ export async function getJobStatus(accessToken, jobID) {
     },
   }
 
-  const response = await fetch(
-    apiURL,
-    requestOptions
-  )
+  const response = await fetch(apiURL, requestOptions)
   const data = await response.json()
 
   return data

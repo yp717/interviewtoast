@@ -25,7 +25,9 @@ const Review = ({ params }) => {
         console.log("checking for results")
         const controller = new AbortController()
         const timeoutId = setTimeout(() => controller.abort(), 10000)
-        const response = await fetch(`/api/result/${jobId}/${conversationId}`,  { signal: controller.signal }).catch(err => {
+        const response = await fetch(`/api/result/${jobId}/${conversationId}`, {
+          signal: controller.signal,
+        }).catch(err => {
           return false
         })
         clearTimeout(timeoutId)
