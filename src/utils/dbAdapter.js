@@ -37,9 +37,21 @@ export const addNewSessionDoc = async (
     date: new Date(),
     length,
     url,
-    proccessed: false,
+    processed: false,
     ...symblData,
   })
+}
+
+export const updateProcessedState = async (sessionID, symblData) => {
+  const db = getFirestore()
+  await setDoc(
+    doc(db, "sessions", sessionID),
+    {
+      processed: true,
+      ...symblData,
+    },
+    { merge: true }
+  )
 }
 
 export const useUserSessions = uid => {

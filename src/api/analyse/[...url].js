@@ -11,7 +11,6 @@ export default async function handler(req, res) {
     url.substring(0, indexOfTheThing) +
     "%2F" +
     url.substring(indexOfTheThing + 1)
-  console.log(`${newURL}?alt=${alt}&token=${token}`)
   const { accessToken } = await loginToSymbl()
   const data = await sendURLToSymbl(
     accessToken,

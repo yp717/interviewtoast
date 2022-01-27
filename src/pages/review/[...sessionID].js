@@ -8,23 +8,55 @@ import {
   ClipboardIcon,
   CloudDownloadIcon,
 } from "@heroicons/react/outline"
+import { updateProcessedState } from "../../utils/dbAdapter"
+import LoadingSpinner from "../../components/root/LoadingSpinner"
 
 const Review = ({ params }) => {
-  const { user } = useAuth()
   const sessionID = params[`sessionID`]
-  const { getSession } = useSessions()
-  const { url, name, date, length, jobId, proccessed } = getSession(sessionID)
+  const [loadingMessage, setLoadingMessage] =
+    React.useState("Checking Status...")
+  const { getSession, refreshSessions } = useSessions()
+  const { url, name, date, length, jobId, conversationId, processed } =
+    getSession(sessionID)
 
   React.useEffect(() => {
-    // poll the thing
-    // `https://api.symbl.ai/v1/job/${jobId}`
-    // const processingResponse = await fetch()
-    // const processingData = await processingResponse.json()
-    // if(processingData) {
-    // updateProcessedState(symblData)
-    // }
-    // refreshSessions
-  }, [proccessed])
+    if (!processed) {
+      const checkForResults = async () => {
+        console.log("checking for results")
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 10000)
+        const response = await fetch(`/api/result/${jobId}/${conversationId}`, {
+          signal: controller.signal,
+        }).catch(err => {
+          return false
+        })
+        clearTimeout(timeoutId)
+        if (response?.status === 200) {
+          const data = await response.json()
+          await updateProcessedState(sessionID, data)
+          refreshSessions()
+          return true
+        } else {
+          return false
+        }
+      }
+      ;(async () => {
+        let flag = false
+        while (!flag) {
+          flag = await checkForResults()
+          setLoadingMessage("Still Processing...")
+        }
+      })()
+    }
+  }, [processed])
+
+  if (!processed) {
+    return (
+      <Layout>
+        <LoadingSpinner text={loadingMessage} />
+      </Layout>
+    )
+  }
 
   return (
     <Layout>
