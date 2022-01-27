@@ -1,10 +1,10 @@
 import * as React from "react"
-import ReactDOM from "react-dom"
 
+import ReactDOM from "react-dom"
 import AgoraRTC from "agora-rtc-sdk-ng"
 
-import { options, rtc } from "../constants/constants"
 import Layout from "../components/root/Layout"
+import { rtc, options } from "../constants/constants"
 
 const Meeting = () => {
   async function handleSubmit(e) {

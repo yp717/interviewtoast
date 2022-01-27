@@ -7,9 +7,9 @@ export const rtc = {
 }
 
 export const options = {
-  appId: "742ef817cf0e431192d6c5d9381de2df",
+  appId: process.env.GATSBY_AGORA_APP_ID,
   // Set the channel name.
   //   channel: "test",
   // Pass a token if your project enables the App Certificate
-  token: "006742ef817cf0e431192d6c5d9381de2dfIAAQoWmhTHtn2G9SDvAz602TEk5lTxb62qxbE9L756nVbAx+f9gAAAAAEAD1z9KPzHH0YQEAAQDMcfRh",
+  token: process.env.GATSBY_AGORA_RTC_TOKEN,
 }
