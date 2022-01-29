@@ -31,7 +31,7 @@ const Dashboard = () => {
               </p>
             </Link>
             <Link
-              to="/meeting"
+              to="/join"
               className="text-center rounded-md bg-gray-50 hover:bg-gray-200 border py-10 px-5"
             >
               <h2 className="text-2xl font-bold text-gray-900">
@@ -44,9 +44,6 @@ const Dashboard = () => {
             </Link>
           </div>
           <h2 className="text-gray-900">Create your first session!</h2>
-          {/* <Link to="/prepare" className="btn-primary">
-            Get Started
-          </Link> */}
         </div>
       )}
     </Layout>
