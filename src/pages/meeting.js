@@ -1,12 +1,13 @@
 import * as React from "react"
 
-import ReactDOM from "react-dom"
 import AgoraRTC from "agora-rtc-sdk-ng"
 
 import Layout from "../components/root/Layout"
 import { rtc, options } from "../constants/constants"
 
 const Meeting = () => {
+  const [playerContainerId, setPlayerContainerId] = React.useState(null)
+
   async function handleSubmit(e) {
     try {
       if (channelRef.current.value === "") {
@@ -16,6 +17,7 @@ const Meeting = () => {
       setJoined(true)
 
       rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" })
+
       const uid = await rtc.client.join(
         options.appId,
         channelRef.current.value,
@@ -25,6 +27,7 @@ const Meeting = () => {
 
       // Create an audio track from the audio captured by a microphone
       rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack()
+
       // Create a video track from the video captured by a camera
       rtc.localVideoTrack = await AgoraRTC.createCameraVideoTrack()
 
@@ -33,23 +36,16 @@ const Meeting = () => {
       rtc.client.on("user-published", async (user, mediaType) => {
         // Subscribe to a remote user
         await rtc.client.subscribe(user)
-        console.log("subscribe success")
-        // console.log(user);
+
+        console.log("Success subscribing to remote user")
 
         if (mediaType === "video" || mediaType === "all") {
           // Get `RemoteVideoTrack` in the `user` object.
           const remoteVideoTrack = user.videoTrack
+
           console.log(remoteVideoTrack)
 
-          // Dynamically create a container in the form of a DIV element for playing the remote video track.
-          const PlayerContainer = React.createElement("div", {
-            id: user.uid,
-            className: "stream",
-          })
-          ReactDOM.render(
-            PlayerContainer,
-            document.getElementById("remote-stream")
-          )
+          setPlayerContainerId(user.uid)
 
           user.videoTrack.play(`${user.uid}`)
         }
@@ -140,7 +136,9 @@ const Meeting = () => {
             id="remote-stream"
             ref={remoteRef}
             className="w-72 h-72 remote-stream"
-          ></div>
+          >
+            <div id={playerContainerId} className="stream"></div>
+          </div>
         </>
       ) : null}
     </Layout>
