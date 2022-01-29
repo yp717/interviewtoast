@@ -79,7 +79,7 @@ export const useUserSessions = uid => {
       }
       gatherSessions()
     }
-  }, [uid])
+  }, [uid, db])
 
   const refresh = async () => {
     try {

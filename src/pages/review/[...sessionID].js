@@ -1,6 +1,6 @@
 import * as React from "react"
+
 import Layout from "../../components/root/Layout"
-import { useAuth } from "../../context/auth-context"
 import { useSessions } from "../../context/session-context"
 import {
   VideoCameraIcon,
@@ -48,7 +48,7 @@ const Review = ({ params }) => {
         }
       })()
     }
-  }, [processed])
+  }, [processed, conversationId, jobId, refreshSessions, sessionID])
 
   if (!processed) {
     return (
