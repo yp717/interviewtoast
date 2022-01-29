@@ -1,8 +1,8 @@
 import * as React from "react"
 
-import MeetingWindow from "../../components/meeting/MeetingWindow"
 import Layout from "../../components/root/Layout"
 import LoadingSpinner from "../../components/root/LoadingSpinner"
+import MeetingWindow from "../../components/meeting/MeetingWindow"
 
 const Meeting = ({ params }) => {
   const isSSR = typeof window === "undefined"
@@ -21,7 +21,9 @@ const Meeting = ({ params }) => {
     <Layout>
       {!isSSR ? (
         <div className="flex flex-col items-center justify-center h-full min-h-screen relative overflow-y-scroll pt-12 pb-32 md:py-0">
-          <MeetingWindow meetingID={meetingID} tokenID={tokenID} />
+          <React.Suspense fallback={<div></div>}>
+            <MeetingWindow meetingID={meetingID} tokenID={tokenID} />
+          </React.Suspense>
         </div>
       ) : (
         <LoadingSpinner text="Looking for a Window." />
