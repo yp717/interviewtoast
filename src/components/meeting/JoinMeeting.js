@@ -20,16 +20,15 @@ const JoinMeeting = () => {
       })
 
       const { rtcToken } = await res.json()
-
+      // console.log(rtcToken)
       navigate(`/meeting/${value}/${rtcToken}`)
     } catch (e) {
       console.error("Could not generate meeting token", e)
     }
   }
-
+console.log(value)
   return (
-    <div className="flex flex-col items-center justify-center h-full pt-12 relative overflow-y-scroll">
-      <div className="flex gap-x-4 bg-white p-6 shadow-md rounded-md">
+   <div className="flex flex-col space-y-4">
         <input
           type="text"
           onChange={e => setValue(e.target.value)}
@@ -45,8 +44,7 @@ const JoinMeeting = () => {
         >
           Join
         </button>
-      </div>
-    </div>
+        </div>
   )
 }
 
