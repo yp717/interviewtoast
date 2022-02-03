@@ -1,74 +1,90 @@
+import { ArrowRightIcon, FlagIcon } from "@heroicons/react/outline"
 import { Link } from "gatsby"
 import React from "react"
 import { useSessions } from "../../context/session-context"
 
 const DashboardTable = () => {
   const { sessions } = useSessions()
+  if (sessions.length === 0) {
+    return (
+      <div className="w-full px-16 py-24 bg-gray-900 rounded flex flex-col items-center justify-center">
+        <FlagIcon className="h-5 w-5" />
+        <h2 className="text-lg font-bold">No sessions recorded</h2>
+        <p>
+          After you have recorded a practice session or attended an interview
+          you will be able to review them here.
+        </p>
+      </div>
+    )
+  }
   return (
-    <div class="overflow-hidden border-b border-gray-700 rounded-md shadow-md">
-      <table class="min-w-full overflow-x-scroll divide-y divide-gray-200">
-        <thead class="bg-gray-700">
+    <div className="overflow-hidden rounded-md shadow-md">
+      <table className="min-w-full overflow-x-scroll divide-y divide-gray-800">
+        <thead className="bg-gray-700">
           <tr>
             <th
               scope="col"
-              class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-100 uppercase"
+              className="hidden md:block px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase"
             >
               Name
             </th>
             <th
               scope="col"
-              class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-100 uppercase"
+              className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase"
             >
               Date
             </th>
             <th
               scope="col"
-              class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-100 uppercase"
+              className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase"
             >
               Length
             </th>
             <th
               scope="col"
-              class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-100 uppercase"
+              className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase"
             >
               Status
             </th>
-            <th scope="col" class="relative px-6 py-3">
-              <span class="sr-only">Edit</span>
+            <th scope="col" className="relative px-6 py-3">
+              <span className="sr-only">Edit</span>
             </th>
           </tr>
         </thead>
-        <tbody class="bg-gray-700 divide-y divide-gray-800">
-          {sessions.map(({ sessionID, name, date, length }) => (
-            <tr class="">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                  <div class="text-sm font-medium text-white">
+        <tbody className="bg-gray-700 divide-y divide-gray-800">
+          {sessions.slice(0, 5).map(({ sessionID, name, date, length }) => (
+            <tr className="">
+              <td className="hidden md:block px-6 py-4 whitespace-nowrap">
+                <div className="flex items-center">
+                  <div className="text-sm font-medium text-white">
                     {name.split("_").join(" ")}
                   </div>
                 </div>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-300">
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm text-gray-300">
                   {date.toISOString().split("T")[0]}
                 </div>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-300">
+              <td className="px-6 py-4 whitespace-nowrap">
+                <div className="text-sm text-gray-300">
                   {Math.ceil(length / 1000)}s
                 </div>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-200 rounded-full">
+              <td className="px-6 py-4 whitespace-nowrap">
+                <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-200 rounded-full">
                   Processed
                 </span>
               </td>
-              <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+              <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                 <Link
                   to={`/review/${sessionID}`}
-                  class="text-orange-400 hover:text-orange-500"
+                  className="text-orange-400 hover:text-orange-500 inline-block"
                 >
-                  Insights
+                  <div className="flex space-x-2 items-center">
+                    <p>Insights</p>
+                    <ArrowRightIcon className="h-5 w-5" />
+                  </div>
                 </Link>
               </td>
             </tr>

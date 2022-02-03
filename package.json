@@ -36,7 +36,8 @@
     "react-helmet-async": "^1.2.2",
     "react-media-recorder": "^1.6.3",
     "request": "^2.88.2",
-    "unique-names-generator": "^4.6.0"
+    "unique-names-generator": "^4.6.0",
+    "uuid-int": "^3.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.2",

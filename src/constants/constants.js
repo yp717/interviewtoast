@@ -11,5 +11,5 @@ export const options = {
   // Set the channel name.
   //   channel: "test",
   // Pass a token if your project enables the App Certificate
-  token: process.env.GATSBY_AGORA_RTC_TOKEN,
+  // token: process.env.GATSBY_AGORA_RTC_TOKEN,
 }

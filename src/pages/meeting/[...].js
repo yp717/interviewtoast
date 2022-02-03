@@ -12,8 +12,10 @@ const Meeting = ({ params }) => {
   const meetingID = allParams.substring(0, allParams.indexOf("/"))
   const tokenID = allParams.substring(
     allParams.indexOf("/") + 1,
-    allParams.length - 1
+    allParams.length
   )
+
+  console.log(tokenID)
 
   // Check if they join a valid channel
 

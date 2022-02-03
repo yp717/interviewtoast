@@ -2,9 +2,11 @@ import * as React from "react"
 import AgoraRTC from "agora-rtc-sdk-ng"
 import { rtc, options } from "../../constants/constants"
 import { navigate } from "gatsby"
+import { useAuth } from "../../context/auth-context"
 
 // need meetingId + token
-const MeetingWindow = ({ meetingID }) => {
+const MeetingWindow = ({ meetingID, tokenID }) => {
+  const { user } = useAuth()
   const remoteRef = React.useRef("")
   const [playerContainerId, setPlayerContainerId] = React.useState(null)
 
@@ -16,13 +18,15 @@ const MeetingWindow = ({ meetingID }) => {
         //   }
         rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" })
 
+        console.log(options.appId, meetingID, tokenID, user.uid)
+
         const uid = await rtc.client.join(
           options.appId,
           meetingID,
-          // channelRef.current.value,
-          options.token,
-          null
+          tokenID,
+          user.uid
         )
+        console.log(uid)
 
         // Create an audio track from the audio captured by a microphone
         rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack()
