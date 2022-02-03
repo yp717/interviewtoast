@@ -35,7 +35,10 @@ const Dashboard = () => {
               Put your skills to the test by practicing with real interview
               questions we've put together from user submissions.
             </p>
-            <Link className="btn-primary flex items-center justify-center" to="/prepare" >
+            <Link
+              className="btn-primary flex items-center justify-center"
+              to="/prepare"
+            >
               New Practice Session
             </Link>
           </div>

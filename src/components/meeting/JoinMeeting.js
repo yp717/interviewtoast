@@ -26,25 +26,25 @@ const JoinMeeting = () => {
       console.error("Could not generate meeting token", e)
     }
   }
-console.log(value)
+  console.log(value)
   return (
-   <div className="flex flex-col space-y-4">
-        <input
-          type="text"
-          onChange={e => setValue(e.target.value)}
-          id="channel"
-          className="bg-white text-gray-900 border px-2 py-1.5 rounded-sm"
-          placeholder="Enter Channel name"
-        />
-        <button
-          type="submit"
-          value="Join"
-          onClick={handleJoin}
-          className="btn-primary"
-        >
-          Join
-        </button>
-        </div>
+    <div className="flex flex-col space-y-4">
+      <input
+        type="text"
+        onChange={e => setValue(e.target.value)}
+        id="channel"
+        className="bg-white text-gray-900 border px-2 py-1.5 rounded-sm"
+        placeholder="Enter Channel name"
+      />
+      <button
+        type="submit"
+        value="Join"
+        onClick={handleJoin}
+        className="btn-primary"
+      >
+        Join
+      </button>
+    </div>
   )
 }
 

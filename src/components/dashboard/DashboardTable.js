@@ -8,10 +8,11 @@ const DashboardTable = () => {
   if (sessions.length === 0) {
     return (
       <div className="w-full px-16 py-24 bg-gray-900 rounded flex flex-col items-center justify-center">
-        <FlagIcon className="h-5 w-5"/>
+        <FlagIcon className="h-5 w-5" />
         <h2 className="text-lg font-bold">No sessions recorded</h2>
         <p>
-          After you have recorded a practice session or attended an interview you will be able to review them here.
+          After you have recorded a practice session or attended an interview
+          you will be able to review them here.
         </p>
       </div>
     )

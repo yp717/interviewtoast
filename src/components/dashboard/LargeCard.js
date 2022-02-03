@@ -1,10 +1,9 @@
 import React from "react"
 import { Link } from "gatsby"
-import { ArrowRightIcon } from "@heroicons/react/outline";
+import { ArrowRightIcon } from "@heroicons/react/outline"
 
 const largeCardStyle =
-  "relative group text-left w-full border-2 border-orange-400 hover:bg-orange-400 hover:text-white text-orange-400 flex flex-col rounded py-2 px-4";
-
+  "relative group text-left w-full border-2 border-orange-400 hover:bg-orange-400 hover:text-white text-orange-400 flex flex-col rounded py-2 px-4"
 
 const LargeCard = ({ title, desc, Icon, link, tabIndex }) => (
   <Link to={link} className={largeCardStyle} tabIndex={tabIndex}>
