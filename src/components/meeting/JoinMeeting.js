@@ -14,7 +14,7 @@ const JoinMeeting = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          channelName: "apollo",
+          channelName: value,
           uid: user.uid,
         }),
       })

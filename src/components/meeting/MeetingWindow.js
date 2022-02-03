@@ -13,11 +13,9 @@ const MeetingWindow = ({ meetingID, tokenID }) => {
   React.useEffect(() => {
     ;(async () => {
       try {
-        //   if (channelRef.current.value === "") {
-        //     return console.log("Please Enter Channel Name")
-        //   }
+        
         rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" })
-
+        
         console.log(options.appId, meetingID, tokenID, user.uid)
 
         const uid = await rtc.client.join(
@@ -26,6 +24,7 @@ const MeetingWindow = ({ meetingID, tokenID }) => {
           tokenID,
           user.uid
         )
+
         console.log(uid)
 
         // Create an audio track from the audio captured by a microphone
@@ -37,11 +36,11 @@ const MeetingWindow = ({ meetingID, tokenID }) => {
         rtc.localVideoTrack.play("local-stream")
 
         rtc.client.on("user-published", async (user, mediaType) => {
+          console.log(1)
           // Subscribe to a remote user
-          await rtc.client.subscribe(user)
+          await rtc.client.subscribe(user, { video: true, audio: true })
 
           console.log("Success subscribing to remote user")
-
           if (mediaType === "video" || mediaType === "all") {
             // Get `RemoteVideoTrack` in the `user` object.
             const remoteVideoTrack = user.videoTrack
