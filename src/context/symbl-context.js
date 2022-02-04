@@ -9,33 +9,39 @@ const SymblContext = React.createContext()
 var symbl
 
 export const SymblProvider = ({ meetingID, ...props }) => {
-  const { user } = useAuth()
+  const { user, role } = useAuth()
   const { fireToast } = useToast()
   useEffect(() => {
     ;(async () => {
-      const res = await fetch("/api/access-token")
-      const { accessToken } = await res.json()
+      if (role === "interviewer") {
+        const res = await fetch("/api/access-token")
+        const { accessToken } = await res.json()
 
-      const config = {
-        attendeeId: user.uid,
-        meetingId: meetingID,
-        userName: user.uid,
-        meeting: meetingID,
+        const config = {
+          attendeeId: user.uid,
+          meetingId: meetingID,
+          userName: user.uid,
+          meeting: meetingID,
+        }
+        Symbl.ACCESS_TOKEN = accessToken
+        symbl = new Symbl(config)
+        const transcriptHandler = {
+          onTranscriptCreated: transcript => {
+            console.log("On transcript created", transcript)
+            fireToast(
+              <Toast
+                duration={3500}
+                title={`Transcript Update`}
+                status="speaker"
+              >
+                <p>{transcript.message}</p>
+              </Toast>
+            )
+          },
+        }
+        symbl.subscribeToTranscriptEvents(transcriptHandler)
+        symbl.start()
       }
-      Symbl.ACCESS_TOKEN = accessToken
-      symbl = new Symbl(config)
-      const transcriptHandler = {
-        onTranscriptCreated: transcript => {
-          console.log("On transcript created", transcript)
-          fireToast(
-            <Toast duration={3500} title={`Transcript Update`} status="speaker">
-              <p>{transcript.message}</p>
-            </Toast>
-          )
-        },
-      }
-      symbl.subscribeToTranscriptEvents(transcriptHandler)
-      symbl.start()
     })()
   }, [])
   return <SymblContext.Provider value={{}} {...props} />
