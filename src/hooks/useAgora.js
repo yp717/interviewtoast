@@ -2,16 +2,7 @@ import { useState, useEffect } from "react"
 
 import { useAuth } from "../context/auth-context"
 
-import AgoraRTC, {
-  IAgoraRTCClient,
-  IAgoraRTCRemoteUser,
-  MicrophoneAudioTrackInitConfig,
-  CameraVideoTrackInitConfig,
-  IMicrophoneAudioTrack,
-  ICameraVideoTrack,
-  ILocalVideoTrack,
-  ILocalAudioTrack,
-} from "agora-rtc-sdk-ng"
+import AgoraRTC from "agora-rtc-sdk-ng"
 
 export default function useAgora(client) {
   const { user } = useAuth()
@@ -53,16 +44,40 @@ export default function useAgora(client) {
 
   async function leave() {
     if (localAudioTrack) {
-      localAudioTrack.stop()
-      localAudioTrack.close()
+      await localAudioTrack.stop()
+      await localAudioTrack.close()
     }
     if (localVideoTrack) {
-      localVideoTrack.stop()
-      localVideoTrack.close()
+      await localVideoTrack.stop()
+      await localVideoTrack.close()
     }
     setRemoteUsers([])
     setJoinState(false)
     await client?.leave()
+  }
+
+  async function toggleAudio() {
+    if (localAudioTrack) {
+      localAudioTrack.stop()
+    } else {
+      const [microphoneTrack, cameraTrack] = await createLocalTracks()
+      await client.publish([microphoneTrack, cameraTrack])
+
+      window.client = client
+      window.videoTrack = cameraTrack
+    }
+  }
+
+  async function toggleVideo() {
+    if (localVideoTrack) {
+      localVideoTrack.stop()
+    } else {
+      const [microphoneTrack, cameraTrack] = await createLocalTracks()
+      await client.publish([microphoneTrack, cameraTrack])
+
+      window.client = client
+      window.videoTrack = cameraTrack
+    }
   }
 
   useEffect(() => {
@@ -106,6 +121,8 @@ export default function useAgora(client) {
     localVideoTrack,
     joinState,
     leave,
+    toggleAudio,
+    toggleVideo,
     join,
     remoteUsers,
   }
