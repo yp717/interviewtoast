@@ -7,13 +7,12 @@ import LoadingSpinner from "../../components/root/LoadingSpinner"
 import MediaPlayer from "../../components/meeting/MediaPlayer"
 
 import useAgora from "../../hooks/useAgora"
-import { useAuth } from "../../context/auth-context"
 import { SymblProvider } from "../../context/symbl-context"
+const isSSR = typeof window === "undefined"
 
-const client = AgoraRTC.createClient({ codec: "h264", mode: "rtc" })
+const client = !isSSR && AgoraRTC.createClient({ codec: "h264", mode: "rtc" })
 
 const Meeting = ({ params }) => {
-  const isSSR = typeof window === "undefined"
   const { localVideoTrack, join, joinState, remoteUsers } = useAgora(client)
   // Note: the tokenID could have a slash so split on index of first slash
   const allParams = params[`*`]
