@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import MediaPlayer from './MediaPlayer'
+import MediaPlayer from "./MediaPlayer"
 
 import { SymblProvider } from "../../context/symbl-context"
 
@@ -11,29 +11,34 @@ const MeetingWindow = ({
   client,
   remoteUsers,
 }) => {
+  /***
+   * 1. If we are the only user we are the big media player
+   * 3. Follow Google Meet Pattern where it uses tiles and splits it into equal tiles at all time (easier)
+   */
   return (
     <div className="w-full h-full border-white rounded-md">
-      <SymblProvider meetingID={meetingID}>
-        <div className="player-container">
-          <div className="local-player-wrapper">
-            <p className="local-player-text">
-              {localVideoTrack && `localTrack`}
-              {/* TODO: can we get the client name in here */}
-              {joinState && localVideoTrack ? `(${client.uid})` : ""}
-            </p>
-            <MediaPlayer videoTrack={localVideoTrack}></MediaPlayer>
-          </div>
-          {remoteUsers.map(user => (
-            <div className="remote-player-wrapper" key={user.uid}>
-              <p className="remote-player-text">{`remoteVideo(${user.uid})`}</p>
+      {/* <SymblProvider meetingID={"meetingID"}> */}
+      <div className="grid grid-cols-12">
+        <div className={`col-span-${remoteUsers.length === 0 ? "12" : "6"}`}>
+          <MediaPlayer
+            label={joinState && localVideoTrack && `(${client.uid})`}
+            videoTrack={localVideoTrack}
+          ></MediaPlayer>
+        </div>
+
+        {remoteUsers.map(user => {
+          return (
+            <div className="col-span-6" key={user.uid}>
               <MediaPlayer
+                label={`remoteVideo(${user.uid})`}
                 videoTrack={user.videoTrack}
                 audioTrack={user.audioTrack}
               ></MediaPlayer>
             </div>
-          ))}
-        </div>
-      </SymblProvider>
+          )
+        })}
+      </div>
+      {/* </SymblProvider> */}
     </div>
   )
 }
