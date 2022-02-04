@@ -8,6 +8,7 @@ import MediaPlayer from "../../components/meeting/MediaPlayer"
 
 import useAgora from "../../hooks/useAgora"
 import { SymblProvider } from "../../context/symbl-context"
+import MeetingWindow from "../../components/meeting/MeetingWindow"
 const isSSR = typeof window === "undefined"
 
 const client = !isSSR && AgoraRTC.createClient({ codec: "h264", mode: "rtc" })
@@ -31,26 +32,13 @@ const Meeting = ({ params }) => {
   return (
     <Layout>
       {!isSSR ? (
-        <SymblProvider meetingID={meetingID}>
-          <div className="player-container">
-            <div className="local-player-wrapper">
-              <p className="local-player-text">
-                {localVideoTrack && `localTrack`}
-                {joinState && localVideoTrack ? `(${client.uid})` : ""}
-              </p>
-              <MediaPlayer videoTrack={localVideoTrack}></MediaPlayer>
-            </div>
-            {remoteUsers.map(user => (
-              <div className="remote-player-wrapper" key={user.uid}>
-                <p className="remote-player-text">{`remoteVideo(${user.uid})`}</p>
-                <MediaPlayer
-                  videoTrack={user.videoTrack}
-                  audioTrack={user.audioTrack}
-                ></MediaPlayer>
-              </div>
-            ))}
-          </div>
-        </SymblProvider>
+        <MeetingWindow
+          meetingID={meetingID}
+          joinState={joinState}
+          localVideoTrack={localVideoTrack}
+          client={client}
+          remoteUsers={remoteUsers}
+        />
       ) : (
         <LoadingSpinner text="Looking for a Window." />
       )}
