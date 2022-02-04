@@ -32,12 +32,12 @@ const Meeting = ({ params }) => {
   return (
     <Layout>
       {!isSSR ? (
-        <MeetingWindow 
-        meetingID={meetingID}
-        joinState={joinState}
-        localVideoTrack={localVideoTrack}
-        client={client}
-        remoteUsers={remoteUsers}
+        <MeetingWindow
+          meetingID={meetingID}
+          joinState={joinState}
+          localVideoTrack={localVideoTrack}
+          client={client}
+          remoteUsers={remoteUsers}
         />
       ) : (
         <LoadingSpinner text="Looking for a Window." />
