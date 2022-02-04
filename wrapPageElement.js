@@ -2,6 +2,7 @@ import React from "react"
 import { LazyMotion, domMax } from "framer-motion"
 import { AuthProvider } from "./src/context/auth-context"
 import { SessionProvider } from "./src/context/session-context"
+import { ToastProvider } from "./src/context/toast-context"
 
 const publicRoutes = ["/", "/login"]
 
@@ -15,7 +16,11 @@ const AuthWrapper = ({ children, pathname }) => {
 
 const SessionWrapper = ({ children, pathname }) => {
   if (!publicRoutes.includes(pathname)) {
-    return <SessionProvider loginRequired={!publicRoutes.includes(pathname)}>{children}</SessionProvider>
+    return (
+      <SessionProvider loginRequired={!publicRoutes.includes(pathname)}>
+        {children}
+      </SessionProvider>
+    )
   }
   return <>{children}</>
 }
@@ -24,7 +29,11 @@ export const wrapPageElement = ({ element, props }) => {
   return (
     <LazyMotion strict features={domMax}>
       <AuthWrapper pathname={props.location.pathname}>
-        <SessionWrapper pathname={props.location.pathname}>{element}</SessionWrapper>
+        <ToastProvider>
+          <SessionWrapper pathname={props.location.pathname}>
+            {element}
+          </SessionWrapper>
+        </ToastProvider>
       </AuthWrapper>
     </LazyMotion>
   )

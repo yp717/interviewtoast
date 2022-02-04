@@ -13,9 +13,8 @@ const MeetingWindow = ({ meetingID, tokenID }) => {
   React.useEffect(() => {
     ;(async () => {
       try {
-        
         rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" })
-        
+
         console.log(options.appId, meetingID, tokenID, user.uid)
 
         const uid = await rtc.client.join(
