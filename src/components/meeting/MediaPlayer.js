@@ -20,8 +20,8 @@ const MediaPlayer = props => {
   return (
     <div
       ref={container}
-      className="video-player"
-      style={{ width: "320px", height: "240px" }}
+      className="video-player w-full h-96 rounded-md"
+      // style={{ width: "320px", height: "240px" }}
     ></div>
   )
 }
