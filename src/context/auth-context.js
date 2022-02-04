@@ -46,7 +46,12 @@ export const AuthProvider = ({ loginRequired, ...props }) => {
     navigate("/login")
   }
 
-  return <AuthContext.Provider value={{ user, logout, toggleRole, role }} {...props} />
+  return (
+    <AuthContext.Provider
+      value={{ user, logout, toggleRole, role }}
+      {...props}
+    />
+  )
 }
 
 export const useAuth = () => useContext(AuthContext)

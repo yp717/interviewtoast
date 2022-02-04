@@ -13,10 +13,10 @@ export const SymblProvider = ({ meetingID, ...props }) => {
   const { fireToast } = useToast()
   useEffect(() => {
     ;(async () => {
-      if(role === "interviewer") {
+      if (role === "interviewer") {
         const res = await fetch("/api/access-token")
         const { accessToken } = await res.json()
-  
+
         const config = {
           attendeeId: user.uid,
           meetingId: meetingID,
@@ -29,7 +29,11 @@ export const SymblProvider = ({ meetingID, ...props }) => {
           onTranscriptCreated: transcript => {
             console.log("On transcript created", transcript)
             fireToast(
-              <Toast duration={3500} title={`Transcript Update`} status="speaker">
+              <Toast
+                duration={3500}
+                title={`Transcript Update`}
+                status="speaker"
+              >
                 <p>{transcript.message}</p>
               </Toast>
             )
@@ -38,7 +42,6 @@ export const SymblProvider = ({ meetingID, ...props }) => {
         symbl.subscribeToTranscriptEvents(transcriptHandler)
         symbl.start()
       }
-    
     })()
   }, [])
   return <SymblContext.Provider value={{}} {...props} />
