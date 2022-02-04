@@ -5,7 +5,7 @@ import { useAuth } from "../../context/auth-context"
 import useOutsideAlerter from "../../hooks/useOutsideAlerter"
 
 const Header = () => {
-  const { user, logout } = useAuth()
+  const { user, logout, toggleRole, role } = useAuth()
   const [menuOpen, setMenuOpen] = React.useState(false)
   const menuRef = React.useRef(null)
   useOutsideAlerter(menuRef, () => setMenuOpen(false))
@@ -19,7 +19,10 @@ const Header = () => {
         <h1 className="text-xl">InterviewToast</h1>
       </Link>
       {user && (
-        <div className="relative">
+        <div className="relative flex items-center space-x-2">
+          <div className="bg-orange-400 rounded-full px-2 uppercase text-sm font-bold">
+            {role}
+            </div>
           <button
             onClick={() => setMenuOpen(true)}
             className="flex items-center space-x-1"
@@ -39,6 +42,9 @@ const Header = () => {
               <Link to="/dashboard" className="hover:text-orange-400 p-2">
                 Dashboard
               </Link>
+              <button onClick={() => {toggleRole(); setMenuOpen(false)}} className="hover:text-orange-400 p-2 w-full text-left">
+                  Switch to {role === "candidate" ? "Interviewer" : "Candidate"}
+                </button>
               <div className="p-2">
                 <button onClick={logout} className="btn-primary w-full">
                   Logout
