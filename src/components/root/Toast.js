@@ -1,6 +1,6 @@
-import React from "react";
-import { m } from "framer-motion";
-import { InformationCircleIcon, SpeakerphoneIcon } from "@heroicons/react/solid";
+import React from "react"
+import { m } from "framer-motion"
+import { InformationCircleIcon, SpeakerphoneIcon } from "@heroicons/react/solid"
 const statusArray = {
   info: {
     Icon: InformationCircleIcon,
@@ -14,10 +14,10 @@ const statusArray = {
     timerColor: "bg-orange-600",
     borderColor: "border-orange-600",
   },
-};
+}
 
 const Toast = ({ duration, title, status = "info", children }) => {
-  const { Icon, bgColor, timerColor, borderColor } = statusArray[status];
+  const { Icon, bgColor, timerColor, borderColor } = statusArray[status]
   return (
     <div
       className={`relative ${bgColor} shadow-lg overflow-hidden mx-auto w-96 max-w-full text-sm pointer-events-auto bg-clip-padding rounded-lg block mb-3`}
@@ -46,7 +46,7 @@ const Toast = ({ duration, title, status = "info", children }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Toast;
+export default Toast

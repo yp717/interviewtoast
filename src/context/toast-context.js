@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
-import { m as motion, usePresence, AnimatePresence } from "framer-motion";
-import md5 from "md5";
-const ToastContext = React.createContext();
+import React, { useState, useContext, useEffect, useCallback } from "react"
+import { m as motion, usePresence, AnimatePresence } from "framer-motion"
+import md5 from "md5"
+const ToastContext = React.createContext()
 
-const transition = { type: "spring", stiffness: 500, damping: 50, mass: 1 };
+const transition = { type: "spring", stiffness: 500, damping: 50, mass: 1 }
 
 function ListItem({ children, onClick, remove, id, duration }) {
-  const [isPresent, safeToRemove] = usePresence();
+  const [isPresent, safeToRemove] = usePresence()
 
   const animations = {
     layout: true,
@@ -23,39 +23,39 @@ function ListItem({ children, onClick, remove, id, duration }) {
     },
     onAnimationComplete: () => !isPresent && safeToRemove(),
     transition,
-  };
+  }
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      remove(id);
-    }, duration);
-    return () => clearTimeout(timeout);
-  }, [id, remove]);
+      remove(id)
+    }, duration)
+    return () => clearTimeout(timeout)
+  }, [id, remove])
 
   return (
     <motion.div {...animations} className="z-90" onClick={onClick}>
       {children}
     </motion.div>
-  );
+  )
 }
 
 export const ToastProvider = ({ children, ...props }) => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([])
 
   const fireToast = useCallback(
     (RC, duration = 3000) =>
-      setItems((items) => [
+      setItems(items => [
         { id: md5(Math.random()), duration, Component: RC },
         ...items,
       ]),
     [setItems]
-  );
+  )
   const remove = useCallback(
-    (itemId) => {
-      setItems((items) => [...items.filter(({ id }) => id !== itemId)]);
+    itemId => {
+      setItems(items => [...items.filter(({ id }) => id !== itemId)])
     },
     [setItems]
-  );
+  )
 
   return (
     <ToastContext.Provider
@@ -75,9 +75,9 @@ export const ToastProvider = ({ children, ...props }) => {
       </div>
       {children}
     </ToastContext.Provider>
-  );
-};
+  )
+}
 
-export const useToast = () => useContext(ToastContext);
+export const useToast = () => useContext(ToastContext)
 
-export default ToastContext;
+export default ToastContext
