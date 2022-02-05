@@ -5,10 +5,19 @@ import dashboard from "../../../static/dashboard.png"
 const DashboardPreview = () => {
   return (
     <div class=" max-w-6xl mx-auto items-center justify-between md:gap-x-8 px-4">
-      <div className="w-full lg:w-1/2">
-        <img src={dashboard} className="w-full max-w-xl" />
+      <div className="grid md:grid-cols-2 gap-4">
+
+      <div className="w-full">
+        <div className="pt-5 bg-gray-600 rounded border-2 border-zinc-700 relative">
+          <div className="absolute top-0 left-0 m-1 flex items-center space-x-1">
+            <div className="h-3 w-3 bg-red-400 rounded-full" />
+            <div className="h-3 w-3 bg-yellow-400 rounded-full" />
+            <div className="h-3 w-3 bg-green-400 rounded-full" />
+          </div>
+          <img src={dashboard} className="w-full max-w-xl" />
+        </div>
       </div>
-      <div className="w-full lg:w-1/2">
+      <div className="w-full flex flex-col justify-center">
         <p class="text-sm leading-4 uppercase text-gray-600">
           Analyze Your Data
         </p>
@@ -23,6 +32,10 @@ const DashboardPreview = () => {
           weaknesses.
         </p>
       </div>
+
+      </div>
+
+     
     </div>
   )
 }
