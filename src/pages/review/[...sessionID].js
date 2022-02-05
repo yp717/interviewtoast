@@ -62,9 +62,14 @@ const Review = ({ params }) => {
           await updateProcessedState(sessionID, data)
 
           // Make a request to the email API Cloud function using the email as a param if email is verified
-          // if (user.emailVerified) {
-          //   await fetch(`/api/email/${user.email}`)
-          // }
+          try {
+            if (user.emailVerified) {
+              const res = await fetch(`/api/email/${user.email}`)
+              console.log(res)
+            }
+          } catch (err) {
+            console.error(err)
+          }
 
           refreshSessions()
           return true
