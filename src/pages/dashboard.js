@@ -1,13 +1,17 @@
 import { Link } from "gatsby"
-import React from "react"
+import React, { useEffect } from "react"
 import DashboardTable from "../components/dashboard/DashboardTable"
 import Layout from "../components/root/Layout"
 import { useSessions } from "../context/session-context"
-import LargeCard from "../components/dashboard/LargeCard"
-import { SpeakerphoneIcon, StarIcon } from "@heroicons/react/outline"
 import JoinMeeting from "../components/meeting/JoinMeeting"
 
 const Dashboard = () => {
+  const { resetDraft } = useSessions()
+
+  useEffect(() => {
+    resetDraft()
+  }, [])
+
   return (
     <Layout>
       <div className="space-y-4">

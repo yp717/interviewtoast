@@ -51,8 +51,13 @@ const Review = ({ params }) => {
         console.log("checking for results")
         const controller = new AbortController()
         const timeoutId = setTimeout(() => controller.abort(), 10000)
-        const response = await fetch(`/api/result/${jobId}/${conversationId}`, {
+        const response = await fetch(`/api/result`, {
           signal: controller.signal,
+          method: "POST",
+          body: JSON.stringify({
+            jobID: jobId,
+            conversationID: conversationId,
+          }),
         }).catch(err => {
           return false
         })

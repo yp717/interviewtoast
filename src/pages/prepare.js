@@ -10,18 +10,17 @@ import {
 import VideoStreamPreview from "../components/prepare/VideoStreamPreview"
 import Layout from "../components/root/Layout"
 import { useAuth } from "../context/auth-context"
-import { retrieveFileURL, uploadFile } from "../utils/storageAdapter"
+import { uploadFile } from "../utils/storageAdapter"
 import { addNewSessionDoc } from "../utils/dbAdapter"
 import useFocus from "../hooks/useFocus"
 import { navigate } from "gatsby"
-import { useSessions } from "../context/session-context"
 import LoadingSpinner from "../components/root/LoadingSpinner"
 
 const Prepare = () => {
   const { user } = useAuth()
   const [streamComplete, setStreamComplete] = React.useState(false)
   const [uploading, setUploading] = React.useState(false)
-  const [isFocused] = useFocus()
+  // const [isFocused] = useFocus()
   const [focusLost, setFocusLost] = React.useState(false)
   const [dates, setDates] = React.useState([])
   const [questions, setQuestions] = React.useState([
@@ -64,7 +63,10 @@ const Prepare = () => {
     setUploading("Uploading your video...")
     const url = await uploadFile(blob, `${user.uid}/${videoID}.mp4`)
     setUploading("Starting Analysis...")
-    const symblResponse = await fetch(`/api/analyse/${url}`)
+    const symblResponse = await fetch(`/api/analyse`, {
+      method: "POST",
+      body: JSON.stringify({ url }),
+    })
     const symblData = await symblResponse.json()
     setUploading("Binding it to you...")
     await addNewSessionDoc(

@@ -4,17 +4,23 @@ import Layout from "../components/root/Layout"
 import { useAuth } from "./auth-context"
 import { useUserSessions } from "../utils/dbAdapter"
 
+const defaultSubmission = {
+  keywords: [],
+  slouchPercent: 0,
+}
+
 const SessionContext = React.createContext()
 
 export const SessionProvider = ({ loginRequired, ...props }) => {
   const { user } = useAuth()
   const [loading, error, data, refresh] = useUserSessions(user?.uid)
 
-  const [draftSubmission, setDraftSubmission] = React.useState({
-    keywords: [],
-    slouchPercent: 0,
-  })
+  const [draftSubmission, setDraftSubmission] =
+    React.useState(defaultSubmission)
 
+  const resetDraft = useCallback(() => {
+    setDraftSubmission(defaultSubmission)
+  }, [setDraftSubmission])
   const getSession = useCallback(
     id => {
       return data.find(session => session.sessionID === id)
@@ -46,6 +52,7 @@ export const SessionProvider = ({ loginRequired, ...props }) => {
         getSession,
         draftSubmission,
         setDraftSubmission,
+        resetDraft,
       }}
       {...props}
     />

@@ -53,6 +53,7 @@ const MeetingWindow = ({
                   label={user.uid}
                   videoTrack={user.videoTrack}
                   audioTrack={user.audioTrack}
+                  toPoseNet={role === "interviewer"}
                 ></MediaPlayer>
               )
             })}
@@ -62,6 +63,7 @@ const MeetingWindow = ({
                 label={joinState && localVideoTrack && client.uid}
                 videoTrack={localVideoTrack}
                 isLittle={true}
+                toPoseNet={false}
               ></MediaPlayer>
             </div>
           </div>

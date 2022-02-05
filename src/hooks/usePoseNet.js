@@ -6,8 +6,8 @@ import {
 import "@tensorflow/tfjs-backend-webgl"
 import { useSessions } from "../context/session-context"
 
-function usePosenet(videoRef) {
-  const { draftSubmission, setDraftSubmission } = useSessions()
+function usePosenet(videoRef, enabled = true) {
+  const { setDraftSubmission } = useSessions()
 
   const slouchFrames = useRef(0)
   const totalFrames = useRef(0)
@@ -65,7 +65,7 @@ function usePosenet(videoRef) {
   }
 
   useEffect(() => {
-    if (videoRef.current) {
+    if (videoRef.current && enabled) {
       const intervalID = setInterval(async () => {
         try {
           estimateMultiplePoses()
@@ -76,7 +76,7 @@ function usePosenet(videoRef) {
       }, 2000)
       return () => clearInterval(intervalID)
     }
-  }, [videoRef, videoRef.current])
+  }, [videoRef, videoRef.current, enabled])
 
   return {
     slouchFrames,
