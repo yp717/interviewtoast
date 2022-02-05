@@ -1,6 +1,10 @@
 import * as React from "react";
 
-import { animals, adjectives, uniqueNamesGenerator } from "unique-names-generator";
+import {
+  animals,
+  adjectives,
+  uniqueNamesGenerator,
+} from "unique-names-generator";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
