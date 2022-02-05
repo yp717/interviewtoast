@@ -1,33 +1,41 @@
 import React, { useRef, useEffect } from "react"
+import usePosenet from "../../hooks/usePoseNet"
 
-const MediaPlayer = props => {
+const MediaPlayer = ({
+  videoTrack,
+  toPoseNet,
+  audioTrack,
+  isLittle,
+  label,
+}) => {
   const container = useRef(null)
+  usePosenet(container, toPoseNet)
   useEffect(() => {
     if (!container.current) return
-    props.videoTrack?.play(container.current)
+    videoTrack?.play(container.current)
 
     return () => {
-      props.videoTrack?.stop()
+      videoTrack?.stop()
     }
-  }, [container, props.videoTrack])
+  }, [container, videoTrack])
 
   useEffect(() => {
-    props.audioTrack?.play()
+    audioTrack?.play()
     return () => {
-      props.audioTrack?.stop()
+      audioTrack?.stop()
     }
-  }, [props.audioTrack])
+  }, [audioTrack])
 
   return (
     <div
       ref={container}
       className={` ${
-        props.isLittle ? "h-[8rem] w-56" : "h-[600px] w-full"
+        isLittle ? "h-[8rem] w-56" : "h-[600px] w-full"
       } rounded-md relative`}
     >
-      {props.label && (
+      {label && (
         <div className="text-sm absolute bg-zinc-800 font-medium bottom-1 px-1 py-1 left-0.5 z-50 opacity-70 rounded-md">
-          {props.label}
+          {label}
         </div>
       )}
     </div>
