@@ -49,6 +49,9 @@ const InterviewerFlow = () => {
             </button>
           </CopyToClipboard>
         </div>
+
+        <KeywordCollector />
+
         <StartMeetingButton onClick={() => joinMeetingFunc(user, value)} />
       </div>
 
@@ -58,9 +61,6 @@ const InterviewerFlow = () => {
           setShowAlert={setShowAlert}
         />
       )}
-
-      <p>You can also add key words to get InterviewToast to look out for during your interview! Enter as many as you like!</p>
-      <KeywordCollector />
     </div>
   )
 }

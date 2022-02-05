@@ -1,18 +1,11 @@
 import * as React from "react"
 import ActiveKeyword from "./ActiveKeyword"
 
-const ActiveKeywords = ({ activeKeywords, setActiveKeywords }) => {
-  const removeKeyword = value => {
-    setActiveKeywords([
-      ...activeKeywords,
-      activeKeywords.filter(activeKeyword => activeKeyword !== value),
-    ])
-  }
-
+const ActiveKeywords = ({ activeKeywords, removeKeyword }) => {
   return (
     <div>
       {activeKeywords && (
-        <div className="flex-grow p-3 border border-gray-300 rounded-md">
+        <div className="flex-grow p-3 bg-gray-800 h-12 overflow-y-auto">
           <div className="flex flex-wrap overflow-y-auto gap-x-3 gap-y-3">
             {activeKeywords.map((text, index) => {
               return (
