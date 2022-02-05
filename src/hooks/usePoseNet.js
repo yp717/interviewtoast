@@ -8,7 +8,7 @@ import "@tensorflow/tfjs-backend-webgl"
 function usePosenet(videoRef) {
   const [poses, setPoses] = React.useState(null)
   const estimateMultiplePoses = async () => {
-      const model = SupportedModels.MoveNet
+    const model = SupportedModels.MoveNet
     const detector = await createDetector(model)
     const newPoses = await detector.estimatePoses(videoRef.current, {
       decodingMethod: "single-person",
