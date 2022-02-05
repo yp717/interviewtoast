@@ -13,11 +13,18 @@ import LoadingSpinner from "../../components/root/LoadingSpinner"
 
 const Review = ({ params }) => {
   const sessionID = params[`sessionID`]
+  const [loading,setLoading] = React.useState(true)
   const [loadingMessage, setLoadingMessage] =
     React.useState("Checking Status...")
   const { getSession, refreshSessions } = useSessions()
-  const { url, name, date, length, jobId, conversationId, processed } =
-    getSession(sessionID)
+
+  // React.useEffect(() => {
+  //   (async () => {
+  //     await refreshSessions()
+  //     setLoading(false)
+  //   })()
+    
+  // },[])
 
   React.useEffect(() => {
     if (!processed) {
@@ -42,6 +49,7 @@ const Review = ({ params }) => {
       }
       ;(async () => {
         let flag = false
+        
         while (!flag) {
           flag = await checkForResults()
           setLoadingMessage("Still Processing...")
@@ -50,13 +58,16 @@ const Review = ({ params }) => {
     }
   }, [processed, conversationId, jobId, refreshSessions, sessionID])
 
-  if (!processed) {
+  if (!processed && loading) {
     return (
       <Layout>
         <LoadingSpinner text={loadingMessage} />
       </Layout>
     )
   }
+
+  const { url, name, date, length, jobId, conversationId, processed } =
+  getSession(sessionID)
 
   return (
     <Layout>

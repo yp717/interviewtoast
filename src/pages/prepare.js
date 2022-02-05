@@ -1,40 +1,39 @@
-import React, { useEffect, useMemo, useState } from "react"
-import md5 from "md5"
-import { useReactMediaRecorder } from "react-media-recorder"
+import React, { useEffect, useMemo, useState } from "react";
+import md5 from "md5";
+import { useReactMediaRecorder } from "react-media-recorder";
 import {
   CheckCircleIcon,
   FlagIcon,
   PlusCircleIcon,
   TrashIcon,
-} from "@heroicons/react/solid"
-import VideoStreamPreview from "../components/prepare/VideoStreamPreview"
-import Layout from "../components/root/Layout"
-import { useAuth } from "../context/auth-context"
-import { retrieveFileURL, uploadFile } from "../utils/storageAdapter"
-import { addNewSessionDoc } from "../utils/dbAdapter"
-import useFocus from "../hooks/useFocus"
-import { navigate } from "gatsby"
-import { useSessions } from "../context/session-context"
-import LoadingSpinner from "../components/root/LoadingSpinner"
+} from "@heroicons/react/solid";
+import VideoStreamPreview from "../components/prepare/VideoStreamPreview";
+import Layout from "../components/root/Layout";
+import { useAuth } from "../context/auth-context";
+import { retrieveFileURL, uploadFile } from "../utils/storageAdapter";
+import { addNewSessionDoc } from "../utils/dbAdapter";
+import useFocus from "../hooks/useFocus";
+import { navigate } from "gatsby";
+import { useSessions } from "../context/session-context";
+import LoadingSpinner from "../components/root/LoadingSpinner";
 
 const Prepare = () => {
-  const { user } = useAuth()
-  const [streamComplete, setStreamComplete] = React.useState(false)
-  const [uploading, setUploading] = React.useState(false)
-  const [isFocused] = useFocus()
-  const [focusLost, setFocusLost] = React.useState(false)
-  const [dates, setDates] = React.useState([])
+  const { user } = useAuth();
+  const [streamComplete, setStreamComplete] = React.useState(false);
+  const [uploading, setUploading] = React.useState(false);
+  const [isFocused] = useFocus();
+  const [focusLost, setFocusLost] = React.useState(false);
+  const [dates, setDates] = React.useState([]);
   const [questions, setQuestions] = React.useState([
     "Please introduce yourself",
     "What made you apply for this role?",
     "What are your strengths?",
-  ])
-  const [question, setQuestion] = React.useState("")
-  const [currentQuestion, setCurrentQuestion] = React.useState(0)
-  const [questionDuration, setQuestionDuration] = React.useState(30)
-  const [showCam, setShowCam] = useState(true)
-  const [questionsSubmitted, setQuestionsSubmitted] = React.useState(null)
-  const { refreshSessions } = useSessions()
+  ]);
+  const [question, setQuestion] = React.useState("");
+  const [currentQuestion, setCurrentQuestion] = React.useState(0);
+  const [questionDuration, setQuestionDuration] = React.useState(30);
+  const [showCam, setShowCam] = useState(true);
+  const [questionsSubmitted, setQuestionsSubmitted] = React.useState(null);
   const {
     status,
     startRecording,
@@ -47,7 +46,7 @@ const Prepare = () => {
   } = useReactMediaRecorder({
     video: true,
     askPermissionOnMount: true,
-  })
+  });
 
   // useEffect(() => {
   //   if (!isFocused) {
@@ -58,16 +57,16 @@ const Prepare = () => {
   // }, [isFocused, status, setFocusLost, stopRecording])
 
   const upload = async () => {
-    setUploading("Inspecting your video...")
-    const length = dates[1] - dates[0]
-    const blob = await fetch(mediaBlobUrl).then(res => res.blob())
-    const videoID = md5(`${user.uid}/${Date.now()}`)
-    setUploading("Uploading your video...")
-    const url = await uploadFile(blob, `${user.uid}/${videoID}.mp4`)
-    setUploading("Starting Analysis...")
-    const symblResponse = await fetch(`/api/analyse/${url}`)
-    const symblData = await symblResponse.json()
-    setUploading("Binding it to you...")
+    setUploading("Inspecting your video...");
+    const length = dates[1] - dates[0];
+    const blob = await fetch(mediaBlobUrl).then((res) => res.blob());
+    const videoID = md5(`${user.uid}/${Date.now()}`);
+    setUploading("Uploading your video...");
+    const url = await uploadFile(blob, `${user.uid}/${videoID}.mp4`);
+    setUploading("Starting Analysis...");
+    const symblResponse = await fetch(`/api/analyse/${url}`);
+    const symblData = await symblResponse.json();
+    setUploading("Binding it to you...");
     await addNewSessionDoc(
       user.uid,
       videoID,
@@ -76,29 +75,30 @@ const Prepare = () => {
       symblData,
       questions,
       questionDuration
-    )
-    await refreshSessions()
-    navigate(`/review/${videoID}`)
-  }
+    );
+
+    // await refreshSessions();
+    navigate(`/review/${videoID}`);
+  };
 
   const reset = () => {
-    setFocusLost(false)
-    clearBlobUrl()
-    setStreamComplete(false)
-  }
+    setFocusLost(false);
+    clearBlobUrl();
+    setStreamComplete(false);
+  };
 
   useEffect(() => {
     if (status === "recording") {
       const timeoutID = setTimeout(() => {
         if (currentQuestion < questions.length - 1) {
-          setCurrentQuestion(currentQuestion + 1)
+          setCurrentQuestion(currentQuestion + 1);
         } else {
-          stopRecording()
-          setStreamComplete(true)
-          setDates([dates[0], Date.now()])
+          stopRecording();
+          setStreamComplete(true);
+          setDates([dates[0], Date.now()]);
         }
-      }, questionDuration * 1000)
-      return () => clearTimeout(timeoutID)
+      }, questionDuration * 1000);
+      return () => clearTimeout(timeoutID);
     }
   }, [
     status,
@@ -108,14 +108,14 @@ const Prepare = () => {
     dates,
     stopRecording,
     questionDuration,
-  ])
+  ]);
 
   const renderJourney = useMemo(() => {
     if (status === "acquiring_media") {
-      return <LoadingSpinner text="Finding Media Devices..." />
+      return <LoadingSpinner text="Finding Media Devices..." />;
     }
     if (uploading) {
-      return <LoadingSpinner text="Uploading to Toast HQ..." />
+      return <LoadingSpinner text="Uploading to Toast HQ..." />;
     }
 
     if (focusLost && status === "paused") {
@@ -125,7 +125,7 @@ const Prepare = () => {
           <p>Interview prep is at it's best when its your only focus.</p>
           <button onClick={reset}>Restart Session</button>
         </div>
-      )
+      );
     }
 
     if (!questionsSubmitted) {
@@ -149,7 +149,7 @@ const Prepare = () => {
                   className="input text-white bg-gray-800 px-3 rounded w-16 border-2 border-orange-400"
                   value={questionDuration}
                   type="number"
-                  onChange={e => setQuestionDuration(e.target.value)}
+                  onChange={(e) => setQuestionDuration(e.target.value)}
                 />{" "}
                 <p>seconds.</p>
               </div>
@@ -167,11 +167,13 @@ const Prepare = () => {
                         readOnly
                         className="input text-white bg-gray-800 px-3 rounded w-full border-2 border-orange-400"
                         value={q}
-                        onChange={e => setQuestion(e.target.value)}
+                        onChange={(e) => setQuestion(e.target.value)}
                       />
                       <button
                         onClick={() => {
-                          setQuestions([...questions.filter((_, j) => j !== i)])
+                          setQuestions([
+                            ...questions.filter((_, j) => j !== i),
+                          ]);
                         }}
                       >
                         <TrashIcon className="h-4 w-4 text-orange-400" />
@@ -185,12 +187,12 @@ const Prepare = () => {
                     <input
                       className="input text-white bg-gray-800 px-3 rounded w-full border-2 border-orange-400"
                       value={question}
-                      onChange={e => setQuestion(e.target.value)}
+                      onChange={(e) => setQuestion(e.target.value)}
                     />
                     <button
                       onClick={() => {
-                        setQuestions([...questions, question])
-                        setQuestion("")
+                        setQuestions([...questions, question]);
+                        setQuestion("");
                       }}
                     >
                       <PlusCircleIcon className="h-4 w-4 text-orange-400" />
@@ -220,7 +222,7 @@ const Prepare = () => {
             </button>
           </div>
         </div>
-      )
+      );
     }
 
     if (!streamComplete) {
@@ -255,8 +257,8 @@ const Prepare = () => {
                 <button
                   className="btn-primary"
                   onClick={() => {
-                    setDates([Date.now()])
-                    startRecording()
+                    setDates([Date.now()]);
+                    startRecording();
                   }}
                 >
                   Start Recording
@@ -265,9 +267,9 @@ const Prepare = () => {
                 <button
                   className="btn-primary"
                   onClick={() => {
-                    stopRecording()
-                    setStreamComplete(true)
-                    setDates([dates[0], Date.now()])
+                    stopRecording();
+                    setStreamComplete(true);
+                    setDates([dates[0], Date.now()]);
                   }}
                 >
                   Stop Recording
@@ -276,14 +278,14 @@ const Prepare = () => {
             </div>
           </div>
         </div>
-      )
+      );
     }
 
     return (
       <div className="flex flex-col items-center justify-center space-y-2 max-w-4xl mx-auto">
         <div className="rounded bg-gray-900 overflow-hidden w-full relative ">
           <div className="absolute z-20 w-full flex items-center justify-center mt-2">
-            <div className="bg-gray-900 px-2 py-1 rounded-full mx-auto flex items-center space-x-2 px-2">
+            <div className="bg-gray-900 px-2 py-1 rounded-full mx-auto flex items-center space-x-2">
               <CheckCircleIcon className="h-5 w-5" />
               <p>Session Recorded</p>
             </div>
@@ -302,7 +304,7 @@ const Prepare = () => {
           </div>
         </div>
       </div>
-    )
+    );
   }, [
     setStreamComplete,
     streamComplete,
@@ -312,9 +314,9 @@ const Prepare = () => {
     focusLost,
     reset,
     upload,
-  ])
+  ]);
 
-  return <Layout>{renderJourney}</Layout>
-}
+  return <Layout>{renderJourney}</Layout>;
+};
 
-export default Prepare
+export default Prepare;
