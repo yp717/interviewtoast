@@ -25,6 +25,7 @@
     "firebase": "^9.6.4",
     "framer-motion": "^6.2.3",
     "gatsby": "^4.5.4",
+    "gatsby-plugin-gatsby-cloud": "^4.6.0",
     "gatsby-plugin-react-helmet-async": "^1.2.1",
     "md5": "^2.3.0",
     "node-fetch": "^2.6.7",
