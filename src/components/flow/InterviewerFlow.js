@@ -8,6 +8,8 @@ import { joinMeeting as joinMeetingFunc } from "../../utils/joinMeeting"
 import { useAuth } from "../../context/auth-context"
 import CopyToClipboardSuccess from "../alerts/CopyToClipboardSuccess"
 
+import KeywordCollector from "../KeywordCollector/KeywordCollector"
+
 const InterviewerFlow = () => {
   const { user } = useAuth()
   const [value, setValue] = React.useState("linguistic_tan")
@@ -56,6 +58,9 @@ const InterviewerFlow = () => {
           setShowAlert={setShowAlert}
         />
       )}
+
+      <p>You can also add key words to get InterviewToast to look out for during your interview! Enter as many as you like!</p>
+      <KeywordCollector />
     </div>
   )
 }
