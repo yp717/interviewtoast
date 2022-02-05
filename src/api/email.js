@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       // Change to your recipient
       to: email,
       from: "interviewtoast@gmail.com",
-      subject: "Your Interview Toast Meeting Summary",
+      subject: "Your InterviewToast Meeting Summary",
       html: "<strong>There was text here</strong>", // createDynamicEmailTemplate()
     }
 

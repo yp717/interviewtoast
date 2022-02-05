@@ -21,7 +21,7 @@ const Hero = () => {
           </h1>
           <p>
             Whether you're a an applicant or an interviewer - interviews suck.
-            Powered by AI, Interview Toast gives you everything you need to make
+            Powered by AI, InterviewToast gives you everything you need to make
             interviews a positive experience. Don't burn your next interview.
           </p>
           <Link to={user ? "/dashboard" : "/login"} className="inline-block">
