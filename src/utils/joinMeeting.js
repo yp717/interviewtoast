@@ -1,6 +1,7 @@
 import { navigate } from "gatsby"
 
 export const joinMeeting = async (user, value) => {
+  // If activeKeywords is defined do something with active keywords
   try {
     const res = await fetch("/api/agora/meeting-token-gen", {
       method: "POST",

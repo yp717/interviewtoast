@@ -25,10 +25,12 @@ const KeywordCollector = ({ activeKeywords, setActiveKeywords }) => {
   return (
     <div className="flex flex-col gap-y-2 my-4">
       <KeywordInput addKeyword={addKeyword} />
-      <ActiveKeywords
-        activeKeywords={activeKeywords}
-        removeKeyword={removeKeyword}
-      />
+      {activeKeywords.length > 0 && (
+        <ActiveKeywords
+          activeKeywords={activeKeywords}
+          removeKeyword={removeKeyword}
+        />
+      )}
     </div>
   )
 }

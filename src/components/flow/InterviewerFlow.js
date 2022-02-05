@@ -9,9 +9,11 @@ import { useAuth } from "../../context/auth-context"
 import CopyToClipboardSuccess from "../alerts/CopyToClipboardSuccess"
 
 import KeywordCollector from "../KeywordCollector/KeywordCollector"
+import { useSessions } from "../../context/session-context"
 
 const InterviewerFlow = () => {
   const { user } = useAuth()
+  const { draftSubmission, setDraftSubmission } = useSessions()
   const [value, setValue] = React.useState("linguistic_tan")
   const [copied, setCopied] = React.useState(false)
   const [showAlert, setShowAlert] = React.useState(false)
@@ -56,7 +58,12 @@ const InterviewerFlow = () => {
           setActiveKeywords={setActiveKeywords}
         />
 
-        <StartMeetingButton onClick={() => joinMeetingFunc(user, value)} />
+        <StartMeetingButton
+          onClick={() => {
+            setDraftSubmission({ ...draftSubmission, keywords: activeKeywords })
+            joinMeetingFunc(user, value)
+          }}
+        />
       </div>
 
       {showAlert && (

@@ -4,17 +4,18 @@ import AgoraRTC from "agora-rtc-sdk-ng"
 
 import Layout from "../../components/root/Layout"
 import LoadingSpinner from "../../components/root/LoadingSpinner"
-import MediaPlayer from "../../components/meeting/MediaPlayer"
-
 import useAgora from "../../hooks/useAgora"
-import { SymblProvider } from "../../context/symbl-context"
 import MeetingWindow from "../../components/meeting/MeetingWindow"
+import { useSessions } from "../../context/session-context"
+
 const isSSR = typeof window === "undefined"
 
 let client = !isSSR && AgoraRTC.createClient({ codec: "h264", mode: "rtc" })
 
 const Meeting = ({ params }) => {
   const { localVideoTrack, join, joinState, remoteUsers } = useAgora(client)
+  const { draftSubmission } = useSessions()
+  console.log("draftSubmission", draftSubmission)
   // Note: the tokenID could have a slash so split on index of first slash
   const allParams = params[`*`]
   const meetingID = allParams.substring(0, allParams.indexOf("/"))

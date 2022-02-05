@@ -3,11 +3,13 @@ import * as React from "react"
 import { ChatIcon } from "@heroicons/react/solid"
 
 import { useSymbl } from "../../context/symbl-context"
+import { useSessions } from "../../context/session-context"
 
 const Captions = () => {
   const { captionHistory } = useSymbl()
-
-  const awesomeWords = ["javascript", "react"]
+  const {
+    draftSubmission: { keywords },
+  } = useSessions()
 
   React.useEffect(() => {
     var elmnt = document.getElementById("last-caption")
@@ -17,14 +19,11 @@ const Captions = () => {
   const renderCaptionMessage = message => {
     let newMessage = message
 
-    awesomeWords.map(awesomeWord => {
-      var re = new RegExp(awesomeWord, "g")
+    keywords.map(keyword => {
+      var re = new RegExp(keyword, "g")
       newMessage = newMessage
         .toLowerCase()
-        .replace(
-          re,
-          `<span class="font-bold text-green-500">${awesomeWord}</span>`
-        )
+        .replace(re, `<span class="font-bold text-green-500">${keyword}</span>`)
     })
 
     var re = new RegExp("\\*", "g")

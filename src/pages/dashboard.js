@@ -8,10 +8,6 @@ import { SpeakerphoneIcon, StarIcon } from "@heroicons/react/outline"
 import JoinMeeting from "../components/meeting/JoinMeeting"
 
 const Dashboard = () => {
-  const { sessions } = useSessions()
-
-  // use the role here
-
   return (
     <Layout>
       <div className="space-y-4">
