@@ -15,7 +15,7 @@ const JoinMeeting = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           channelName: value,
-          uid: user.uid,
+          uid: user.displayName,
         }),
       })
 
@@ -26,7 +26,7 @@ const JoinMeeting = () => {
       console.error("Could not generate meeting token", e)
     }
   }
-  console.log(value)
+
   return (
     <div className="flex flex-col space-y-4">
       <input

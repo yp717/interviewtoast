@@ -1,0 +1,180 @@
+{
+    "_events": {
+        "@need_add_track": [
+            {
+                "once": false
+            }
+        ],
+        "@need_remove_track": [
+            {
+                "once": false
+            }
+        ],
+        "@need_reset_remote_sdp": [
+            {
+                "once": false
+            }
+        ],
+        "@get_stats": [
+            {
+                "once": false
+            }
+        ],
+        "@need_close": [
+            {
+                "once": false
+            }
+        ],
+        "@set_audio_track_muted": [
+            {
+                "once": false
+            }
+        ],
+        "@need_renegotiate": [
+            {
+                "once": false
+            }
+        ],
+        "@need_replace_track": [
+            {
+                "once": false
+            }
+        ],
+        "@need_sid": [
+            {
+                "once": false
+            }
+        ]
+    },
+    "_hints": [],
+    "_isClosed": false,
+    "_ID": "track-mic-e52909f3",
+    "_originMediaStreamTrack": {},
+    "_mediaStreamTrack": {},
+    "_enabled": true,
+    "_muted": false,
+    "_trackProcessors": [],
+    "_enabledMutex": {
+        "lockingPromise": {},
+        "locks": 0,
+        "name": "track-mic-e52909f3",
+        "lockId": 5
+    },
+    "trackMediaType": "audio",
+    "_volume": 100,
+    "_useAudioElement": false,
+    "_bypassWebAudio": false,
+    "_encoderConfig": {},
+    "_source": {
+        "_events": {},
+        "isPlayed": false,
+        "audioOutputLevel": 0,
+        "isDestroyed": false,
+        "isNoAudioInput": false,
+        "_noAudioInputCount": 0,
+        "context": {},
+        "playNode": {},
+        "outputNode": {},
+        "analyserNode": {},
+        "isCurrentTrackCloned": false,
+        "isRemoteTrack": false,
+        "track": {},
+        "sourceNode": {},
+        "audioElement": {}
+    },
+    "_deviceName": "AirPods",
+    "_config": {},
+    "_constraints": {}
+},
+
+// Sam
+{
+    {
+        "_events": {
+            "@need_add_track": [
+                {
+                    "once": false
+                }
+            ],
+            "@need_remove_track": [
+                {
+                    "once": false
+                }
+            ],
+            "@need_reset_remote_sdp": [
+                {
+                    "once": false
+                }
+            ],
+            "@get_stats": [
+                {
+                    "once": false
+                }
+            ],
+            "@need_close": [
+                {
+                    "once": false
+                }
+            ],
+            "@set_audio_track_muted": [
+                {
+                    "once": false
+                }
+            ],
+            "@need_renegotiate": [
+                {
+                    "once": false
+                }
+            ],
+            "@need_replace_track": [
+                {
+                    "once": false
+                }
+            ],
+            "@need_sid": [
+                {
+                    "once": false
+                }
+            ]
+        },
+        "_hints": [],
+        "_isClosed": false,
+        "_ID": "track-mic-d1c29e3a",
+        "_originMediaStreamTrack": {},
+        "_mediaStreamTrack": {},
+        "_enabled": true,
+        "_muted": false,
+        "_trackProcessors": [],
+        "_enabledMutex": {
+            "lockingPromise": {},
+            "locks": 0,
+            "name": "track-mic-d1c29e3a",
+            "lockId": 5
+        },
+        "trackMediaType": "audio",
+        "_volume": 100,
+        "_useAudioElement": false,
+        "_bypassWebAudio": false,
+        "_encoderConfig": {},
+        "_source": {
+            "_events": {},
+            "isPlayed": false,
+            "audioOutputLevel": 0,
+            "isDestroyed": false,
+            "isNoAudioInput": false,
+            "_noAudioInputCount": 0,
+            "context": {},
+            "playNode": {},
+            "outputNode": {},
+            "analyserNode": {},
+            "isCurrentTrackCloned": false,
+            "isRemoteTrack": false,
+            "track": {},
+            "sourceNode": {},
+            "audioElement": {}
+        },
+        "_deviceName": "Default - External Microphone (Built-in)",
+        "_config": {},
+        "_constraints": {}
+    }
+}

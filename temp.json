@@ -1,0 +1,43 @@
+{
+  "data": {
+    "type": "recognition_result",
+    "isFinal": true,
+    "payload": {
+      "raw": {
+        "alternatives": [
+          {
+            "words": [
+              {
+                "word": "Little",
+                "startTime": { "seconds": "0", "nanos": "100000000" },
+                "endTime": { "seconds": "0", "nanos": "400000000" }
+              },
+              {
+                "word": "one.",
+                "startTime": { "seconds": "0", "nanos": "400000000" },
+                "endTime": { "seconds": "0", "nanos": "600000000" }
+              }
+            ],
+            "transcript": "Little one.",
+            "confidence": 0.719719648361206
+          }
+        ]
+      }
+    },
+    "punctuated": { "transcript": "Little one." },
+    "user": {
+      "userId": "0bQtVCfACWNUbFtV20yjE3Yk3Bq1",
+      "name": "0bQtVCfACWNUbFtV20yjE3Yk3Bq1",
+      "id": "8f06c98e-12c5-4b4e-aa7f-401cb1df4e11"
+    }
+  },
+  "userId": null,
+  "element": null,
+  "name": "0bQtVCfACWNUbFtV20yjE3Yk3Bq1",
+  "captionNum": 1,
+  "textTrack": null,
+  "_videoElementId": null,
+  "videoElement": null,
+  "message": "Little one.",
+  "contentSpan": null
+}

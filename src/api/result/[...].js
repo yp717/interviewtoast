@@ -8,11 +8,13 @@ export default async function handler(req, res) {
   const conversationID = params[1]
   const { accessToken } = await loginToSymbl()
   const { status } = await getJobStatus(accessToken, jobID)
+  
   if (status === "completed") {
     const result = await getConversationData(accessToken, conversationID)
     res.send(result)
     return
   }
+  
   if (status === "failed") {
     res.status(500).send(status)
     return

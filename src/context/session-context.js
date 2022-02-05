@@ -20,7 +20,9 @@ export const SessionProvider = ({ loginRequired, ...props }) => {
   if (!user || !loginRequired) {
     return <SessionContext.Provider value={{ sessions: [] }} {...props} />
   }
+
   console.log(user, loginRequired)
+  
   if (loading) {
     return (
       <Layout>

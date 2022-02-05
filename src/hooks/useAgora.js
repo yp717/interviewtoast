@@ -21,7 +21,7 @@ export default function useAgora(client) {
     return [microphoneTrack, cameraTrack]
   }
 
-  async function join(channel, token, uid) {
+  async function join(channel, token) {
     console.log("Joining")
     console.log("Client", client)
     if (!client) return
@@ -32,13 +32,13 @@ export default function useAgora(client) {
       process.env.GATSBY_AGORA_APP_ID,
       channel,
       token || null,
-      user.uid
+      user.displayName
     )
+    console.log("prepublish")
     await client.publish([microphoneTrack, cameraTrack])
 
-    window.client = client
-    window.videoTrack = cameraTrack
-
+    console.log(microphoneTrack)
+    console.log(cameraTrack)
     setJoinState(true)
   }
 
@@ -53,19 +53,15 @@ export default function useAgora(client) {
     }
     setRemoteUsers([])
     setJoinState(false)
-    await client?.leave()
+    await client.leave()
   }
 
   async function toggleAudio() {
-    if (localAudioTrack) {
-      localAudioTrack.stop()
-    } else {
-      const [microphoneTrack, cameraTrack] = await createLocalTracks()
-      await client.publish([microphoneTrack, cameraTrack])
-
-      window.client = client
-      window.videoTrack = cameraTrack
-    }
+    // if (localAudioTrack) {
+    // localAudioTrack?._muted = true
+    // } else {
+    // localAudioTrack?._muted = false
+    // }
   }
 
   async function toggleVideo() {
@@ -74,9 +70,6 @@ export default function useAgora(client) {
     } else {
       const [microphoneTrack, cameraTrack] = await createLocalTracks()
       await client.publish([microphoneTrack, cameraTrack])
-
-      window.client = client
-      window.videoTrack = cameraTrack
     }
   }
 

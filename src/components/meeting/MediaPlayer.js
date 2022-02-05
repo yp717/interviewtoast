@@ -18,9 +18,14 @@ const MediaPlayer = props => {
   }, [props.audioTrack])
 
   return (
-    <div ref={container} className="w-full h-96 rounded-md relative">
+    <div
+      ref={container}
+      className={` ${
+        props.isLittle ? "h-[8rem] w-56" : "h-[600px] w-full"
+      } rounded-md relative`}
+    >
       {props.label && (
-        <div className="absolute bg-zinc-800 bottom-0.5 px-1 py-1 left-0.5 z-50 opacity-70 rounded-md">
+        <div className="text-sm absolute bg-zinc-800 font-medium bottom-1 px-1 py-1 left-0.5 z-50 opacity-70 rounded-md">
           {props.label}
         </div>
       )}
