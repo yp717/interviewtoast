@@ -3,6 +3,7 @@ import Hero from "../components/landing/Hero"
 import Layout from "../components/root/Layout"
 import { ArrowRightIcon } from "@heroicons/react/outline"
 import Pricing from "../components/Pricing/Pricing"
+import DashboardPreview from "../components/DashboardPreview/DashboardPreview"
 
 const IndexPage = () => {
   return (
@@ -20,7 +21,8 @@ const IndexPage = () => {
           <p>Feedback</p>
         </div>
       </div>
-      <div className="w-full bg-gray-100 text-gray-800 py-24">
+      <div className="flex flex-col gap-y-12 w-full bg-gray-100 text-gray-800 py-24">
+        <DashboardPreview />
         <Pricing />
       </div>
     </Layout>
