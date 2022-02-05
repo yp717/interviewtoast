@@ -1,12 +1,15 @@
 import * as React from "react"
 
-const JoinMeetingButton = ({ onClick }) => {
+const JoinMeetingButton = ({ onClick, value }) => {
   return (
     <button
       type="submit"
       value="Join"
       onClick={onClick}
-      className="btn-primary"
+      disabled={!value}
+      className={`${
+        !value && "disabled cursor-not-allowed  opacity-40"
+      } btn-primary`}
     >
       Join
     </button>

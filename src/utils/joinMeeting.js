@@ -1,6 +1,6 @@
 import { navigate } from "gatsby"
 
-export const joinMeeting = async (value, user) => {
+export const joinMeeting = async (user, value) => {
   try {
     const res = await fetch("/api/agora/meeting-token-gen", {
       method: "POST",

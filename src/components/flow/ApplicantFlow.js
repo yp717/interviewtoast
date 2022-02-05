@@ -22,6 +22,8 @@ const ApplicantFlow = () => {
         </p>
       </div>
 
+      {/* Need input validation on form */}
+
       <div className="bg-gray-900 py-4 rounded">
         <div className="flex space-x-4 w-full">
           <input
@@ -31,7 +33,10 @@ const ApplicantFlow = () => {
             className="flex-grow bg-white text-gray-900 border px-2 py-1.5 rounded-sm"
             placeholder="Enter Channel name"
           />
-          <JoinMeetingButton onClick={() => joinMeetingFunc(user, value)} />
+          <JoinMeetingButton
+            onClick={() => joinMeetingFunc(user, value)}
+            value={value}
+          />
         </div>
       </div>
     </div>

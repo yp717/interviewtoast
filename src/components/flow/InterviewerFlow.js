@@ -3,8 +3,11 @@ import * as React from "react"
 import { ClipboardCopyIcon } from "@heroicons/react/outline"
 import StartMeetingButton from "../buttons/StartMeetingButton"
 import { joinMeeting as joinMeetingFunc } from "../../utils/joinMeeting"
+import { useAuth } from "../../context/auth-context"
 
 const InterviewerFlow = () => {
+  const { user } = useAuth()
+  const [value, setValue] = React.useState("linguistic_tan")
   return (
     <div>
       <div className="w-full border-b-2 mb-2 border-gray-800 group-hover:border-white pb-1">
@@ -21,7 +24,7 @@ const InterviewerFlow = () => {
       <div className="flex flex-col gap-4">
         <div className="flex bg-gray-800 rounded-md px-2 py-1">
           <p className="flex-grow font-bold text-2xl md:col-span-2 text-left">
-            linguistic_tan
+            {value}
           </p>
           <button
             onClick={() => console.log("should copy to clipboard")}
@@ -30,7 +33,7 @@ const InterviewerFlow = () => {
             <ClipboardCopyIcon className="w-6 h-6" />
           </button>
         </div>
-        <StartMeetingButton onClick={joinMeetingFunc} />
+        <StartMeetingButton onClick={() => joinMeetingFunc(user, value)} />
       </div>
     </div>
   )
