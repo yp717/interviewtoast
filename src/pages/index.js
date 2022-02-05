@@ -21,7 +21,7 @@ const IndexPage = () => {
           <p>Feedback</p>
         </div>
       </div>
-      <div className="flex flex-col gap-y-12 w-full bg-gray-100 text-gray-800 py-24">
+      <div className="flex flex-col gap-y-44 w-full bg-gray-100 text-gray-800 py-24">
         <DashboardPreview />
         <Pricing />
       </div>

@@ -7,7 +7,7 @@ import PriceCardWithBorder from "./PriceCardWithBorder"
 
 const Pricing = () => {
   return (
-    <div class="max-w-6xl mx-auto lg:flex items-center justify-between md:gap-x-8 px-4">
+    <div class="max-w-6xl mx-auto lg:flex items-center justify-between md:gap-x-16 px-4">
       <ChooseYourPlan />
       <div class="xl:w-1/2 lg:w-7/12 relative w-full lg:mt-0 mt-12" role="list">
         <Logo className=" pointer-events-none md:h-64 md:w-64 absolute w-full -ml-16 mt-24 opacity-5 rotate-12 " />
