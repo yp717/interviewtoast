@@ -27,7 +27,9 @@ export const addNewSessionDoc = async (
   sessionID,
   length,
   url,
-  symblData
+  symblData,
+  questions,
+  questionDuration
 ) => {
   const db = getFirestore()
   await setDoc(doc(db, "sessions", sessionID), {
@@ -38,6 +40,8 @@ export const addNewSessionDoc = async (
     length,
     url,
     processed: false,
+    sesionQuestions: questions,
+    questionDuration,
     ...symblData,
   })
 }
