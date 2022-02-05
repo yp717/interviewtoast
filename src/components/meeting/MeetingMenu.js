@@ -23,7 +23,7 @@ const MeetingMenu = ({ client, channel, videoTrack }) => {
       stopSymbl()
 
       videoTrack.stop()
-      
+
       if (role === "interviewer") {
         navigate(`/feedback/${convoID}`, { replace: false })
       } else {
