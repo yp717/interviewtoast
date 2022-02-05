@@ -24,5 +24,5 @@ export default async function handler(req, res) {
       console.error(error)
     })
 
-  return
+  return { Status: "Email Successfully Sent!" }
 }
