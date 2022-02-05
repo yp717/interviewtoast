@@ -1,8 +1,10 @@
 import React, { useRef, useEffect } from "react"
+import usePosenet from "../../hooks/usePoseNet"
 
 const VideoPreview = ({ stream }) => {
   const videoRef = useRef()
-
+  const { poses } = usePosenet(videoRef)
+  console.log(poses)
   useEffect(() => {
     if (videoRef.current && stream) {
       videoRef.current.srcObject = stream
