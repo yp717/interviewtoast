@@ -2,9 +2,7 @@ import * as React from "react"
 import ActiveKeywords from "./ActiveKeywords"
 import KeywordInput from "./KeywordInput"
 
-const KeywordCollector = () => {
-  const [activeKeywords, setActiveKeywords] = React.useState([])
-
+const KeywordCollector = ({ activeKeywords, setActiveKeywords }) => {
   const addKeyword = value => {
     // Only add the keyword if it isn't already in there
     const index = activeKeywords.findIndex(item => item == value.toLowerCase())

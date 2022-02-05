@@ -15,6 +15,7 @@ const InterviewerFlow = () => {
   const [value, setValue] = React.useState("linguistic_tan")
   const [copied, setCopied] = React.useState(false)
   const [showAlert, setShowAlert] = React.useState(false)
+  const [activeKeywords, setActiveKeywords] = React.useState([])
 
   const handleCopy = () => {
     setCopied(true)
@@ -50,7 +51,10 @@ const InterviewerFlow = () => {
           </CopyToClipboard>
         </div>
 
-        <KeywordCollector />
+        <KeywordCollector
+          activeKeywords={activeKeywords}
+          setActiveKeywords={setActiveKeywords}
+        />
 
         <StartMeetingButton onClick={() => joinMeetingFunc(user, value)} />
       </div>
