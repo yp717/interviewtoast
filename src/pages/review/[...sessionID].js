@@ -11,20 +11,38 @@ import {
 import { updateProcessedState } from "../../utils/dbAdapter"
 import LoadingSpinner from "../../components/root/LoadingSpinner"
 
+const ReviewWrapper = ({ params }) => {
+  const sessionID = params[`sessionID`]
+  const { getSession, refreshSessions } = useSessions()
+
+  React.useEffect(() => {
+    if(!getSession(sessionID)) {
+      const timeout = setInterval(() => {
+          refreshSessions()
+      }, 1000)
+      return () => clearInterval(timeout)
+    }
+    
+  }, [sessionID, getSession])
+  
+  if(!getSession(sessionID)) {
+    return (
+      <Layout>
+        <LoadingSpinner text="Finding Session" />
+      </Layout>
+    )
+  }
+  return <Review params={params} />
+
+}
+
 const Review = ({ params }) => {
   const sessionID = params[`sessionID`]
-  const [loading,setLoading] = React.useState(true)
   const [loadingMessage, setLoadingMessage] =
     React.useState("Checking Status...")
   const { getSession, refreshSessions } = useSessions()
-
-  // React.useEffect(() => {
-  //   (async () => {
-  //     await refreshSessions()
-  //     setLoading(false)
-  //   })()
-    
-  // },[])
+  const { url, name, date, length, jobId, conversationId, processed } =
+    getSession(sessionID)
 
   React.useEffect(() => {
     if (!processed) {
@@ -49,7 +67,6 @@ const Review = ({ params }) => {
       }
       ;(async () => {
         let flag = false
-        
         while (!flag) {
           flag = await checkForResults()
           setLoadingMessage("Still Processing...")
@@ -58,16 +75,13 @@ const Review = ({ params }) => {
     }
   }, [processed, conversationId, jobId, refreshSessions, sessionID])
 
-  if (!processed && loading) {
+  if (!processed) {
     return (
       <Layout>
         <LoadingSpinner text={loadingMessage} />
       </Layout>
     )
   }
-
-  const { url, name, date, length, jobId, conversationId, processed } =
-  getSession(sessionID)
 
   return (
     <Layout>
@@ -123,4 +137,4 @@ const Review = ({ params }) => {
   )
 }
 
-export default Review
+export default ReviewWrapper

@@ -15,9 +15,6 @@ export const SessionProvider = ({ loginRequired, ...props }) => {
     slouchPercent: 0,
   });
 
-  const refresher = useCallback((e) => {
-    refresh(e)
-  }, [])
 
   const getSession = useCallback(
     (id) => {
@@ -30,7 +27,6 @@ export const SessionProvider = ({ loginRequired, ...props }) => {
     return <SessionContext.Provider value={{ sessions: [] }} {...props} />;
   }
 
-  console.log(user, loginRequired);
 
   if (loading) {
     return (
@@ -49,7 +45,7 @@ export const SessionProvider = ({ loginRequired, ...props }) => {
     <SessionContext.Provider
       value={{
         sessions: data,
-        refreshSessions: refresher,
+        refreshSessions: refresh,
         getSession,
         draftSubmission,
         setDraftSubmission,

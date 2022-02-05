@@ -85,7 +85,7 @@ export const useUserSessions = uid => {
     }
   }, [uid, db])
 
-  const refresh = async () => {
+  const refresh = React.useCallback(async () => {
     try {
       setLoading(true)
       const dbRef = collection(db, "sessions")
@@ -101,6 +101,6 @@ export const useUserSessions = uid => {
       setError(e)
       setLoading(false)
     }
-  }
+  }, [uid, db, setLoading, setSessions])
   return [loading, error, sessions, refresh]
 }
