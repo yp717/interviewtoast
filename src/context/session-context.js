@@ -10,6 +10,10 @@ export const SessionProvider = ({ loginRequired, ...props }) => {
   const { user } = useAuth()
   const [loading, error, data, refresh] = useUserSessions(user?.uid)
 
+  const [draftSubmission, setDraftSubmission] = React.useState({
+    keywords: [],
+  })
+
   const getSession = useCallback(
     id => {
       return data.find(session => session.sessionID === id)
@@ -36,7 +40,13 @@ export const SessionProvider = ({ loginRequired, ...props }) => {
 
   return (
     <SessionContext.Provider
-      value={{ sessions: data, refreshSessions: refresh, getSession }}
+      value={{
+        sessions: data,
+        refreshSessions: refresh,
+        getSession,
+        draftSubmission,
+        setDraftSubmission,
+      }}
       {...props}
     />
   )
