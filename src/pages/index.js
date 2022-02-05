@@ -2,6 +2,7 @@ import * as React from "react"
 import Hero from "../components/landing/Hero"
 import Layout from "../components/root/Layout"
 import { ArrowRightIcon } from "@heroicons/react/outline"
+import Pricing from "../components/Pricing/Pricing"
 
 const IndexPage = () => {
   return (
@@ -19,7 +20,9 @@ const IndexPage = () => {
           <p>Feedback</p>
         </div>
       </div>
-      <div className="w-full bg-gray-100 text-gray-800 py-24"></div>
+      <div className="w-full bg-gray-100 text-gray-800 py-24">
+        <Pricing />
+      </div>
     </Layout>
   )
 }
