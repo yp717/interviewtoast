@@ -11,7 +11,7 @@ import { SymblProvider } from "../../context/symbl-context"
 import MeetingWindow from "../../components/meeting/MeetingWindow"
 const isSSR = typeof window === "undefined"
 
-const client = !isSSR && AgoraRTC.createClient({ codec: "h264", mode: "rtc" })
+let client = !isSSR && AgoraRTC.createClient({ codec: "h264", mode: "rtc" })
 
 const Meeting = ({ params }) => {
   const { localVideoTrack, join, joinState, remoteUsers } = useAgora(client)

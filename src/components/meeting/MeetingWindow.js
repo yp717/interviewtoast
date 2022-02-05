@@ -7,7 +7,13 @@ import Captions from "./Captions"
 import { SymblProvider } from "../../context/symbl-context"
 import { useAuth } from "../../context/auth-context"
 
-const MeetingWindow = ({ joinState, localVideoTrack, client, remoteUsers }) => {
+const MeetingWindow = ({
+  joinState,
+  localVideoTrack,
+  client,
+  remoteUsers,
+  meetingID,
+}) => {
   const { role } = useAuth()
 
   return (
@@ -39,7 +45,11 @@ const MeetingWindow = ({ joinState, localVideoTrack, client, remoteUsers }) => {
             </div>
           </div>
 
-          <MeetingMenu client={client} />
+          <MeetingMenu
+            client={client}
+            channel={meetingID}
+            videoTrack={localVideoTrack}
+          />
         </div>
         <div
           className={`${

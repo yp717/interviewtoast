@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 
 import { useAuth } from "../context/auth-context"
 
@@ -16,8 +16,10 @@ export default function useAgora(client) {
   async function createLocalTracks(audioConfig, videoConfig) {
     const [microphoneTrack, cameraTrack] =
       await AgoraRTC.createMicrophoneAndCameraTracks(audioConfig, videoConfig)
+
     setLocalAudioTrack(microphoneTrack)
     setLocalVideoTrack(cameraTrack)
+    console.log("TRACKS INITIALIZED", microphoneTrack, cameraTrack)
     return [microphoneTrack, cameraTrack]
   }
 
@@ -42,19 +44,27 @@ export default function useAgora(client) {
     setJoinState(true)
   }
 
-  async function leave() {
-    if (localAudioTrack) {
-      await localAudioTrack.stop()
-      await localAudioTrack.close()
-    }
-    if (localVideoTrack) {
-      await localVideoTrack.stop()
-      await localVideoTrack.close()
-    }
-    setRemoteUsers([])
-    setJoinState(false)
-    await client.leave()
-  }
+  const leave = useCallback(
+    async (channel, videoRef) => {
+      console.log("TRACKS", localAudioTrack, localVideoTrack)
+      localAudioTrack?.stop()
+      localAudioTrack?.close()
+      localVideoTrack?.stop()
+      localVideoTrack?.close()
+
+      await client.unpublish(localAudioTrack)
+      await client.unpublish(localVideoTrack)
+
+      setRemoteUsers([])
+      setJoinState(false)
+      await client.leave()
+
+      // const track = videoRef.current.getVideoTracks()[0]
+      // const audioTracks = mediaStream.getVideoTracks()
+      // track.stop()
+    },
+    [client, localAudioTrack, localVideoTrack]
+  )
 
   async function toggleAudio() {
     // if (localAudioTrack) {
@@ -64,13 +74,14 @@ export default function useAgora(client) {
     // }
   }
 
+  // https://docs.agora.io/en/Interactive%20Broadcast/faq/web_camera_light
   async function toggleVideo() {
-    if (localVideoTrack) {
-      localVideoTrack.stop()
-    } else {
-      const [microphoneTrack, cameraTrack] = await createLocalTracks()
-      await client.publish([microphoneTrack, cameraTrack])
-    }
+    // if (localVideoTrack) {
+    //   localVideoTrack.stop()
+    // } else {
+    //   const [microphoneTrack, cameraTrack] = await createLocalTracks()
+    //   await client.publish([microphoneTrack, cameraTrack])
+    // }
   }
 
   useEffect(() => {
@@ -100,6 +111,8 @@ export default function useAgora(client) {
     client.on("user-unpublished", handleUserUnpublished)
     client.on("user-joined", handleUserJoined)
     client.on("user-left", handleUserLeft)
+
+    client.on("connection-state-change", value => console.log(value))
 
     return () => {
       client.off("user-published", handleUserPublished)

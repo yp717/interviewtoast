@@ -20,7 +20,7 @@ const DashboardTable = () => {
   return (
     <div className="overflow-hidden rounded-md shadow-md">
       <table className="min-w-full overflow-x-scroll divide-y divide-gray-800">
-        <thead className="bg-gray-700">
+        <thead className="bg-gray-900 ">
           <tr>
             <th
               scope="col"
@@ -51,7 +51,7 @@ const DashboardTable = () => {
             </th>
           </tr>
         </thead>
-        <tbody className="bg-gray-700 divide-y divide-gray-800">
+        <tbody className="bg-gray-900 divide-y divide-gray-800">
           {sessions.slice(0, 5).map(({ sessionID, name, date, length }) => (
             <tr className="">
               <td className="hidden md:block px-6 py-4 whitespace-nowrap">

@@ -10,16 +10,20 @@ import Captions from "./Captions"
 import { useAuth } from "../../context/auth-context"
 import { useSymbl } from "../../context/symbl-context"
 
-const MeetingMenu = ({ client }) => {
+const MeetingMenu = ({ client, channel, videoTrack }) => {
   const { toggleAudio, toggleVideo, leave } = useAgora(client)
 
   const { role } = useAuth()
-  const { getConvoID } = useSymbl()
+  const { getConvoID, stopSymbl } = useSymbl()
 
   const handleLeave = async () => {
     const convoID = await getConvoID()
 
-    await leave().then(() => {
+    await leave(channel, videoTrack).then(() => {
+      stopSymbl()
+
+      videoTrack.stop()
+      
       if (role === "interviewer") {
         navigate(`/feedback/${convoID}`, { replace: false })
       } else {

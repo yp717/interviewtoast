@@ -42,15 +42,22 @@ export const SymblProvider = ({ meetingID, ...props }) => {
     })()
   }, [])
 
+  const stopSymbl = () => {
+    console.log("what's up", symbl)
+    if (symbl) {
+      symbl.stop()
+    }
+  }
+
   const getConvoID = async () => {
     return symbl?.conversationId
-
-    // console.log("Summary URL", summaryUrl)
-    // return getSummaryUrl
   }
 
   return (
-    <SymblContext.Provider value={{ captionHistory, getConvoID }} {...props} />
+    <SymblContext.Provider
+      value={{ captionHistory, getConvoID, stopSymbl }}
+      {...props}
+    />
   )
 }
 

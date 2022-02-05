@@ -81,6 +81,6 @@ Sam:
 
 TBC
 
-## What's next for [digitalfootprint.earth](https://digitalfootprint.earth)
+## What's next for [InterviewToast](https://interviewtoast.com)
 
 TBC

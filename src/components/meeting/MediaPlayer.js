@@ -5,6 +5,7 @@ const MediaPlayer = props => {
   useEffect(() => {
     if (!container.current) return
     props.videoTrack?.play(container.current)
+
     return () => {
       props.videoTrack?.stop()
     }
