@@ -69,7 +69,10 @@ const Review = ({ params }) => {
           // Make a request to the email API Cloud function using the email as a param if email is verified
           try {
             if (user.emailVerified) {
-              const res = await fetch(`/api/email/${user.email}`)
+              const res = await fetch(`/api/email`, {
+                method: "POST",
+                body: JSON.stringify({ email: user.email }),
+              })
               console.log(res)
             }
           } catch (err) {
