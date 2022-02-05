@@ -31,7 +31,7 @@ export const SymblProvider = ({ meetingID, ...props }) => {
       Symbl.ACCESS_TOKEN = accessToken
 
       symbl = new Symbl(config)
-      
+
       // symbl.subscribeToTranscriptEvents(transcriptHandler(fireToast))
       symbl.subscribeToCaptioningEvents(
         captioningHandler(setCaptionHistory, user.uid)
@@ -43,18 +43,14 @@ export const SymblProvider = ({ meetingID, ...props }) => {
   }, [])
 
   const getConvoID = async () => {
-   
     return symbl?.conversationId
-    
+
     // console.log("Summary URL", summaryUrl)
     // return getSummaryUrl
   }
 
   return (
-    <SymblContext.Provider
-      value={{ captionHistory, getConvoID }}
-      {...props}
-    />
+    <SymblContext.Provider value={{ captionHistory, getConvoID }} {...props} />
   )
 }
 

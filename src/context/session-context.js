@@ -22,7 +22,7 @@ export const SessionProvider = ({ loginRequired, ...props }) => {
   }
 
   console.log(user, loginRequired)
-  
+
   if (loading) {
     return (
       <Layout>
