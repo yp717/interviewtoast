@@ -30,3 +30,7 @@ main {
 .react-flow__edge-text {
   @apply fill-current text-white uppercase text-lg !important;
 }
+
+.skew-3d {
+  transform: translate3d(20px, -20px, 20px);
+}
