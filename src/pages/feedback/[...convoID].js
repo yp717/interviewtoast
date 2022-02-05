@@ -11,15 +11,18 @@ import {
 import LoadingSpinner from "../../components/root/LoadingSpinner"
 
 const Review = ({ params }) => {
-  const conversationId = params[`convoID`]
+  const conversationID = params[`convoID`]
   const [loading, setLoading] = React.useState(true)
   const [data, setData] = React.useState(null)
+  const { draftSubmission } = useSessions()
 
+  console.log(draftSubmission)
   React.useEffect(() => {
     const checkForResults = async () => {
-      const response = await fetch(
-        `/api/conversation/${conversationId}/`
-      ).catch(err => {
+      const response = await fetch(`/api/conversation`, {
+        method: "POST",
+        body: JSON.stringify({ conversationID }),
+      }).catch(err => {
         console.error(console.error())
       })
       const newData = await response.json()
@@ -29,7 +32,7 @@ const Review = ({ params }) => {
     ;(async () => {
       checkForResults()
     })()
-  }, [conversationId])
+  }, [conversationID])
 
   if (loading) {
     return (

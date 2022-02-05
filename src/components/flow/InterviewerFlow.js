@@ -1,47 +1,47 @@
-import * as React from "react";
+import * as React from "react"
 
 import {
   animals,
   adjectives,
   uniqueNamesGenerator,
-} from "unique-names-generator";
+} from "unique-names-generator"
 
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import { CopyToClipboard } from "react-copy-to-clipboard"
 
-import { ClipboardCopyIcon } from "@heroicons/react/outline";
-import StartMeetingButton from "../buttons/StartMeetingButton";
-import { joinMeeting as joinMeetingFunc } from "../../utils/joinMeeting";
-import { useAuth } from "../../context/auth-context";
-import CopyToClipboardSuccess from "../alerts/CopyToClipboardSuccess";
+import { ClipboardCopyIcon } from "@heroicons/react/outline"
+import StartMeetingButton from "../buttons/StartMeetingButton"
+import { joinMeeting as joinMeetingFunc } from "../../utils/joinMeeting"
+import { useAuth } from "../../context/auth-context"
+import CopyToClipboardSuccess from "../alerts/CopyToClipboardSuccess"
 
-import KeywordCollector from "../KeyWordCollector/KeywordCollector";
-import { useSessions } from "../../context/session-context";
+import KeywordCollector from "../KeyWordCollector/KeywordCollector"
+import { useSessions } from "../../context/session-context"
 
 const InterviewerFlow = () => {
-  const { user } = useAuth();
-  const { draftSubmission, setDraftSubmission } = useSessions();
-  const [value, setValue] = React.useState("linguistic_tan");
-  const [copied, setCopied] = React.useState(false);
-  const [showAlert, setShowAlert] = React.useState(false);
-  const [activeKeywords, setActiveKeywords] = React.useState([]);
+  const { user } = useAuth()
+  const { draftSubmission, setDraftSubmission } = useSessions()
+  const [value, setValue] = React.useState("linguistic_tan")
+  const [copied, setCopied] = React.useState(false)
+  const [showAlert, setShowAlert] = React.useState(false)
+  const [activeKeywords, setActiveKeywords] = React.useState([])
 
   function generateRandomMeetingName() {
     return uniqueNamesGenerator({
       dictionaries: [adjectives, animals],
-    });
+    })
   }
 
   React.useEffect(() => {
-    setValue(generateRandomMeetingName());
-  }, []);
+    setValue(generateRandomMeetingName())
+  }, [])
 
   const handleCopy = () => {
-    setCopied(true);
-    setShowAlert(true);
+    setCopied(true)
+    setShowAlert(true)
     setTimeout(() => {
-      setShowAlert(false);
-    }, 1000);
-  };
+      setShowAlert(false)
+    }, 1000)
+  }
 
   return (
     <div>
@@ -79,8 +79,8 @@ const InterviewerFlow = () => {
             setDraftSubmission({
               ...draftSubmission,
               keywords: activeKeywords,
-            });
-            joinMeetingFunc(user, value);
+            })
+            joinMeetingFunc(user, value)
           }}
         />
       </div>
@@ -92,7 +92,7 @@ const InterviewerFlow = () => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default InterviewerFlow;
+export default InterviewerFlow
