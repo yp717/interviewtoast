@@ -15,7 +15,7 @@ const Hero = () => {
       <Logo className=" pointer-events-none w-32 h-32 md:h-64 md:w-64 absolute bottom-0 left-full md:left-0 opacity-5 -rotate-45 mb-2 -ml-32 md:ml-64" />
       <div className="grid md:grid-cols-2 px-4 md:px-2">
         <div className="md:py-18 space-y-4">
-          <h1 className="text-4xl md:text-8xl font-bold">
+          <h1 className="text-6xl md:text-8xl font-bold">
             <span className="text-orange-400">Interviews</span> are like{" "}
             <span className="text-orange-400">toast</span>.
           </h1>
@@ -31,7 +31,7 @@ const Hero = () => {
             </div>
           </Link>
         </div>
-        <div className="w-full h-full pointer-events-none -mr-12">
+        <div className="w-full h-96 mt-12 md:mt-0 md:h-full pointer-events-none md:-mr-12">
           <FlowDiagram elements={flowDiagramElements} />
         </div>
       </div>
