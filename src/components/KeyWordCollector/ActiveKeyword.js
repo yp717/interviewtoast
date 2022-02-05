@@ -9,10 +9,10 @@ const ActiveKeyWord = ({ text, onClick }) => {
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex items-center py-0 my-0 pr-0.5 rounded-md align-center bg-orange-500 hover:bg-orange-600"
+      className="flex items-center py-0 my-0 pr-0.5 rounded-md align-center bg-purple-100 hover:bg-purple-200"
     >
-      <span className="px-2 font-extralight">{text}</span>
-      {hovered && <XIcon className="w-4 h-4 text-gray-800" />}
+      <span className="px-2 font-semibold text-purple-700">{text}</span>
+      {hovered && <XIcon className="w-4 h-4 text-purple-700" />}
     </button>
   )
 }
