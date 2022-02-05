@@ -1,14 +1,13 @@
 export default async function handler(req, res) {
-  // const params = req.params[`*`].split(`/`)
-  // const recipient = params[0]
-  // const html = params[1]
-
+  const emailAddress = req.params.email
   const sgMail = require("@sendgrid/mail")
   sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
+  console.log(emailAddress)
   const msg = {
     // Change to your recipient
-    to: "yannis.panagis1998@gmail.com",
+
+    to: emailAddress,
     from: "interviewtoast@gmail.com",
     subject: "Sending with SendGrid is Fun",
     text: "and easy to do anywhere, even with Node.js",
@@ -24,5 +23,5 @@ export default async function handler(req, res) {
       console.error(error)
     })
 
-  return { Status: "Email Successfully Sent!" }
+  return
 }

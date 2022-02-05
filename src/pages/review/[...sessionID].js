@@ -10,9 +10,11 @@ import {
 } from "@heroicons/react/outline"
 import { updateProcessedState } from "../../utils/dbAdapter"
 import LoadingSpinner from "../../components/root/LoadingSpinner"
+import { useAuth } from "../../context/auth-context"
 
 const ReviewWrapper = ({ params }) => {
   const sessionID = params[`sessionID`]
+
   const { getSession, refreshSessions } = useSessions()
 
   React.useEffect(() => {
@@ -41,6 +43,7 @@ const Review = ({ params }) => {
   const { getSession, refreshSessions } = useSessions()
   const { url, name, date, length, jobId, conversationId, processed } =
     getSession(sessionID)
+  const { user } = useAuth()
 
   React.useEffect(() => {
     if (!processed) {
@@ -58,10 +61,10 @@ const Review = ({ params }) => {
           const data = await response.json()
           await updateProcessedState(sessionID, data)
 
-          // Make a request to the email function
-          const res = await fetch("/api/email/test")
-
-          console.log(res)
+          // Make a request to the email API Cloud function using the email as a param if email is verified
+          // if (user.emailVerified) {
+          //   await fetch(`/api/email/${user.email}`)
+          // }
 
           refreshSessions()
           return true
