@@ -16,16 +16,15 @@ const ReviewWrapper = ({ params }) => {
   const { getSession, refreshSessions } = useSessions()
 
   React.useEffect(() => {
-    if(!getSession(sessionID)) {
+    if (!getSession(sessionID)) {
       const timeout = setInterval(() => {
-          refreshSessions()
+        refreshSessions()
       }, 1000)
       return () => clearInterval(timeout)
     }
-    
   }, [sessionID, getSession])
-  
-  if(!getSession(sessionID)) {
+
+  if (!getSession(sessionID)) {
     return (
       <Layout>
         <LoadingSpinner text="Finding Session" />
@@ -33,7 +32,6 @@ const ReviewWrapper = ({ params }) => {
     )
   }
   return <Review params={params} />
-
 }
 
 const Review = ({ params }) => {
