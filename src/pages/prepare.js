@@ -68,7 +68,15 @@ const Prepare = () => {
     const symblResponse = await fetch(`/api/analyse/${url}`)
     const symblData = await symblResponse.json()
     setUploading("Binding it to you...")
-    await addNewSessionDoc(user.uid, videoID, length, url, symblData, questions, questionDuration)
+    await addNewSessionDoc(
+      user.uid,
+      videoID,
+      length,
+      url,
+      symblData,
+      questions,
+      questionDuration
+    )
     await refreshSessions()
     navigate(`/review/${videoID}`)
   }
@@ -81,19 +89,26 @@ const Prepare = () => {
 
   useEffect(() => {
     if (status === "recording") {
-      
-      const timeoutID =  setTimeout(() => {
-          if (currentQuestion < questions.length - 1) {
-            setCurrentQuestion(currentQuestion + 1)
-          } else {
-            stopRecording()
-            setStreamComplete(true)
-            setDates([dates[0], Date.now()])
-          }
-        }, questionDuration * 1000)
-        return () => clearTimeout(timeoutID)
+      const timeoutID = setTimeout(() => {
+        if (currentQuestion < questions.length - 1) {
+          setCurrentQuestion(currentQuestion + 1)
+        } else {
+          stopRecording()
+          setStreamComplete(true)
+          setDates([dates[0], Date.now()])
+        }
+      }, questionDuration * 1000)
+      return () => clearTimeout(timeoutID)
     }
-  }, [status, currentQuestion, setCurrentQuestion, setStreamComplete, dates, stopRecording, questionDuration])
+  }, [
+    status,
+    currentQuestion,
+    setCurrentQuestion,
+    setStreamComplete,
+    dates,
+    stopRecording,
+    questionDuration,
+  ])
 
   const renderJourney = useMemo(() => {
     if (status === "acquiring_media") {
