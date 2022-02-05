@@ -57,6 +57,12 @@ const Review = ({ params }) => {
         if (response?.status === 200) {
           const data = await response.json()
           await updateProcessedState(sessionID, data)
+
+          // Make a request to the email function
+          const res = await fetch("/api/email/test")
+
+          console.log(res)
+
           refreshSessions()
           return true
         } else {
