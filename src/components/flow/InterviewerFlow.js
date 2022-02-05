@@ -8,7 +8,7 @@ import { joinMeeting as joinMeetingFunc } from "../../utils/joinMeeting"
 import { useAuth } from "../../context/auth-context"
 import CopyToClipboardSuccess from "../alerts/CopyToClipboardSuccess"
 
-import KeywordCollector from "../KeywordCollector/KeywordCollector"
+import KeywordCollector from "../KeyWordCollector/KeywordCollector"
 import { useSessions } from "../../context/session-context"
 
 const InterviewerFlow = () => {
