@@ -7,7 +7,9 @@ const Devpost = () => {
       <h2 class="md:text-5xl text-3xl font-bold leading-10 mt-3 text-white">
         Developer Week 2022
       </h2>
-      <p class="text-sm  text-white mt-4">By Yannis Panagis & Sam Larsen-Disney</p>
+      <p class="text-sm  text-white mt-4">
+        By Yannis Panagis & Sam Larsen-Disney
+      </p>
       <div className="space-x-2 mt-8">
         <a className="btn-secondary">DevPost</a>
         <a className="btn-secondary">GitHub</a>
