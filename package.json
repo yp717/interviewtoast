@@ -25,6 +25,7 @@
     "@tailwindcss/forms": "^0.4.0",
     "@tensorflow-models/pose-detection": "^1.0.1",
     "@tensorflow/tfjs-backend-webgl": "^3.13.0",
+    "@tensorflow/tfjs-converter": "^3.13.0",
     "@tensorflow/tfjs-core": "^3.13.0",
     "agora-access-token": "^2.0.4",
     "agora-rtc-sdk-ng": "^4.8.2",
