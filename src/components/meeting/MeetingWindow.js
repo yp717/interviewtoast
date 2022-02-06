@@ -68,7 +68,7 @@ const MeetingWindow = ({
                 videoTrack={localVideoTrack}
                 isLittle={true}
                 toPoseNet={false}
-             />
+              />
             </div>
           </div>
 
