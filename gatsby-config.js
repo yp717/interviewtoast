@@ -22,7 +22,7 @@ module.exports = {
         background_color: "#FB923D",
         theme_color: "#FB923D",
         display: "standalone",
-        icon: `src/images/favicon.ico`,
+        icon: `src/images/favicon.png`,
       },
     },
   ],

@@ -53,6 +53,7 @@ const Review = ({ params }) => {
           }
 
           await refreshSessions()
+          window.location.reload()
           return true
         } else {
           return false
