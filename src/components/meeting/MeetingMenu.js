@@ -7,6 +7,7 @@ import { CameraIcon, MicrophoneIcon } from "@heroicons/react/solid"
 import { LogoutIcon } from "@heroicons/react/outline"
 import { useAuth } from "../../context/auth-context"
 import { useSymbl } from "../../context/symbl-context"
+import { useSessions } from "../../context/session-context"
 
 const MeetingMenu = ({
   toggleAudio,
@@ -15,9 +16,11 @@ const MeetingMenu = ({
   channel,
   videoTrack,
   audioTrack,
+  counter,
 }) => {
   const { role } = useAuth()
   const { getConvoID, stopSymbl } = useSymbl()
+  const { setDraftSubmission } = useSessions()
 
   const handleLeave = async () => {
     const convoID = await getConvoID()
@@ -25,6 +28,11 @@ const MeetingMenu = ({
 
     await leave().then(() => {
       if (role === "interviewer") {
+        setDraftSubmission(rest => ({
+          ...rest,
+          length: counter * 1000,
+          name: channel,
+        }))
         navigate(`/feedback/${convoID}`, { replace: false })
       } else {
         navigate("/dashboard", { replace: false })

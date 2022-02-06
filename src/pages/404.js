@@ -10,8 +10,6 @@ import Logo from "../assets/Logo"
 const NotFoundPage = () => {
   return (
     <Layout>
-      {/*
-       */}
       <h1 className="text-6xl font-bold mt-20 mb-6">
         Error 404. This is not the Toast you are looking for.
       </h1>

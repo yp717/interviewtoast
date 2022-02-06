@@ -9,7 +9,10 @@ export default async function handler(req, res) {
 
     const result = await getConversationData(accessToken, conversationID)
 
-    const meetingText = result.messages.map(({ text }) => text).join(` `)
+    const meetingText =
+      typeof result.messages !== "undefined"
+        ? result.messages.map(({ text }) => text).join(` `)
+        : ""
 
     const jobID = await getSummaryData(accessToken, meetingText)
 

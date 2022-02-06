@@ -1,5 +1,5 @@
 import * as React from "react"
-
+import { Link } from "gatsby"
 import Layout from "../../components/root/Layout"
 import { useSessions } from "../../context/session-context"
 import {
@@ -7,10 +7,16 @@ import {
   ClipboardCheckIcon,
   ClipboardIcon,
   CloudDownloadIcon,
+  ChatIcon,
 } from "@heroicons/react/outline"
 import LoadingSpinner from "../../components/root/LoadingSpinner"
 import { addNewMeetingDoc } from "../../utils/dbAdapter"
 import { useAuth } from "../../context/auth-context"
+import { generateStats } from "../../utils/generateStats"
+
+import SummaryNumberGrid from "../../components/stats/SummaryNumberGrid"
+import KeyWordSummary from "../../components/stats/KeyWordSummary"
+import Transcript from "../../components/stats/Transcript"
 
 const Review = ({ params }) => {
   const { user } = useAuth()
@@ -38,14 +44,17 @@ const Review = ({ params }) => {
         clearTimeout(timeoutId)
         if (response?.status === 200) {
           const data = await response.json()
+          data.keywords = draftSubmission.keywords
+          data.length = draftSubmission.length
+          data.name = draftSubmission.name
           await addNewMeetingDoc(conversationID, data, user.uid)
           // Make a request to the email API Cloud function using the email as a param if email is verified
           try {
-            if (user.emailVerified) {
-              // const res = await fetch(`/api/email`, {
-              //   method: "POST",
-              //   body: JSON.stringify({ email: user.email }),
-              // })
+            if (user.emailVerified && typeof user.email !== "undefined") {
+              const res = await fetch(`/api/email`, {
+                method: "POST",
+                body: JSON.stringify({ email: user.email }),
+              })
               console.log("EMAIL!")
             }
           } catch (err) {
@@ -83,48 +92,61 @@ const Review = ({ params }) => {
     )
   }
 
+  const {
+    transcript,
+    keywords,
+    messages,
+    meetingDuration,
+    totalInterruptionSeconds,
+    meetingTalkSeconds,
+    meetingSilenceSeconds,
+    talkToSilenceRatio,
+    interruptionFeedback,
+    talkToSilenceFeedback,
+    sessionQuestions,
+    questionDuration,
+    topics,
+    followUps,
+  } = generateStats(magicData)
+
   return (
     <Layout title="Feedback">
-      <div className="grid grid-cols-5 gap-4 text-white">
-        <div className="col-span-3 rounded"></div>
-        <div className="col-span-2 flex flex-col space-y-4">
-          <div className="bg-gray-700 p-4 rounded flex space-x-2 relative">
-            <VideoCameraIcon className="h-6 w-6 text-gray-400" />
-            <div className="flex justify-between w-full">
-              {/* <div>
-                <p className="font-bold text-lg">
-                  {" "}
-                  {name.split("_").join(" ")}
-                </p>
-                <p className="text-sm text-gray-300 uppercase">
-                  {date.toISOString().split("T")[0]} |{" "}
-                  {Math.ceil(length / 1000)} second duration{" "}
-                </p>
-              </div> */}
-              {/* <a
-                className="my-auto mr-2"
-                target="_blank"
-                rel="noopener noreferrer"
-                download={`${name}.mp4`}
-                href={url}
-              >
-                <CloudDownloadIcon className="h-6 w-6 text-gray-300 hover:text-orange-400" />
-              </a> */}
-            </div>
-          </div>
-          <div className="bg-gray-700 p-4 rounded h-full flex space-x-2">
-            <ClipboardCheckIcon className="h-6 w-6 text-gray-400" />
-            <div>
-              <p className="font-bold text-lg">Summary of Findings</p>
-            </div>
-          </div>
+      <h1 className="font-bold text-5xl mb-10 mt-14">Interview Feedback</h1>
+      <div className="grid md:grid-cols-5 gap-4 text-white">
+        <div className="md:col-span-5 flex flex-col space-y-4">
+          <SummaryNumberGrid
+            meetingDuration={meetingDuration}
+            totalInterruptionSeconds={totalInterruptionSeconds}
+            meetingTalkSeconds={meetingTalkSeconds}
+            meetingSilenceSeconds={meetingSilenceSeconds}
+            talkToSilenceRatio={talkToSilenceRatio}
+          />
         </div>
-        <div className="col-span-5 bg-gray-700 p-4 rounded h-32 flex space-x-2">
-          <ClipboardIcon className="h-6 w-6 text-gray-400" />
+        <div className="md:col-span-3 bg-gray-900 p-4 rounded h-full flex space-x-2">
           <div>
-            <p className="font-bold text-lg">Detailed Breakdown</p>
+            <ClipboardIcon className="h-6 w-6 text-gray-400 block" />
+          </div>
+          <div>
+            <p className="uppercase text-base">More Information</p>
+            <div>
+              {keywords && keywords.length > 0 && (
+                <KeyWordSummary keywords={keywords} transcript={transcript} />
+              )}
+            </div>
+            <p className="font-bold text-2xl">
+              {interruptionFeedback} {talkToSilenceFeedback}
+            </p>
           </div>
         </div>
+        <div className="md:col-span-2  bg-gray-900 p-4 rounded flex space-x-2">
+          <ChatIcon className="h-6 w-6 text-gray-400" />
+          <Transcript transcript={messages} user={user} />
+        </div>
+      </div>
+      <div className="flex items-center justify-center py-12">
+        <Link to="/dashboard" className="btn-primary">
+          Return to Dashboard
+        </Link>
       </div>
     </Layout>
   )
