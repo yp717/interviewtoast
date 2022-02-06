@@ -39,7 +39,7 @@ const Meeting = ({ params }) => {
   // Check if they join a valid channel
 
   return (
-    <Layout>
+    <Layout  title="Meeting in Progress">
       {!isSSR ? (
         <SymblProvider meetingID={meetingID}>
           <MeetingWindow

@@ -24,7 +24,7 @@ const SEO = ({ title, description, lang = "en" }) => {
       <Helmet
         title={metaTitle}
         htmlAttributes={{ lang }}
-        titleTemplate={`%s · ${metaTitle}`}
+        titleTemplate={`%s · InterviewToast`}
         meta={[
           {
             property: `og:title`,
@@ -37,6 +37,10 @@ const SEO = ({ title, description, lang = "en" }) => {
           {
             property: `og:description`,
             content: metaDescription,
+          },
+          {
+            property: `og:image`,
+            content: "https://interviewtoast.com/og-image.png",
           },
           {
             property: `og:type`,

@@ -13,7 +13,7 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <Layout>
+    <Layout title="Dashboard" description="Login to start interviewing!">
       <div className="space-y-4">
         <div className="grid md:grid-cols-3 gap-4 w-full">
           {/* if the user is an interviewer show this card */}

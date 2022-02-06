@@ -84,7 +84,7 @@ const Review = ({ params }) => {
   }
 
   return (
-    <Layout>
+    <Layout  title="Feedback">
       <div className="grid grid-cols-5 gap-4 text-white">
         <div className="col-span-3 rounded"></div>
         <div className="col-span-2 flex flex-col space-y-4">

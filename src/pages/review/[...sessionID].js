@@ -120,7 +120,7 @@ const Review = ({ params, draftSubmission }) => {
   }
 
   return (
-    <Layout>
+    <Layout title="Review">
       <div className="grid grid-cols-5 gap-4 text-white">
         <div className="col-span-3 rounded">
           <video

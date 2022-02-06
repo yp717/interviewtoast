@@ -17,7 +17,7 @@ const Login = () => {
     ],
   }
   return (
-    <Layout>
+    <Layout title="Login" description="Login to start interviewing!">
       <div className="relative">
         <div className="mx-auto mt-12 md:mt-32 w-96 text-center bg-gray-700 rounded shadow-lg relative z-50">
           <div className="flex items-center justify-center font-bold group text-white border-b  space-x-1 border-gray-600 py-3">

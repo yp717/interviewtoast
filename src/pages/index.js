@@ -8,7 +8,7 @@ import MeetingPreview from "../components/landing/MeetingPreview"
 
 const IndexPage = () => {
   return (
-    <Layout mainClassName="w-full">
+    <Layout mainClassName="w-full" title="Landing" description="Don't burn your next interview.">
       <div className="max-w-6xl mx-auto">
         <Hero />
       </div>
