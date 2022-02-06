@@ -65,17 +65,17 @@ function usePosenet(videoRef, enabled = true) {
   }
 
   useEffect(() => {
-    if (videoRef.current && enabled) {
-      const intervalID = setInterval(async () => {
-        try {
-          estimateMultiplePoses()
-        } catch (err) {
-          clearInterval(intervalID)
-          //   setErrorMessage(err.message);
-        }
-      }, 2000)
-      return () => clearInterval(intervalID)
-    }
+    if (!videoRef.current || !enabled) return
+
+    const intervalID = setInterval(async () => {
+      try {
+        estimateMultiplePoses()
+      } catch (err) {
+        clearInterval(intervalID)
+        //   setErrorMessage(err.message);
+      }
+    }, 2000)
+    return () => clearInterval(intervalID)
   }, [videoRef, videoRef.current, enabled])
 
   return {
