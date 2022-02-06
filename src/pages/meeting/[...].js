@@ -18,6 +18,7 @@ const Meeting = ({ params }) => {
     toggleVideo,
     leave,
     localVideoTrack,
+    localAudioTrack,
     join,
     joinState,
     remoteUsers,
@@ -45,6 +46,7 @@ const Meeting = ({ params }) => {
           meetingID={meetingID}
           joinState={joinState}
           localVideoTrack={localVideoTrack}
+          localAudioTrack={localAudioTrack}
           client={client}
           remoteUsers={remoteUsers}
           toggleAudio={toggleAudio}

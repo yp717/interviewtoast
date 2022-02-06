@@ -37,18 +37,15 @@ export default function useAgora(client) {
     setJoinState(true)
   }
 
-  const leave = async channel => {
-    console.log("HERE", window.localstream?.getTracks())
-
-    console.log("TRACKS", localAudioTrack, localVideoTrack)
-    console.log("localVideoTrack", localVideoTrack)
-
-    await client.unpublish()
+  const leave = async () => {
     localAudioTrack?.stop()
     localAudioTrack?.close()
     localVideoTrack?.stop()
     localVideoTrack?.close()
-
+    await client.unpublish(localAudioTrack)
+    await client.unpublish(localVideoTrack)
+    setLocalAudioTrack(null)
+    setLocalVideoTrack(null)
     client.remoteUsers.forEach(user => {
       if (user.hasVideo) {
         removeVideoContainer(user.uid) // Clean up DOM

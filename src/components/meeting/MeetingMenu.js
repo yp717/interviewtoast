@@ -15,6 +15,7 @@ const MeetingMenu = ({
   leave,
   channel,
   videoTrack,
+  audioTrack,
 }) => {
   const { role } = useAuth()
   const { getConvoID, stopSymbl } = useSymbl()
@@ -24,7 +25,7 @@ const MeetingMenu = ({
 
     stopSymbl()
 
-    await leave(channel, videoTrack).then(() => {
+    await leave().then(() => {
       if (role === "interviewer") {
         navigate(`/feedback/${convoID}`, { replace: false })
       } else {
@@ -39,20 +40,23 @@ const MeetingMenu = ({
       <div className="flex flex-row items-center justify-center space-x-6 px-4">
         <ButtonWithLabelBelow
           Icon={MicrophoneIcon}
-          label="Mute"
+          label="Mic"
           onClick={() => toggleAudio()}
+          needsStrikeThrough={!audioTrack}
         />
 
         <ButtonWithLabelBelow
           Icon={CameraIcon}
           label="Camera"
           onClick={() => toggleVideo()}
+          needsStrikeThrough={!videoTrack}
         />
 
         <ButtonWithLabelBelow
           Icon={LogoutIcon}
           label="Leave"
           onClick={handleLeave}
+          needsStrikeThrough={false}
         />
       </div>
     </div>

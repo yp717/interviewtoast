@@ -10,6 +10,7 @@ import { useAuth } from "../../context/auth-context"
 const MeetingWindow = ({
   joinState,
   localVideoTrack,
+  localAudioTrack,
   client,
   remoteUsers,
   meetingID,
@@ -57,7 +58,7 @@ const MeetingWindow = ({
                   videoTrack={user.videoTrack}
                   audioTrack={user.audioTrack}
                   toPoseNet={role === "interviewer"}
-                ></MediaPlayer>
+                />
               )
             })}
 
@@ -67,7 +68,7 @@ const MeetingWindow = ({
                 videoTrack={localVideoTrack}
                 isLittle={true}
                 toPoseNet={false}
-              ></MediaPlayer>
+             />
             </div>
           </div>
 
@@ -78,6 +79,7 @@ const MeetingWindow = ({
             toggleAudio={toggleAudio}
             toggleVideo={toggleVideo}
             leave={leave}
+            audioTrack={localAudioTrack}
           />
         </div>
         <div
