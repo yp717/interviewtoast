@@ -9,13 +9,12 @@ import { insightHandler } from "../utils/insightHandler"
 
 const SymblContext = React.createContext()
 
-var symbl
-
 export const SymblProvider = ({ meetingID, ...props }) => {
   const [captionHistory, setCaptionHistory] = React.useState([])
-
+  const [symbl, setSymbl] = React.useState(null)
   const { user, role } = useAuth()
   const { fireToast } = useToast()
+
   useEffect(() => {
     ;(async () => {
       const res = await fetch("/api/access-token")
@@ -29,24 +28,27 @@ export const SymblProvider = ({ meetingID, ...props }) => {
       }
 
       Symbl.ACCESS_TOKEN = accessToken
+      const symblInstance = {}
+      symblInstance.instance = new Symbl(config)
+      setSymbl(symblInstance.instance)
 
-      symbl = new Symbl(config)
-
-      // symbl.subscribeToTranscriptEvents(transcriptHandler(fireToast))
-      symbl.subscribeToCaptioningEvents(
+      symblInstance.instance.subscribeToCaptioningEvents(
         captioningHandler(setCaptionHistory, user.uid)
       )
-      // symbl.subscribeToInsightEvents(insightHandler)
 
-      symbl.start()
+      symblInstance.instance.start()
+      return () => {
+        symblInstance.instance.stop()
+        symblInstance.instance.disconnect()
+        delete symblInstance.instance
+      }
     })()
-  }, [])
+  }, [meetingID])
 
   const stopSymbl = () => {
-    console.log("what's up", symbl)
-    if (symbl) {
-      symbl.stop()
-    }
+    symbl.stop()
+    symbl.disconnect()
+    setSymbl(null)
   }
 
   const getConvoID = async () => {
@@ -55,7 +57,7 @@ export const SymblProvider = ({ meetingID, ...props }) => {
 
   return (
     <SymblContext.Provider
-      value={{ captionHistory, getConvoID, stopSymbl }}
+      value={{ captionHistory, getConvoID, stopSymbl, symbl }}
       {...props}
     />
   )

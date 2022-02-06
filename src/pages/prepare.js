@@ -12,7 +12,6 @@ import Layout from "../components/root/Layout"
 import { useAuth } from "../context/auth-context"
 import { uploadFile } from "../utils/storageAdapter"
 import { addNewSessionDoc } from "../utils/dbAdapter"
-import useFocus from "../hooks/useFocus"
 import { navigate } from "gatsby"
 import LoadingSpinner from "../components/root/LoadingSpinner"
 
@@ -37,23 +36,13 @@ const Prepare = () => {
     status,
     startRecording,
     stopRecording,
-    pauseRecording,
     mediaBlobUrl,
     previewStream,
     clearBlobUrl,
-    previewAudioStream,
   } = useReactMediaRecorder({
     video: true,
     askPermissionOnMount: true,
   })
-
-  // useEffect(() => {
-  //   if (!isFocused) {
-  //     console.log("focused lost")
-  //     setFocusLost(true)
-  //     pauseRecording()
-  //   }
-  // }, [isFocused, status, setFocusLost, stopRecording])
 
   const upload = async () => {
     setUploading("Inspecting your video...")
@@ -79,7 +68,6 @@ const Prepare = () => {
       questionDuration
     )
 
-    // await refreshSessions();
     navigate(`/review/${videoID}`)
   }
 
@@ -110,6 +98,7 @@ const Prepare = () => {
     dates,
     stopRecording,
     questionDuration,
+    questions.length,
   ])
 
   const renderJourney = useMemo(() => {
@@ -144,7 +133,7 @@ const Prepare = () => {
               can improve.
             </p>
             <div>
-              <label className="text-sm uppercase">Question Duration</label>
+              <p className="text-sm uppercase">Question Duration</p>
               <div className="flex items-center space-x-2">
                 <p>Show each question for </p>
                 <input
@@ -157,7 +146,7 @@ const Prepare = () => {
               </div>
             </div>
             <div>
-              <label className="text-sm uppercase">Questions</label>
+              <p className="text-sm uppercase">Questions</p>
               <div className="space-y-4">
                 {questions.map((q, i) => (
                   <div className="grid grid-cols-12 mt-2 gap-1 md:w-[500px]">
@@ -203,15 +192,15 @@ const Prepare = () => {
             </div>
 
             <div className="flex flex-col">
-              <label className="text-sm uppercase">Settings</label>
-              <label class="inline-flex items-center mt-3">
+              <p className="text-sm uppercase">Settings</p>
+              <label className="inline-flex items-center mt-3">
                 <input
                   type="checkbox"
                   className="form-checkbox h-5 w-5 text-orange-400 rounded"
                   checked={showCam}
                   onChange={() => setShowCam(!showCam)}
                 />
-                <span class="ml-2 ">See my webcam while practising</span>
+                <span className="ml-2 ">See my webcam while practising</span>
               </label>
             </div>
             <button
@@ -312,8 +301,18 @@ const Prepare = () => {
     mediaBlobUrl,
     status,
     focusLost,
+    currentQuestion,
     reset,
     upload,
+    dates,
+    question,
+    questionDuration,
+    questions,
+    questionsSubmitted,
+    showCam,
+    startRecording,
+    stopRecording,
+    uploading,
   ])
 
   return <Layout>{renderJourney}</Layout>

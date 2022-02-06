@@ -5,19 +5,19 @@ import Logo from "../../assets/Logo"
 
 const ChooseYourPlan = () => {
   return (
-    <div class="lg:w-1/2 w-full relative z-20">
+    <div className="lg:w-1/2 w-full relative z-20">
       <Logo className="z-10 pointer-events-none md:h-96 md:w-96 absolute w-full -ml-16 -mt-24 opacity-5 -rotate-12" />
       <div className="relative z-20">
-        <p class="text-sm leading-4 uppercase text-gray-600">
+        <p className="text-sm leading-4 uppercase text-gray-600">
           Choose your plan
         </p>
-        <h2
-          role="heading"
-          class="md:text-5xl text-3xl font-bold leading-10 mt-3 text-gray-800"
-        >
+        <h2 className="md:text-5xl text-3xl font-bold leading-10 mt-3 text-gray-800">
           Our pricing plan
         </h2>
-        <p role="contentinfo" class="text-base leading-5 mt-5 text-gray-600">
+        <p
+          role="contentinfo"
+          className="text-base leading-5 mt-5 text-gray-600"
+        >
           We're working hard on making InterviewToast the best place to prepare
           for your next interview or find your next dream candidate. We can’t
           wait to hear what you think.
@@ -30,7 +30,7 @@ const ChooseYourPlan = () => {
 
         <Link
           to="/dashboard"
-          class="uppercase bg-orange-500 focus:ring-orange-500 focus:outline-none text-semibold text-lg text-white rounded-lg py-4 px-6"
+          className="uppercase bg-orange-500 focus:ring-orange-500 focus:outline-none text-semibold text-lg text-white rounded-lg py-4 px-6"
         >
           Get Started
         </Link>

@@ -1,5 +1,4 @@
-import React, { useRef, useEffect } from "react"
-import usePosenet from "../../hooks/usePoseNet"
+import * as React from "react"
 
 const MediaPlayer = ({
   videoTrack,
@@ -8,18 +7,17 @@ const MediaPlayer = ({
   isLittle,
   label,
 }) => {
-  const container = useRef(null)
-  usePosenet(container, toPoseNet)
-  useEffect(() => {
+  const container = React.useRef(null)
+
+  React.useEffect(() => {
     if (!container.current) return
     videoTrack?.play(container.current)
-
     return () => {
       videoTrack?.stop()
     }
   }, [container, videoTrack])
 
-  useEffect(() => {
+  React.useEffect(() => {
     audioTrack?.play()
     return () => {
       audioTrack?.stop()
@@ -34,7 +32,7 @@ const MediaPlayer = ({
       } rounded-md relative`}
     >
       {label && (
-        <div className="text-sm absolute bg-zinc-800 font-medium bottom-1 px-1 py-1 left-0.5 z-50 opacity-70 rounded-md">
+        <div className="text-sm absolute bg-zinc-800 font-medium bottom-1 px-1 py-1 left-0 mx-2 z-50 opacity-70 rounded-md">
           {label}
         </div>
       )}

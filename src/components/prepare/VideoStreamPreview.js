@@ -1,14 +1,13 @@
-import React, { useRef, useEffect } from "react"
-import { useSessions } from "../../context/session-context"
+import * as React from "react"
 import usePosenet from "../../hooks/usePoseNet"
 
 // 1. detect posture
 // 2. detect facing camera
 const VideoPreview = ({ stream }) => {
-  const videoRef = useRef()
+  const videoRef = React.useRef()
   usePosenet(videoRef)
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (videoRef.current && stream) {
       videoRef.current.srcObject = stream
     }

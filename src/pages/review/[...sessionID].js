@@ -11,11 +11,12 @@ import {
 import { updateProcessedState } from "../../utils/dbAdapter"
 import LoadingSpinner from "../../components/root/LoadingSpinner"
 import { useAuth } from "../../context/auth-context"
+import { generateStats } from "../../utils/generateStats"
 
 const ReviewWrapper = ({ params }) => {
   const sessionID = params[`sessionID`]
 
-  const { getSession, refreshSessions } = useSessions()
+  const { getSession, refreshSessions, draftSubmission } = useSessions()
 
   React.useEffect(() => {
     if (!getSession(sessionID)) {
@@ -24,7 +25,7 @@ const ReviewWrapper = ({ params }) => {
       }, 1000)
       return () => clearInterval(timeout)
     }
-  }, [sessionID, getSession])
+  }, [sessionID, getSession, refreshSessions])
 
   if (!getSession(sessionID)) {
     return (
@@ -33,16 +34,19 @@ const ReviewWrapper = ({ params }) => {
       </Layout>
     )
   }
-  return <Review params={params} />
+  return <Review params={params} draftSubmission={draftSubmission} />
 }
 
-const Review = ({ params }) => {
+const Review = ({ params, draftSubmission }) => {
   const sessionID = params[`sessionID`]
   const [loadingMessage, setLoadingMessage] =
     React.useState("Checking Status...")
   const { getSession, refreshSessions } = useSessions()
   const { url, name, date, length, jobId, conversationId, processed } =
     getSession(sessionID)
+  // Yannis look here thanks
+  const data = getSession(sessionID)
+  const { totalOverlapSeconds } = generateStats(data)
   const { user } = useAuth()
 
   React.useEffect(() => {
@@ -64,7 +68,11 @@ const Review = ({ params }) => {
         clearTimeout(timeoutId)
         if (response?.status === 200) {
           const data = await response.json()
-          await updateProcessedState(sessionID, data)
+          await updateProcessedState(
+            sessionID,
+            data,
+            draftSubmission.slouchPercent
+          )
 
           // Make a request to the email API Cloud function using the email as a param if email is verified
           try {
@@ -79,7 +87,7 @@ const Review = ({ params }) => {
             console.error(err)
           }
 
-          refreshSessions()
+          await refreshSessions()
           return true
         } else {
           return false
@@ -93,7 +101,15 @@ const Review = ({ params }) => {
         }
       })()
     }
-  }, [processed, conversationId, jobId, refreshSessions, sessionID])
+  }, [
+    processed,
+    conversationId,
+    jobId,
+    refreshSessions,
+    sessionID,
+    user.email,
+    user.emailVerified,
+  ])
 
   if (!processed) {
     return (

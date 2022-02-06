@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import * as React from "react"
 import {
   SupportedModels,
   createDetector,
@@ -9,74 +9,74 @@ import { useSessions } from "../context/session-context"
 function usePosenet(videoRef, enabled = true) {
   const { setDraftSubmission } = useSessions()
 
-  const slouchFrames = useRef(0)
-  const totalFrames = useRef(0)
+  const slouchFrames = React.useRef(0)
+  const totalFrames = React.useRef(0)
 
-  const estimateMultiplePoses = async () => {
-    const model = SupportedModels.MoveNet
-    const detector = await createDetector(model)
-    const newPoses = await detector.estimatePoses(videoRef.current, {
-      decodingMethod: "single-person",
-    })
+  React.useEffect(() => {
+    if (!videoRef.current || !enabled) return
 
-    if (newPoses.length > 0) {
-      const keypointsArr = newPoses[0].keypoints
+    const estimateMultiplePoses = async () => {
+      const model = SupportedModels.MoveNet
+      const detector = await createDetector(model)
+      const newPoses = await detector.estimatePoses(videoRef.current, {
+        decodingMethod: "single-person",
+      })
 
-      const leftShoulder = keypointsArr[5]
-      const rightShoulder = keypointsArr[6]
-      const leftEye = keypointsArr[1]
-      const rightEye = keypointsArr[2]
-      const confidence =
-        (leftShoulder.score +
-          rightShoulder.score +
-          leftEye.score +
-          rightEye.score) /
-        4
-      const shoulderDeltaX = leftShoulder.x - rightShoulder.x
-      const shoulderDeltaY = leftShoulder.y - rightShoulder.y
+      if (newPoses.length > 0) {
+        const keypointsArr = newPoses[0].keypoints
 
-      const eyeDeltaX = leftEye.x - rightEye.x
+        const leftShoulder = keypointsArr[5]
+        const rightShoulder = keypointsArr[6]
+        const leftEye = keypointsArr[1]
+        const rightEye = keypointsArr[2]
+        const confidence =
+          (leftShoulder.score +
+            rightShoulder.score +
+            leftEye.score +
+            rightEye.score) /
+          4
+        const shoulderDeltaX = leftShoulder.x - rightShoulder.x
+        const shoulderDeltaY = leftShoulder.y - rightShoulder.y
 
-      let slouch = false
-      // The distance between your eyes will increase if you move closer to the camera and slouch forwards
-      if (eyeDeltaX / shoulderDeltaX > 0.225) {
-        console.log("SLOUCHING FORWARDS")
-        // fire toast
-        slouch = true
-      }
+        const eyeDeltaX = leftEye.x - rightEye.x
 
-      const tanTheta = Math.abs(shoulderDeltaY / shoulderDeltaX)
-
-      if (tanTheta > 0.1) {
-        console.log("SLOUCHING", confidence)
-        // fire toast
-        slouch = true
-      }
-
-      slouch && slouchFrames.current++
-      totalFrames.current++
-
-      console.log((slouchFrames.current / totalFrames.current) * 100 + "%")
-      setDraftSubmission(draftSubmission => ({
-        ...draftSubmission,
-        slouchPercent: (slouchFrames.current / totalFrames.current) * 100,
-      }))
-    }
-  }
-
-  useEffect(() => {
-    if (videoRef.current && enabled) {
-      const intervalID = setInterval(async () => {
-        try {
-          estimateMultiplePoses()
-        } catch (err) {
-          clearInterval(intervalID)
-          //   setErrorMessage(err.message);
+        let slouch = false
+        // The distance between your eyes will increase if you move closer to the camera and slouch forwards
+        if (eyeDeltaX / shoulderDeltaX > 0.225) {
+          console.log("SLOUCHING FORWARDS")
+          // fire toast
+          slouch = true
         }
-      }, 2000)
-      return () => clearInterval(intervalID)
+
+        const tanTheta = Math.abs(shoulderDeltaY / shoulderDeltaX)
+
+        if (tanTheta > 0.1) {
+          console.log("SLOUCHING", confidence)
+          // fire toast
+          slouch = true
+        }
+
+        slouch && slouchFrames.current++
+        totalFrames.current++
+
+        console.log((slouchFrames.current / totalFrames.current) * 100 + "%")
+        setDraftSubmission(draftSubmission => ({
+          ...draftSubmission,
+          slouchPercent: (slouchFrames.current / totalFrames.current) * 100,
+        }))
+      }
     }
-  }, [videoRef, videoRef.current, enabled])
+
+    const intervalID = setInterval(async () => {
+      try {
+        estimateMultiplePoses()
+      } catch (err) {
+        clearInterval(intervalID)
+        //   setErrorMessage(err.message);
+      }
+    }, 2000)
+    return () => clearInterval(intervalID)
+  }, [videoRef, enabled, setDraftSubmission])
 
   return {
     slouchFrames,
