@@ -20,16 +20,19 @@ const MeetingMenu = ({
 }) => {
   const { role } = useAuth()
   const { getConvoID, stopSymbl } = useSymbl()
-  const {setDraftSubmission} = useSessions()
+  const { setDraftSubmission } = useSessions()
 
   const handleLeave = async () => {
     const convoID = await getConvoID()
     stopSymbl()
 
     await leave().then(() => {
-      
       if (role === "interviewer") {
-        setDraftSubmission((rest) => ({...rest, length:counter*1000, name: channel}))
+        setDraftSubmission(rest => ({
+          ...rest,
+          length: counter * 1000,
+          name: channel,
+        }))
         navigate(`/feedback/${convoID}`, { replace: false })
       } else {
         navigate("/dashboard", { replace: false })
