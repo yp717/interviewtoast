@@ -22,7 +22,7 @@ const MeetingMenu = ({
   const handleLeave = async () => {
     const convoID = await getConvoID()
     stopSymbl()
-    
+
     await leave().then(() => {
       if (role === "interviewer") {
         navigate(`/feedback/${convoID}`, { replace: false })
@@ -50,13 +50,14 @@ const MeetingMenu = ({
           needsStrikeThrough={!videoTrack}
         />
 
-        {leave && <ButtonWithLabelBelow
-          Icon={LogoutIcon}
-          label="Leave"
-          onClick={handleLeave}
-          needsStrikeThrough={false}
-        />
-}
+        {leave && (
+          <ButtonWithLabelBelow
+            Icon={LogoutIcon}
+            label="Leave"
+            onClick={handleLeave}
+            needsStrikeThrough={false}
+          />
+        )}
       </div>
     </div>
   )

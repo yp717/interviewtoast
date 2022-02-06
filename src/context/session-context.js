@@ -13,7 +13,9 @@ const SessionContext = React.createContext()
 
 export const SessionProvider = ({ loginRequired, ...props }) => {
   const { user } = useAuth()
-  const [loading, error, sessions, meetings, refresh] = useUserSessions(user?.uid)
+  const [loading, error, sessions, meetings, refresh] = useUserSessions(
+    user?.uid
+  )
 
   const [draftSubmission, setDraftSubmission] =
     React.useState(defaultSubmission)

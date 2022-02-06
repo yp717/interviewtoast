@@ -312,7 +312,7 @@ const Prepare = () => {
     showCam,
     startRecording,
     stopRecording,
-    uploading
+    uploading,
   ])
 
   return <Layout>{renderJourney}</Layout>

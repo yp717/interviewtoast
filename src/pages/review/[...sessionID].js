@@ -46,7 +46,7 @@ const Review = ({ params, draftSubmission }) => {
     getSession(sessionID)
   // Yannis look here thanks
   const data = getSession(sessionID)
-  const {totalOverlapSeconds} = generateStats(data)
+  const { totalOverlapSeconds } = generateStats(data)
   const { user } = useAuth()
 
   React.useEffect(() => {

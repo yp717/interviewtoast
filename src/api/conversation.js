@@ -9,9 +9,9 @@ export default async function handler(req, res) {
 
     const result = await getConversationData(accessToken, conversationID)
 
-    const meetingText = result.messages.map(({text}) => text).join(` `)
+    const meetingText = result.messages.map(({ text }) => text).join(` `)
 
-    const jobID = await getSummaryData(accessToken,meetingText)
+    const jobID = await getSummaryData(accessToken, meetingText)
 
     console.log(jobID)
     res.send(result)

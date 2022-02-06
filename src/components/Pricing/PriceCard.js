@@ -7,7 +7,9 @@ const PriceCard = ({ title, price, description }) => {
       className="bg-white shadow rounded-lg p-8 my-4 relative z-30"
     >
       <div className="md:flex items-center justify-between">
-        <h2 className="text-2xl font-semibold leading-6 text-gray-800">{title}</h2>
+        <h2 className="text-2xl font-semibold leading-6 text-gray-800">
+          {title}
+        </h2>
         <p className="text-2xl font-semibold md:mt-0 mt-4 leading-6 text-gray-800">
           {price}
         </p>

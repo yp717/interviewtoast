@@ -53,43 +53,47 @@ const DashboardTable = () => {
           </tr>
         </thead>
         <tbody className="bg-gray-900 divide-y divide-gray-800">
-          {allData.slice(0, 5).map(({ sessionID, name, date, length, users }) => (
-            <tr className="">
-              <td className="hidden md:block px-6 py-4 whitespace-nowrap">
-                <div className="flex items-center">
-                  <div className="text-sm font-medium text-white">
-                    {name.split("_").join(" ")}
+          {allData
+            .slice(0, 5)
+            .map(({ sessionID, name, date, length, users }) => (
+              <tr className="">
+                <td className="hidden md:block px-6 py-4 whitespace-nowrap">
+                  <div className="flex items-center">
+                    <div className="text-sm font-medium text-white">
+                      {name.split("_").join(" ")}
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-300">
-                  {date.toISOString().split("T")[0]}
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <div className="text-sm text-gray-300">
-                  {Math.ceil(length / 1000)}s
-                </div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-200 rounded-full">
-                  Processed
-                </span>
-              </td>
-              <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                <Link
-                  to={users? `/feedback/${sessionID}` : `/review/${sessionID}`}
-                  className="text-orange-400 hover:text-orange-500 inline-block"
-                >
-                  <div className="flex space-x-2 items-center">
-                    <p>Insights</p>
-                    <ArrowRightIcon className="h-5 w-5" />
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-300">
+                    {date.toISOString().split("T")[0]}
                   </div>
-                </Link>
-              </td>
-            </tr>
-          ))}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-300">
+                    {Math.ceil(length / 1000)}s
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-200 rounded-full">
+                    Processed
+                  </span>
+                </td>
+                <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                  <Link
+                    to={
+                      users ? `/feedback/${sessionID}` : `/review/${sessionID}`
+                    }
+                    className="text-orange-400 hover:text-orange-500 inline-block"
+                  >
+                    <div className="flex space-x-2 items-center">
+                      <p>Insights</p>
+                      <ArrowRightIcon className="h-5 w-5" />
+                    </div>
+                  </Link>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

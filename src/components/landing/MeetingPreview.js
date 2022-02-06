@@ -14,7 +14,10 @@ const MeetingPreview = () => {
             Custom Dashboards
           </h2>
 
-          <p role="contentinfo" className="text-base leading-5 mt-5 text-gray-600">
+          <p
+            role="contentinfo"
+            className="text-base leading-5 mt-5 text-gray-600"
+          >
             Get the most out of your live interviews and practice sessions. With
             InterviewToasts customized dashboard, both candidates and
             interviewers can really dig deep into the data to understand their
