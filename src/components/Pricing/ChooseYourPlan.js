@@ -11,13 +11,13 @@ const ChooseYourPlan = () => {
         <p className="text-sm leading-4 uppercase text-gray-600">
           Choose your plan
         </p>
-        <h2
-          role="heading"
-          className="md:text-5xl text-3xl font-bold leading-10 mt-3 text-gray-800"
-        >
+        <h2 className="md:text-5xl text-3xl font-bold leading-10 mt-3 text-gray-800">
           Our pricing plan
         </h2>
-        <p role="contentinfo" className="text-base leading-5 mt-5 text-gray-600">
+        <p
+          role="contentinfo"
+          className="text-base leading-5 mt-5 text-gray-600"
+        >
           We're working hard on making InterviewToast the best place to prepare
           for your next interview or find your next dream candidate. We can’t
           wait to hear what you think.

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import * as React from "react"
 
 import { useAuth } from "../context/auth-context"
 
@@ -6,12 +6,12 @@ import AgoraRTC from "agora-rtc-sdk-ng"
 
 export default function useAgora(client) {
   const { user } = useAuth()
-  const [localVideoTrack, setLocalVideoTrack] = useState(undefined)
-  const [localAudioTrack, setLocalAudioTrack] = useState(undefined)
+  const [localVideoTrack, setLocalVideoTrack] = React.useState(undefined)
+  const [localAudioTrack, setLocalAudioTrack] = React.useState(undefined)
 
-  const [joinState, setJoinState] = useState(false)
+  const [joinState, setJoinState] = React.useState(false)
 
-  const [remoteUsers, setRemoteUsers] = useState([])
+  const [remoteUsers, setRemoteUsers] = React.useState([])
 
   async function createLocalTracks(audioConfig, videoConfig) {
     const [microphoneTrack, cameraTrack] =
@@ -96,7 +96,7 @@ export default function useAgora(client) {
     remDiv && remDiv.parentNode.removeChild(remDiv)
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!client) return
 
     setRemoteUsers(client.remoteUsers)
@@ -104,7 +104,7 @@ export default function useAgora(client) {
     const handleUserPublished = async (user, mediaType) => {
       console.log("User published", user, mediaType)
       await client.subscribe(user, mediaType)
-      // toggle rerender while state of remoteUsers changed.
+      // toggle rerender while state of remoteUsers changed
       setRemoteUsers(remoteUsers => Array.from(client.remoteUsers))
     }
 
@@ -123,23 +123,10 @@ export default function useAgora(client) {
         localVideoTrack?.close() // Releases the resource
         localAudioTrack?.stop() // stops audio track
         localAudioTrack?.close() // Releases the resource
-
-        // client.remoteUsers.forEach(user => {
-        //   if (user.hasAudio) {
-        //     removeVideoContainer(user.uid) // Clean up DOM
-        //   }
-        //   client.unsubscribe(user) // unsubscribe from the user
-        // })
-        // client.removeAllListeners() // Clean up the client object to avoid memory leaks
       }
-
-      // if (mediaType === "video") {
-      // //   removeVideoContainer(user.uid) // removes the injected container
-      // }
-
-      // setRemoteUsers(remoteUsers => Array.from(client.remoteUsers))
     }
 
+    // TODO: work out whether these are actually being called
     const handleUserJoined = user => {
       setRemoteUsers(remoteUsers => Array.from(client.remoteUsers))
     }
@@ -149,7 +136,6 @@ export default function useAgora(client) {
     }
 
     client.on("user-published", handleUserPublished)
-    // client.on("user-unpublished", handleUserUnpublished)
     client.on("user-joined", handleUserJoined)
     client.on("user-left", handleUserLeft)
 
@@ -157,7 +143,6 @@ export default function useAgora(client) {
 
     return () => {
       client.off("user-published", handleUserPublished)
-      // client.off("user-unpublished", handleUserUnpublished)
       client.off("user-joined", handleUserJoined)
       client.off("user-left", handleUserLeft)
     }

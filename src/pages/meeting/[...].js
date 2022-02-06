@@ -7,6 +7,7 @@ import LoadingSpinner from "../../components/root/LoadingSpinner"
 import useAgora from "../../hooks/useAgora"
 import MeetingWindow from "../../components/meeting/MeetingWindow"
 import { useSessions } from "../../context/session-context"
+import { SymblProvider } from "../../context/symbl-context"
 
 const isSSR = typeof window === "undefined"
 
@@ -23,8 +24,6 @@ const Meeting = ({ params }) => {
     joinState,
     remoteUsers,
   } = useAgora(client)
-  const { draftSubmission } = useSessions()
-  console.log("draftSubmission", draftSubmission)
   // Note: the tokenID could have a slash so split on index of first slash
   const allParams = params[`*`]
   const meetingID = allParams.substring(0, allParams.indexOf("/"))
@@ -42,17 +41,19 @@ const Meeting = ({ params }) => {
   return (
     <Layout>
       {!isSSR ? (
-        <MeetingWindow
-          meetingID={meetingID}
-          joinState={joinState}
-          localVideoTrack={localVideoTrack}
-          localAudioTrack={localAudioTrack}
-          client={client}
-          remoteUsers={remoteUsers}
-          toggleAudio={toggleAudio}
-          toggleVideo={toggleVideo}
-          leave={leave}
-        />
+        <SymblProvider meetingID={meetingID}>
+          <MeetingWindow
+            meetingID={meetingID}
+            joinState={joinState}
+            localVideoTrack={localVideoTrack}
+            localAudioTrack={localAudioTrack}
+            client={client}
+            remoteUsers={remoteUsers}
+            toggleAudio={toggleAudio}
+            toggleVideo={toggleVideo}
+            leave={leave}
+          />
+        </SymblProvider>
       ) : (
         <LoadingSpinner text="Looking for a Window." />
       )}

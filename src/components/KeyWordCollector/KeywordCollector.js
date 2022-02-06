@@ -21,7 +21,6 @@ const KeywordCollector = ({ activeKeywords, setActiveKeywords }) => {
     ])
   }
 
-  // TODO: could use datalist with the values pulled out from the column in the context
   return (
     <div className="flex flex-col gap-y-2 my-4">
       <KeywordInput addKeyword={addKeyword} />

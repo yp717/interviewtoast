@@ -19,14 +19,12 @@ export default async function handler(req, res) {
       .send(msg)
       .then(() => {
         console.log("Email sent")
-        res.status(200)
+        res.status(200).send("OK")
       })
       .catch(error => {
         console.error(error)
         res.status(500).send(error)
       })
-
-    res.status(102)
   }
 
   return

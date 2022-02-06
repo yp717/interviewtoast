@@ -9,35 +9,75 @@ import {
   CloudDownloadIcon,
 } from "@heroicons/react/outline"
 import LoadingSpinner from "../../components/root/LoadingSpinner"
+import { addNewMeetingDoc } from "../../utils/dbAdapter"
+import { useAuth } from "../../context/auth-context"
 
 const Review = ({ params }) => {
+  const { user } = useAuth()
   const conversationID = params[`convoID`]
-  const [loading, setLoading] = React.useState(true)
+  const [loadingMessage, setLoadingMessage] =
+    React.useState("Checking Status...")
   const [data, setData] = React.useState(null)
-  const { draftSubmission } = useSessions()
+  const { draftSubmission, getMeeting, refreshSessions } = useSessions()
+  const magicData = getMeeting(conversationID)
 
-  console.log(draftSubmission)
   React.useEffect(() => {
-    const checkForResults = async () => {
-      const response = await fetch(`/api/conversation`, {
-        method: "POST",
-        body: JSON.stringify({ conversationID }),
-      }).catch(err => {
-        console.error(console.error())
-      })
-      const newData = await response.json()
-      setData(newData)
-      setLoading(false)
-    }
-    ;(async () => {
-      checkForResults()
-    })()
-  }, [conversationID])
+    console.log(magicData)
+    if (!magicData) {
+      const checkForResults = async () => {
+        console.log("checking for results")
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 10000)
+        const response = await fetch(`/api/conversation`, {
+          signal: controller.signal,
+          method: "POST",
+          body: JSON.stringify({ conversationID }),
+        }).catch(err => {
+          return false
+        })
+        clearTimeout(timeoutId)
+        if (response?.status === 200) {
+          const data = await response.json()
+          await addNewMeetingDoc(conversationID, data, user.uid)
+          // Make a request to the email API Cloud function using the email as a param if email is verified
+          try {
+            if (user.emailVerified) {
+              // const res = await fetch(`/api/email`, {
+              //   method: "POST",
+              //   body: JSON.stringify({ email: user.email }),
+              // })
+              console.log("EMAIL!")
+            }
+          } catch (err) {
+            console.error(err)
+          }
 
-  if (loading) {
+          await refreshSessions()
+          return true
+        } else {
+          return false
+        }
+      }
+      ;(async () => {
+        let flag = false
+        let count = 0
+        while (!flag) {
+          if (count < 5) {
+            flag = await checkForResults()
+            setLoadingMessage("Still Processing...")
+          } else {
+            flag = true
+            setLoadingMessage("Need more Time. Come back later!")
+          }
+        }
+      })()
+    }
+  }, [magicData, conversationID])
+
+  if (!magicData?.processed) {
     return (
       <Layout>
-        <LoadingSpinner text="Getting Data..." />
+        <LoadingSpinner text={loadingMessage} />
       </Layout>
     )
   }

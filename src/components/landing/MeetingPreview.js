@@ -28,6 +28,7 @@ const MeetingPreview = () => {
           <img
             src={dashboard}
             className="w-full skew-3d"
+            alt="Screenshot of InterviewToast video chat meeting window"
             // style={{ transform: "translate3d(20deg, -20deg, 20deg)" }}
           />
         </div>

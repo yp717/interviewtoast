@@ -13,7 +13,7 @@ const DashboardPreview = () => {
               <div className="h-3 w-3 bg-yellow-400 rounded-full" />
               <div className="h-3 w-3 bg-green-400 rounded-full" />
             </div>
-            <img src={dashboard} className="w-full" />
+            <img src={dashboard} alt="Screenshot of InterviewToast dashboard page" className="w-full" />
           </div>
         </div>
         <div className="w-full flex flex-col justify-center col-span-2">

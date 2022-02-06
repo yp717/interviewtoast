@@ -5,7 +5,6 @@ import ButtonWithLabelBelow from "../buttons/ButtonWithLabelBelow"
 
 import { CameraIcon, MicrophoneIcon } from "@heroicons/react/solid"
 import { LogoutIcon } from "@heroicons/react/outline"
-import Captions from "./Captions"
 import { useAuth } from "../../context/auth-context"
 import { useSymbl } from "../../context/symbl-context"
 
@@ -22,9 +21,8 @@ const MeetingMenu = ({
 
   const handleLeave = async () => {
     const convoID = await getConvoID()
-
     stopSymbl()
-
+    
     await leave().then(() => {
       if (role === "interviewer") {
         navigate(`/feedback/${convoID}`, { replace: false })
@@ -52,12 +50,13 @@ const MeetingMenu = ({
           needsStrikeThrough={!videoTrack}
         />
 
-        <ButtonWithLabelBelow
+        {leave && <ButtonWithLabelBelow
           Icon={LogoutIcon}
           label="Leave"
           onClick={handleLeave}
           needsStrikeThrough={false}
         />
+}
       </div>
     </div>
   )

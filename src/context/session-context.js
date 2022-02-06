@@ -13,7 +13,7 @@ const SessionContext = React.createContext()
 
 export const SessionProvider = ({ loginRequired, ...props }) => {
   const { user } = useAuth()
-  const [loading, error, data, refresh] = useUserSessions(user?.uid)
+  const [loading, error, sessions, meetings, refresh] = useUserSessions(user?.uid)
 
   const [draftSubmission, setDraftSubmission] =
     React.useState(defaultSubmission)
@@ -21,11 +21,19 @@ export const SessionProvider = ({ loginRequired, ...props }) => {
   const resetDraft = useCallback(() => {
     setDraftSubmission(defaultSubmission)
   }, [setDraftSubmission])
+
   const getSession = useCallback(
     id => {
-      return data.find(session => session.sessionID === id)
+      return sessions.find(session => session.sessionID === id)
     },
-    [data]
+    [sessions]
+  )
+
+  const getMeeting = useCallback(
+    id => {
+      return meetings.find(meetings => meetings.sessionID === id)
+    },
+    [meetings]
   )
 
   if (!user || !loginRequired) {
@@ -47,9 +55,11 @@ export const SessionProvider = ({ loginRequired, ...props }) => {
   return (
     <SessionContext.Provider
       value={{
-        sessions: data,
+        sessions,
+        meetings,
         refreshSessions: refresh,
         getSession,
+        getMeeting,
         draftSubmission,
         setDraftSubmission,
         resetDraft,

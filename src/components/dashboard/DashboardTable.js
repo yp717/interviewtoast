@@ -4,8 +4,9 @@ import React from "react"
 import { useSessions } from "../../context/session-context"
 
 const DashboardTable = () => {
-  const { sessions } = useSessions()
-  if (sessions.length === 0) {
+  const { sessions, meetings } = useSessions()
+  const allData = [...meetings, ...sessions]
+  if (allData.length === 0) {
     return (
       <div className="w-full px-16 py-24 bg-gray-900 rounded flex flex-col items-center justify-center">
         <FlagIcon className="h-5 w-5" />
@@ -52,7 +53,7 @@ const DashboardTable = () => {
           </tr>
         </thead>
         <tbody className="bg-gray-900 divide-y divide-gray-800">
-          {sessions.slice(0, 5).map(({ sessionID, name, date, length }) => (
+          {allData.slice(0, 5).map(({ sessionID, name, date, length, users }) => (
             <tr className="">
               <td className="hidden md:block px-6 py-4 whitespace-nowrap">
                 <div className="flex items-center">
@@ -78,7 +79,7 @@ const DashboardTable = () => {
               </td>
               <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                 <Link
-                  to={`/review/${sessionID}`}
+                  to={users? `/feedback/${sessionID}` : `/review/${sessionID}`}
                   className="text-orange-400 hover:text-orange-500 inline-block"
                 >
                   <div className="flex space-x-2 items-center">
