@@ -28,7 +28,7 @@ const SEO = ({ title, description, lang = "en" }) => {
         meta={[
           {
             property: `og:title`,
-            content: metaTitle,
+            content: `${metaTitle} · InterviewToast`,
           },
           {
             name: `description`,
