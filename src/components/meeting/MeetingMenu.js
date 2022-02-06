@@ -5,25 +5,26 @@ import ButtonWithLabelBelow from "../buttons/ButtonWithLabelBelow"
 
 import { CameraIcon, MicrophoneIcon } from "@heroicons/react/solid"
 import { LogoutIcon } from "@heroicons/react/outline"
-import useAgora from "../../hooks/useAgora"
 import Captions from "./Captions"
 import { useAuth } from "../../context/auth-context"
 import { useSymbl } from "../../context/symbl-context"
 
-const MeetingMenu = ({ client, channel, videoTrack }) => {
-  const { toggleAudio, toggleVideo, leave } = useAgora(client)
-
+const MeetingMenu = ({
+  toggleAudio,
+  toggleVideo,
+  leave,
+  channel,
+  videoTrack,
+}) => {
   const { role } = useAuth()
   const { getConvoID, stopSymbl } = useSymbl()
 
   const handleLeave = async () => {
     const convoID = await getConvoID()
 
+    stopSymbl()
+
     await leave(channel, videoTrack).then(() => {
-      stopSymbl()
-
-      videoTrack.stop()
-
       if (role === "interviewer") {
         navigate(`/feedback/${convoID}`, { replace: false })
       } else {

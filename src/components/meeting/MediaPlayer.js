@@ -9,7 +9,7 @@ const MediaPlayer = ({
   label,
 }) => {
   const container = useRef(null)
-  usePosenet(container, toPoseNet)
+  // usePosenet(container, toPoseNet)
   useEffect(() => {
     if (!container.current) return
     videoTrack?.play(container.current)

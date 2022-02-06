@@ -43,7 +43,6 @@ export const SymblProvider = ({ meetingID, ...props }) => {
   }, [])
 
   const stopSymbl = () => {
-    console.log("what's up", symbl)
     if (symbl) {
       symbl.stop()
     }

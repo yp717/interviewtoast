@@ -13,7 +13,15 @@ const isSSR = typeof window === "undefined"
 let client = !isSSR && AgoraRTC.createClient({ codec: "h264", mode: "rtc" })
 
 const Meeting = ({ params }) => {
-  const { localVideoTrack, join, joinState, remoteUsers } = useAgora(client)
+  const {
+    toggleAudio,
+    toggleVideo,
+    leave,
+    localVideoTrack,
+    join,
+    joinState,
+    remoteUsers,
+  } = useAgora(client)
   const { draftSubmission } = useSessions()
   console.log("draftSubmission", draftSubmission)
   // Note: the tokenID could have a slash so split on index of first slash
@@ -39,6 +47,9 @@ const Meeting = ({ params }) => {
           localVideoTrack={localVideoTrack}
           client={client}
           remoteUsers={remoteUsers}
+          toggleAudio={toggleAudio}
+          toggleVideo={toggleVideo}
+          leave={leave}
         />
       ) : (
         <LoadingSpinner text="Looking for a Window." />

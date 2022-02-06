@@ -13,6 +13,9 @@ const MeetingWindow = ({
   client,
   remoteUsers,
   meetingID,
+  toggleAudio,
+  toggleVideo,
+  leave,
 }) => {
   const [counter, setCounter] = React.useState(0)
   const { role } = useAuth()
@@ -72,6 +75,9 @@ const MeetingWindow = ({
             client={client}
             channel={meetingID}
             videoTrack={localVideoTrack}
+            toggleAudio={toggleAudio}
+            toggleVideo={toggleVideo}
+            leave={leave}
           />
         </div>
         <div
