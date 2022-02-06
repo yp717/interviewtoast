@@ -11,6 +11,7 @@ import {
 import LoadingSpinner from "../../components/root/LoadingSpinner"
 import { addNewMeetingDoc } from "../../utils/dbAdapter"
 import { useAuth } from "../../context/auth-context"
+import { generateStats } from "../../utils/generateStats"
 
 const Review = ({ params }) => {
   const { user } = useAuth()
@@ -38,6 +39,7 @@ const Review = ({ params }) => {
         clearTimeout(timeoutId)
         if (response?.status === 200) {
           const data = await response.json()
+          data.keywords = draftSubmission.keywords
           await addNewMeetingDoc(conversationID, data, user.uid)
           // Make a request to the email API Cloud function using the email as a param if email is verified
           try {
@@ -83,46 +85,26 @@ const Review = ({ params }) => {
     )
   }
 
+  const { transcript, keywords } = generateStats(magicData)
+
   return (
     <Layout title="Feedback">
       <div className="grid grid-cols-5 gap-4 text-white">
-        <div className="col-span-3 rounded"></div>
         <div className="col-span-2 flex flex-col space-y-4">
-          <div className="bg-gray-700 p-4 rounded flex space-x-2 relative">
-            <VideoCameraIcon className="h-6 w-6 text-gray-400" />
-            <div className="flex justify-between w-full">
-              {/* <div>
-                <p className="font-bold text-lg">
-                  {" "}
-                  {name.split("_").join(" ")}
-                </p>
-                <p className="text-sm text-gray-300 uppercase">
-                  {date.toISOString().split("T")[0]} |{" "}
-                  {Math.ceil(length / 1000)} second duration{" "}
-                </p>
-              </div> */}
-              {/* <a
-                className="my-auto mr-2"
-                target="_blank"
-                rel="noopener noreferrer"
-                download={`${name}.mp4`}
-                href={url}
-              >
-                <CloudDownloadIcon className="h-6 w-6 text-gray-300 hover:text-orange-400" />
-              </a> */}
-            </div>
-          </div>
           <div className="bg-gray-700 p-4 rounded h-full flex space-x-2">
             <ClipboardCheckIcon className="h-6 w-6 text-gray-400" />
             <div>
-              <p className="font-bold text-lg">Summary of Findings</p>
+              <p className="uppercase text-base">Summary of Findings</p>
+              {keywords && (
+                <KeyWordSummary keywords={keywords} transcript={transcript} />
+              )}
             </div>
           </div>
         </div>
-        <div className="col-span-5 bg-gray-700 p-4 rounded h-32 flex space-x-2">
+        <div className="col-span-3 bg-gray-700 p-4 rounded h-32 flex space-x-2">
           <ClipboardIcon className="h-6 w-6 text-gray-400" />
           <div>
-            <p className="font-bold text-lg">Detailed Breakdown</p>
+            <p className="uppercase text-base">Detailed Breakdown</p>
           </div>
         </div>
       </div>
@@ -131,3 +113,27 @@ const Review = ({ params }) => {
 }
 
 export default Review
+
+const KeyWordSummary = ({ keywords, transcript }) => {
+  return (
+    <div className="py-4 space-y-2">
+      <p>
+        Your keywords were mentioned{" "}
+        {keywords.reduce((acc, cur) => {
+          return acc + (transcript.split(cur.toLowerCase()).length - 1)
+        }, 0)}{" "}
+        times.
+      </p>
+      <div className="flex flex-wrap overflow-y-auto gap-x-3 gap-y-3">
+        {keywords.length > 0 &&
+          keywords.map(keyword => (
+            <div className="flex items-center py-0 my-0 pr-0.5 rounded-md align-center bg-purple-100 hover:bg-purple-200">
+              <span className="px-2 font-semibold text-purple-700">
+                {keyword} ({transcript.split(keyword.toLowerCase()).length - 1})
+              </span>
+            </div>
+          ))}
+      </div>
+    </div>
+  )
+}

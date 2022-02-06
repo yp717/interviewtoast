@@ -44,7 +44,6 @@ const Review = ({ params, draftSubmission }) => {
   const { getSession, refreshSessions } = useSessions()
   const { url, name, date, length, jobId, conversationId, processed } =
     getSession(sessionID)
-  // Yannis look here thanks
   const data = getSession(sessionID)
   const { totalOverlapSeconds } = generateStats(data)
   const { user } = useAuth()

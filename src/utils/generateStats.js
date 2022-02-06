@@ -27,23 +27,29 @@ export const generateStats = data => {
     slouchPercent,
     topics,
     questionDuration,
+    keywords,
   } = data
-  console.log(data)
-
   // Calculate Meeting Duration in Seconds
   const meetingDuration = calculateMeetingDuration(length)
+
   const {
-    totalInterruptionSeconds,
+    totalInterruptionSeconds, // score
     interruptionFeedback,
     meetingTalkSeconds,
     meetingSilenceSeconds,
+    talkToSilenceRatio, // score
+    talkToSilenceFeedback,
   } = calculateSpeakingTimeMetrics(metrics)
 
-  const { slouchFeedback } = calculateSlouching(slouchPercent)
+  const { slouchFeedback } = calculateSlouching(slouchPercent) // score
 
   // Calculate meeting talk to silence ratio
-  const talkToSilenceRatio = meetingTalkSeconds / meetingSilenceSeconds
-  const talkToSilenceFeedback = evaulateTalkToSilence(talkToSilenceRatio)
+
+  // Score 1-5
+  // OFFLINE
+  // 1. posture
+  // 2. 
+  // ONLINE
 
   return {
     date,
@@ -52,14 +58,18 @@ export const generateStats = data => {
     meetingDuration,
     totalInterruptionSeconds,
     interruptionFeedback,
+    meetingTalkSeconds,
+    meetingSilenceSeconds,
     talkToSilenceRatio,
     slouchFeedback,
     sessionQuestions,
     questionDuration,
     topics,
     members,
+    transcript: messages.map(({text}) => text).join(" ").toLowerCase(),
     followUps,
     talkToSilenceFeedback,
+    keywords
   }
 }
 
@@ -89,11 +99,16 @@ function calculateSpeakingTimeMetrics(metrics) {
   const meetingTalkSeconds = metricsObj["total_talk_time"].seconds
   const meetingSilenceSeconds = metricsObj["total_silence"].seconds
 
+  const talkToSilenceRatio = meetingTalkSeconds / meetingSilenceSeconds
+  const talkToSilenceFeedback = evaulateTalkToSilence(talkToSilenceRatio)
+
   return {
     totalInterruptionSeconds,
     interruptionFeedback,
     meetingTalkSeconds,
     meetingSilenceSeconds,
+    talkToSilenceRatio,
+    talkToSilenceFeedback,
   }
 }
 
