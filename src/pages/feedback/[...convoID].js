@@ -1,5 +1,5 @@
 import * as React from "react"
-
+import { Link } from "gatsby"
 import Layout from "../../components/root/Layout"
 import { useSessions } from "../../context/session-context"
 import {
@@ -7,11 +7,16 @@ import {
   ClipboardCheckIcon,
   ClipboardIcon,
   CloudDownloadIcon,
+  ChatIcon,
 } from "@heroicons/react/outline"
 import LoadingSpinner from "../../components/root/LoadingSpinner"
 import { addNewMeetingDoc } from "../../utils/dbAdapter"
 import { useAuth } from "../../context/auth-context"
 import { generateStats } from "../../utils/generateStats"
+
+import SummaryNumberGrid from "../../components/stats/SummaryNumberGrid"
+import KeyWordSummary from "../../components/stats/KeyWordSummary"
+import Transcript from "../../components/stats/Transcript"
 
 const Review = ({ params }) => {
   const { user } = useAuth()
@@ -40,14 +45,16 @@ const Review = ({ params }) => {
         if (response?.status === 200) {
           const data = await response.json()
           data.keywords = draftSubmission.keywords
+          data.length = draftSubmission.length
+          data.name = draftSubmission.name
           await addNewMeetingDoc(conversationID, data, user.uid)
           // Make a request to the email API Cloud function using the email as a param if email is verified
           try {
-            if (user.emailVerified) {
-              // const res = await fetch(`/api/email`, {
-              //   method: "POST",
-              //   body: JSON.stringify({ email: user.email }),
-              // })
+            if (user.emailVerified && typeof user.email !== "undefined") {
+              const res = await fetch(`/api/email`, {
+                method: "POST",
+                body: JSON.stringify({ email: user.email }),
+              })
               console.log("EMAIL!")
             }
           } catch (err) {
@@ -85,55 +92,64 @@ const Review = ({ params }) => {
     )
   }
 
-  const { transcript, keywords } = generateStats(magicData)
+  const {
+    transcript,
+    keywords,
+    messages,
+    meetingDuration,
+    totalInterruptionSeconds,
+    meetingTalkSeconds,
+    meetingSilenceSeconds,
+    talkToSilenceRatio,
+    interruptionFeedback,
+    talkToSilenceFeedback,
+    sessionQuestions,
+    questionDuration,
+    topics,
+    followUps,
+  } = generateStats(magicData)
 
   return (
     <Layout title="Feedback">
-      <div className="grid grid-cols-5 gap-4 text-white">
-        <div className="col-span-2 flex flex-col space-y-4">
-          <div className="bg-gray-700 p-4 rounded h-full flex space-x-2">
-            <ClipboardCheckIcon className="h-6 w-6 text-gray-400" />
+      <h1 className="font-bold text-5xl mb-10 mt-14">Interview Feedback</h1>
+      <div className="grid md:grid-cols-5 gap-4 text-white">
+        <div className="md:col-span-5 flex flex-col space-y-4">
+          <SummaryNumberGrid
+            meetingDuration={meetingDuration}
+            totalInterruptionSeconds={totalInterruptionSeconds}
+            meetingTalkSeconds={meetingTalkSeconds}
+            meetingSilenceSeconds={meetingSilenceSeconds}
+            talkToSilenceRatio={talkToSilenceRatio}
+          />
+        </div>
+        <div className="md:col-span-3 bg-gray-900 p-4 rounded h-full flex space-x-2">
+          <div>
+            <ClipboardIcon className="h-6 w-6 text-gray-400 block" />
+          </div>
+          <div>
+            <p className="uppercase text-base">More Information</p>
             <div>
-              <p className="uppercase text-base">Summary of Findings</p>
-              {keywords && (
+              {keywords && keywords.length > 0 && (
                 <KeyWordSummary keywords={keywords} transcript={transcript} />
               )}
             </div>
+            <p className="font-bold text-2xl">
+              {interruptionFeedback} {talkToSilenceFeedback}
+            </p>
           </div>
         </div>
-        <div className="col-span-3 bg-gray-700 p-4 rounded h-32 flex space-x-2">
-          <ClipboardIcon className="h-6 w-6 text-gray-400" />
-          <div>
-            <p className="uppercase text-base">Detailed Breakdown</p>
-          </div>
+        <div className="md:col-span-2  bg-gray-900 p-4 rounded flex space-x-2">
+          <ChatIcon className="h-6 w-6 text-gray-400" />
+          <Transcript transcript={messages} user={user} />
         </div>
+      </div>
+      <div className="flex items-center justify-center py-12">
+        <Link to="/dashboard" className="btn-primary">
+          Return to Dashboard
+        </Link>
       </div>
     </Layout>
   )
 }
 
 export default Review
-
-const KeyWordSummary = ({ keywords, transcript }) => {
-  return (
-    <div className="py-4 space-y-2">
-      <p>
-        Your keywords were mentioned{" "}
-        {keywords.reduce((acc, cur) => {
-          return acc + (transcript.split(cur.toLowerCase()).length - 1)
-        }, 0)}{" "}
-        times.
-      </p>
-      <div className="flex flex-wrap overflow-y-auto gap-x-3 gap-y-3">
-        {keywords.length > 0 &&
-          keywords.map(keyword => (
-            <div className="flex items-center py-0 my-0 pr-0.5 rounded-md align-center bg-purple-100 hover:bg-purple-200">
-              <span className="px-2 font-semibold text-purple-700">
-                {keyword} ({transcript.split(keyword.toLowerCase()).length - 1})
-              </span>
-            </div>
-          ))}
-      </div>
-    </div>
-  )
-}

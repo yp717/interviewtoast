@@ -96,6 +96,7 @@ const MeetingWindow = ({
           toggleAudio={toggleAudio}
           toggleVideo={toggleVideo}
           leave={symbl ? leave : false}
+          counter={counter}
           audioTrack={localAudioTrack}
         />
       </div>

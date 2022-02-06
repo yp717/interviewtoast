@@ -10,7 +10,7 @@ const Header = () => {
   const menuRef = React.useRef(null)
   useOutsideAlerter(menuRef, () => setMenuOpen(false))
   return (
-    <div className="flex justify-between items-center max-w-6xl mx-auto px-2 py-2 md:pt-6">
+    <div className="flex justify-between items-center max-w-6xl mx-auto px-4 py-6 md:pt-6">
       <Link
         to={user ? "/dashboard" : "/"}
         className="flex items-center font-bold group hover:text-orange-400"

@@ -1,17 +1,21 @@
 import * as React from "react"
-
+import { Link } from "gatsby"
 import Layout from "../../components/root/Layout"
 import { useSessions } from "../../context/session-context"
 import {
   VideoCameraIcon,
-  ClipboardCheckIcon,
+  ChatIcon,
   ClipboardIcon,
   CloudDownloadIcon,
 } from "@heroicons/react/outline"
 import { updateProcessedState } from "../../utils/dbAdapter"
 import LoadingSpinner from "../../components/root/LoadingSpinner"
+import Transcript from "../../components/stats/Transcript"
+import KeyWordSummary from "../../components/stats/KeyWordSummary"
+import SummaryNumberGrid from "../../components/stats/SummaryNumberGrid"
 import { useAuth } from "../../context/auth-context"
 import { generateStats } from "../../utils/generateStats"
+import BigNumber from "../../components/stats/BigNumber"
 
 const ReviewWrapper = ({ params }) => {
   const sessionID = params[`sessionID`]
@@ -45,7 +49,7 @@ const Review = ({ params, draftSubmission }) => {
   const { url, name, date, length, jobId, conversationId, processed } =
     getSession(sessionID)
   const data = getSession(sessionID)
-  const { totalOverlapSeconds } = generateStats(data)
+
   const { user } = useAuth()
 
   React.useEffect(() => {
@@ -118,29 +122,52 @@ const Review = ({ params, draftSubmission }) => {
     )
   }
 
+  const {
+    transcript,
+    keywords,
+    messages,
+    meetingDuration,
+    totalInterruptionSeconds,
+    meetingTalkSeconds,
+    meetingSilenceSeconds,
+    talkToSilenceRatio,
+    interruptionFeedback,
+    talkToSilenceFeedback,
+    slouchFeedback,
+    slouchPercent,
+  } = generateStats(data)
+
   return (
     <Layout title="Review">
-      <div className="grid grid-cols-5 gap-4 text-white">
-        <div className="col-span-3 rounded">
-          <video
-            className="w-full h-full rounded"
-            src={url}
-            id="vide-preview"
-            controls
+      <div className="grid md:grid-cols-5 gap-4 text-white">
+        <div className="md:col-span-4 row-span-2 flex flex-col space-y-4">
+          <SummaryNumberGrid
+            meetingDuration={meetingDuration}
+            totalInterruptionSeconds={totalInterruptionSeconds}
+            meetingTalkSeconds={meetingTalkSeconds}
+            meetingSilenceSeconds={meetingSilenceSeconds}
+            talkToSilenceRatio={talkToSilenceRatio}
           />
         </div>
-        <div className="col-span-2 flex flex-col space-y-4">
-          <div className="bg-gray-700 p-4 rounded flex space-x-2 relative">
+
+        {slouchPercent && (
+          <div className="md:col-span-1 row-span-2 h-full">
+            <BigNumber
+              number={`${slouchPercent}%`}
+              text="Slouch percentage calculated with TensorflowJS PoseNet"
+            />
+          </div>
+        )}
+
+        <div className="md:col-span-3 flex flex-col rounded h-full">
+          <div className="bg-gray-900 p-4 rounded-t flex space-x-2 relative">
             <VideoCameraIcon className="h-6 w-6 text-gray-400" />
             <div className="flex justify-between w-full">
               <div>
-                <p className="font-bold text-lg">
-                  {" "}
-                  {name.split("_").join(" ")}
-                </p>
+                <p className="uppercase text-base">{name}</p>
                 <p className="text-sm text-gray-300 uppercase">
                   {date.toISOString().split("T")[0]} |{" "}
-                  {Math.ceil(length / 1000)} second duration{" "}
+                  {Math.ceil(length / 1000)} second duration
                 </p>
               </div>
               <a
@@ -154,19 +181,42 @@ const Review = ({ params, draftSubmission }) => {
               </a>
             </div>
           </div>
-          <div className="bg-gray-700 p-4 rounded h-full flex space-x-2">
-            <ClipboardCheckIcon className="h-6 w-6 text-gray-400" />
-            <div>
-              <p className="font-bold text-lg">Summary of Findings</p>
+          <video
+            className="w-full h-full rounded-b"
+            src={url}
+            id="vide-preview"
+            controls
+          />
+        </div>
+        <div className="md:col-span-2 flex flex-col space-y-4">
+          <div className="bg-gray-900 p-4 rounded h-full flex space-x-2">
+            <div className="flex flex-row">
+              <ChatIcon className="h-6 w-6 text-gray-400" />
             </div>
+            <Transcript transcript={messages} user={user} />
           </div>
         </div>
-        <div className="col-span-5 bg-gray-700 p-4 rounded h-32 flex space-x-2">
-          <ClipboardIcon className="h-6 w-6 text-gray-400" />
+        <div className="md:col-span-5 bg-gray-900 p-4 rounded h-full flex space-x-2">
           <div>
-            <p className="font-bold text-lg">Detailed Breakdown</p>
+            <ClipboardIcon className="h-6 w-6 text-gray-400 block" />
+          </div>
+          <div>
+            <p className="uppercase text-base">More Information</p>
+            <div>
+              {keywords && keywords.length > 0 && (
+                <KeyWordSummary keywords={keywords} transcript={transcript} />
+              )}
+            </div>
+            <p className="font-bold text-2xl">
+              {slouchFeedback} {interruptionFeedback} {talkToSilenceFeedback}
+            </p>
           </div>
         </div>
+      </div>
+      <div className="flex items-center justify-center py-12">
+        <Link to="/dashboard" className="btn-primary">
+          Return to Dashboard
+        </Link>
       </div>
     </Layout>
   )
