@@ -204,14 +204,14 @@ const Prepare = () => {
 
             <div className="flex flex-col">
               <label className="text-sm uppercase">Settings</label>
-              <label class="inline-flex items-center mt-3">
+              <label className="inline-flex items-center mt-3">
                 <input
                   type="checkbox"
                   className="form-checkbox h-5 w-5 text-orange-400 rounded"
                   checked={showCam}
                   onChange={() => setShowCam(!showCam)}
                 />
-                <span class="ml-2 ">See my webcam while practising</span>
+                <span className="ml-2 ">See my webcam while practising</span>
               </label>
             </div>
             <button
