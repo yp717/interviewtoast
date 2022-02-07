@@ -20,7 +20,7 @@ const Hero = () => {
             <span className="text-orange-400">toast</span>.
           </h1>
           <p>
-            Whether you're a an applicant or an interviewer - interviews suck.
+            Whether you're a an applicant or an interviewer - interviews can be tough.
             Powered by AI, InterviewToast gives you everything you need to make
             interviews a positive experience. Don't burn your next interview.
           </p>

@@ -24,20 +24,20 @@ const DashboardTable = () => {
       {sessions.length > 0 && (
         <div className="space-y-1">
           <p className="text-sm uppercase pl-1 ">Practise Interviews</p>
-          <Table data={sessions} />
+          <Table data={sessions}  url="/review"/>
         </div>
       )}
       {meetings.length > 0 && (
         <div className="space-y-1">
           <p className="text-sm uppercase pl-1 ">Interviews</p>
-          <Table data={meetings} />
+          <Table data={meetings} url="/feedback" />
         </div>
       )}
     </div>
   )
 }
 
-const Table = ({ data }) => {
+const Table = ({ data, url }) => {
   return (
     <table className="min-w-full overflow-x-scroll divide-y divide-gray-800 overflow-hidden rounded-md shadow-md">
       <thead className="bg-gray-900 ">
@@ -98,7 +98,7 @@ const Table = ({ data }) => {
               </td>
               <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                 <Link
-                  to={`/feedback/${sessionID}`}
+                  to={`${url}/${sessionID}`}
                   className="text-orange-400 hover:text-orange-500 inline-block"
                 >
                   <div className="flex space-x-2 items-center">

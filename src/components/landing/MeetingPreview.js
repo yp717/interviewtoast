@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import dashboard from "../../../static/dashboard.png"
+import dashboard from "../../../static/videoCall.png"
 
 const MeetingPreview = () => {
   return (
@@ -8,20 +8,17 @@ const MeetingPreview = () => {
       <div className="grid lg:grid-cols-5 gap-16">
         <div className="w-full flex flex-col justify-center col-span-2">
           <p className="text-sm leading-4 uppercase text-gray-600">
-            Analyze Your Data
+            Realtime Insights
           </p>
           <h2 className="md:text-5xl text-3xl font-bold leading-10 mt-3 text-gray-800">
-            Custom Dashboards
+            Live Video Interviews
           </h2>
 
           <p
             role="contentinfo"
             className="text-base leading-5 mt-5 text-gray-600"
           >
-            Get the most out of your live interviews and practice sessions. With
-            InterviewToasts customized dashboard, both candidates and
-            interviewers can really dig deep into the data to understand their
-            strenghts and weaknesses.
+           Our Interview Assessment tool goes beyond the practice rooms straight into the interview battlefield. InterviewToast uses Agora to provide real-time transcriptions, key-word and profanity detection, and analysis on live interviews. 
           </p>
         </div>
         <div
@@ -30,7 +27,7 @@ const MeetingPreview = () => {
         >
           <img
             src={dashboard}
-            className="w-full skew-3d"
+            className="w-full "
             alt="Screenshot of InterviewToast video chat meeting window"
             // style={{ transform: "translate3d(20deg, -20deg, 20deg)" }}
           />

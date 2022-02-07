@@ -65,7 +65,7 @@ export const generateStats = data => {
     followUps,
     talkToSilenceFeedback,
     keywords,
-    slouchPercent,
+    slouchPercent: slouchPercent && slouchPercent.toFixed(0),
   }
 }
 
