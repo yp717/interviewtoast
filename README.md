@@ -61,7 +61,7 @@ Conversational insights go beyond just the audio in conversations. In fact, only
 
 The MoveNet model detected up to 17 keypoints on the body and could run at 50+ fps on modern phones and laptops, without compromising the quality or speed of the video experience. From this, we could estimate the positions of both eyes and both shoulders and use some simple maths to calculate whether or not a candidate is slouching (forwards/backwards/left/right) with reasonable accuracy. 
 
-![/static/posenet.png]
+![](https://github.com/yp717/interviewtoast/blob/master/static/posenet.png?raw=true)
 
 The following diagram explains how we used the angles of displacement from the horizontal axis and the distances between key points from the camera to quantify slouching.
 
@@ -95,4 +95,6 @@ TBC
 
 ## What's next for [InterviewToast](https://interviewtoast.com)
 
-TBC
+- **Stripe Integration**: We can't monetise the site without integrating a payment API! 
+- **Pre-call Tests for Audio and Video**: Verify whether the internet quality is good enough for the interview.
+- **Better Stats**: We love data visualisation! If we had more time we would love to include interactive charts that real drill down into the data (with D3!).
