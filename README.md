@@ -55,6 +55,18 @@ The work was distributed differently across the three weeks into four phases:
 - Phase #1: Day 2 - 4
 - Phase #1: Day 4 - 7
 
+## TensorFlowJS Pose-Detection 
+
+Conversational insights go beyond just the audio in conversations. In fact, only 7% of the interpretation of a conversation is verbal, 38% is vocal and a whopping 55% is VISUAL. To make use of this component of the practice sessions, we used the TensorflowJS Pose Detection package's state-of-the-art models for real-time pose-detection.
+
+The MoveNet model detected up to 17 keypoints on the body and could run at 50+ fps on modern phones and laptops, without compromising the quality or speed of the video experience. From this, we could estimate the positions of both eyes and both shoulders and use some simple maths to calculate whether or not a candidate is slouching (forwards/backwards/left/right) with reasonable accuracy. 
+
+![/static/posenet.png]
+
+The following diagram explains how we used the angles of displacement from the horizontal axis and the distances between key points from the camera to quantify slouching.
+
+DIAGRAM TO GO HERE
+
 ## 💰 Monetisation Potential & Business Strategy
 
 TBC
