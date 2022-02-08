@@ -48,12 +48,16 @@ const Review = ({ params }) => {
           data.length = draftSubmission.length
           data.name = draftSubmission.name
           await addNewMeetingDoc(conversationID, data, user.uid)
+          const {
+            interruptionFeedback,
+            talkToSilenceFeedback,
+          } = generateStats(data)
           // Make a request to the email API Cloud function using the email as a param if email is verified
           try {
             if (user.emailVerified && typeof user.email !== "undefined") {
               const res = await fetch(`/api/email`, {
                 method: "POST",
-                body: JSON.stringify({ email: user.email }),
+                body: JSON.stringify({ email: user.email, messageBody: `${interruptionFeedback} ${talkToSilenceFeedback}` }),
               })
               console.log("EMAIL!")
             }

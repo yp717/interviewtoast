@@ -1,8 +1,10 @@
+import emailHTML from "../assets/email-html"
+
 const sgMail = require("@sendgrid/mail")
 
 export default async function handler(req, res) {
   if (req.method === `POST`) {
-    const { email } = JSON.parse(req.body)
+    const { email, messageBody } = JSON.parse(req.body)
 
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
     console.log(email)
@@ -12,7 +14,7 @@ export default async function handler(req, res) {
       to: email,
       from: "interviewtoast@gmail.com",
       subject: "Your InterviewToast Meeting Summary",
-      html: "<strong>There was text here</strong>", // createDynamicEmailTemplate()
+      html: emailHTML(messageBody), // createDynamicEmailTemplate() 
     }
 
     sgMail
