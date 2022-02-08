@@ -1,7 +1,5 @@
 # 🥪 InterviewToast
 
-
-
 Made by Yannis Panagis & Sam-Larsen Disney for the Hack for the [DeveloperWeek 2022 Hackathon](https://developerweek-2022-hackathon.devpost.com/)
 
 ## ⚡️ Quick Links:
@@ -13,7 +11,7 @@ Made by Yannis Panagis & Sam-Larsen Disney for the Hack for the [DeveloperWeek 2
 - [yannispanagis.com](https://yannispanagis.com/)
 - [sld.codes](https://sld.codes/)
 
-In this hackathon, we wrote _exactly_ 3628 lines of code and made 148 commits over the three weeks. We're hoping this is our new lucky number!
+In this hackathon, we wrote _exactly_ 3628 lines of code and made 146 commits over the three weeks. We're hoping this is our new lucky number!
 
 ## Introduction
 
@@ -35,7 +33,6 @@ On top of this we aggregate data on the questions that interviewers ask in their
 
 As web developers, we've been through a lot of tech interviews and they can be frustrating - especially when those interviews don't even have someone else on the other side! We've all paid our dues with Hackerrank and Leetcode but with little feedback and no practice alternatives, there was never a **safe space** to prepare for those recorded interviews.
 
-WE NEED A BIT MORE CONTENT HERE!
 
 ## 🚀 How we built it
 
@@ -100,7 +97,7 @@ Over the past two weeks we've turned an idea we thought to be impossible into a 
 
 Yannis:
 
-> “TBC”
+> “I've never worked with WebRTC and TensorflowJS before. Coming from electrical engineering to front end, it felt like two worlds met with machine learning and JavaScript. Video calling online always felt like a complete mystery technically. Getting the opportunity to work with WebRTC and learn about what it can do with video calls and real time communication channels was really fun and I'm looking forward to building projects with it again!”
 
 Sam:
 

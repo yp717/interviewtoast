@@ -18,7 +18,10 @@ const MeetingPreview = () => {
             role="contentinfo"
             className="text-base leading-5 mt-5 text-gray-600"
           >
-           Our Interview Assessment tool goes beyond the practice rooms straight into the interview battlefield. InterviewToast uses Agora to provide real-time transcriptions, key-word and profanity detection, and analysis on live interviews. 
+            Our Interview Assessment tool goes beyond the practice rooms
+            straight into the interview battlefield. InterviewToast uses Agora
+            to provide real-time transcriptions, key-word and profanity
+            detection, and analysis on live interviews.
           </p>
         </div>
         <div

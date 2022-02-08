@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       to: email,
       from: "interviewtoast@gmail.com",
       subject: "Your InterviewToast Meeting Summary",
-      html: emailHTML(messageBody), // createDynamicEmailTemplate() 
+      html: emailHTML(messageBody), // createDynamicEmailTemplate()
     }
 
     sgMail

@@ -1,6 +1,5 @@
-const emailHTML = (body) => {
-    return (
-`<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml">
+const emailHTML = body => {
+  return `<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
   <meta charset="utf-8">
   <meta name="x-apple-disable-message-reformatting">
@@ -138,7 +137,6 @@ const emailHTML = (body) => {
   </div>
 </body>
 </html>`
-)
 }
 
 export default emailHTML

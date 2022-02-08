@@ -20,9 +20,10 @@ const Hero = () => {
             <span className="text-orange-400">toast</span>.
           </h1>
           <p>
-            Whether you're a an applicant or an interviewer - interviews can be tough.
-            Powered by AI, InterviewToast gives you everything you need to make
-            interviews a positive experience. Don't burn your next interview.
+            Whether you're a an applicant or an interviewer - interviews can be
+            tough. Powered by AI, InterviewToast gives you everything you need
+            to make interviews a positive experience. Don't burn your next
+            interview.
           </p>
           <Link to={user ? "/dashboard" : "/login"} className="inline-block">
             <div className="bg-white hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg text-xl mt-4 flex items-center space-x-2">

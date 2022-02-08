@@ -14,7 +14,10 @@ const Devpost = () => {
         </a>
       </p>
       <div className="space-x-2 mt-8">
-        <a className="btn-secondary" href="https://devpost.com">
+        <a
+          className="btn-secondary"
+          href="https://devpost.com/software/draft-submission-dzl5pn"
+        >
           DevPost
         </a>
         <a
